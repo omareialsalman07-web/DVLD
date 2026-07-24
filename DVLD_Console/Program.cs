@@ -100,12 +100,60 @@ namespace DVLD_Console
                 Console.WriteLine("Error : " + ex.ToString());
             }
         }
+        static void testUpdatePerson()
+        {
+            try
+            {
+                Person person = PersonService.Find(4);
+                if (person == null)
+                {
+                    Console.WriteLine("There is no person with ID 4");
+                    return;
+                }
+
+                person.LastName = "TEST";
+                person.Email = "TEST@TEST";
+                if(PersonService.UpdatePerson(person))
+                {
+                    Console.WriteLine("Updated Person Successfully!");
+                }
+                else
+                {
+                    Console.WriteLine("Can't Update Person!");
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Error : " + ex.ToString());
+            }
+        }
+        static void testDeletePerson()
+        {
+            try
+            {
+                if(PersonService.DeletePerson(4))
+                {
+                    Console.WriteLine("Deleted Peron successfully!");
+                }
+                else
+                {
+                    Console.WriteLine("Can't Delete Person!");
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Error : " + ex.ToString());
+            }
+        }
         static void Main(string[] args)
         {
             //testGetPerson();
             //testAddNewPerson();
             //testIsExistByID();
-            testIsExistByNationNo();
+            //testIsExistByNationNo();
+            //testUpdatePerson();
+            testDeletePerson();
+
             Console.ReadLine();
         }
     }
