@@ -37,8 +37,8 @@ namespace DVLD_DataAccess
                         ThirdName = "";
 
                     LastName = (string)reader["LastName"];
-                    DateOfBirth = (DateTime)reader["DateOfBirth"];
-                    Gendor = (int)reader["Gendor"];
+                    DateOfBirth = Convert.ToDateTime(reader["DateOfBirth"]);
+                    Gendor = Convert.ToInt32(reader["Gendor"]);
                     Address = (string)reader["Address"];
                     Phone = (string)reader["Phone"];
 
@@ -47,8 +47,12 @@ namespace DVLD_DataAccess
                     else
                         Email = "";
 
-                    NationalityCountryID = (int)reader["NationalityCountryID"];
-                    ImagePath = (string)reader["ImagePath"];
+                    NationalityCountryID = Convert.ToInt32(reader["NationalityCountryID"]);
+
+                    if (reader["ImagePath"] != DBNull.Value)
+                        ImagePath = (string)reader["ImagePath"];
+                    else
+                        ImagePath = "";
 
                     found = true;
                 }
