@@ -27,22 +27,47 @@ namespace DVLD_Console
             Console.WriteLine("Nationality Country ID : " + person.NationalityCountryID);
             Console.WriteLine("Image Path             : " + person.ImagePath);
         }
-
-        static void testGetPerson(int id)
+        static void testGetPerson()
         {
             try
             {
-                PrintPerson(PersonService.Find(id));
+                PrintPerson(PersonService.Find(1));
             }
             catch(Exception ex)
             {
                 Console.WriteLine("Error : " + ex.ToString());
             }
         }
+        static void testAddNewPerson()
+        {
+            try
+            {
+                Person person = new Person("N8", "Mohamad", "Maher", "Fadi", "Al-Mamhor", new DateTime(2001, 1, 12),
+                    Person.enGendor.Male, "Amman-am", "0778978856", "mohad@gmail.com", 2, "");
 
+                int id = PersonService.AddNewPerson(person);
+                Console.WriteLine(id);
+
+                if (id != -1)
+                {
+                    Console.WriteLine("Person added Successfully!");
+                }
+                else
+                {
+                    Console.WriteLine("Can't add Person -(");
+                }
+
+
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Error : " + ex.ToString());
+            }
+        }
         static void Main(string[] args)
         {
-            testGetPerson(1);
+            //testGetPerson();
+            testAddNewPerson();
             Console.ReadLine();
         }
     }
