@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Dynamic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -69,7 +70,52 @@ namespace DVLD_DataAccess
 
             return found;
         }
+        public static int AddNewPerson(string NationalNo, string FirstName, string SecondName,
+            string ThirdName, string LastName, DateTime DateOfBirth, int Gendor, string Address,
+            string Phone, string Email, int NationalityCountryID, string ImagePath)
+        {
+            int _ID = -1;
 
-        
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+            string query = @"INSERT INTO [dbo].[People] ([NationalNo], [FirstName], [SecondName], [ThirdName],
+            [LastName], [DateOfBirth], [Gendor], [Address], [Phone], [Email], [NationalityCountryID], [ImagePath])
+            VALUES 
+            (@NationalNo, @FirstName, @SecondName, @ThirdName,
+            @LastName, @DateOfBirth, @Gendor, @Address, @Phone, @Email, @NationalityCountryID, @ImagePath);
+            SELECT SCOPE_IDENTITY();";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@NationalNo", NationalNo);
+            command.Parameters.AddWithValue("@FirstName", FirstName);
+            command.Parameters.AddWithValue("@SecondName", SecondName);
+            // Handle nullable optional parameters
+            command.Parameters.AddWithValue("@ThirdName", string.IsNullOrEmpty(ThirdName) ? (object)DBNull.Value : ThirdName);
+            command.Parameters.AddWithValue("@LastName", LastName);
+            command.Parameters.AddWithValue("@DateOfBirth", DateOfBirth);
+            command.Parameters.AddWithValue("@Gendor", Gendor);
+            command.Parameters.AddWithValue("@Address", Address);
+            command.Parameters.AddWithValue("@Phone", Phone);
+            // Handle nullable optional parameters
+            command.Parameters.AddWithValue("@Email", string.IsNullOrEmpty(Email) ? (object)DBNull.Value : Email);
+            command.Parameters.AddWithValue("@NationalityCountryID", NationalityCountryID);
+            // Handle nullable optional parameters
+            command.Parameters.AddWithValue("@ImagePath", string.IsNullOrEmpty(ImagePath) ? (object)DBNull.Value : ImagePath);
+
+            try
+            {
+                connection.Open();
+                object result = command.ExecuteScalar();
+                if (result != null)
+                {
+                    _ID = int.Parse(result.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            return _ID;
+        }
     }
 }

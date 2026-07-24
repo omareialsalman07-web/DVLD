@@ -24,8 +24,8 @@ namespace DVLD_Business
                 if(PersonData.GetPersonByID(ID, ref NationalNo, ref FirstName, ref SecondName, ref ThirdName, ref LastName,
                     ref DateOfBirth, ref Gendor, ref Address, ref Phone, ref Email, ref NationalityCountryID, ref ImagePath))
                 {
-                    person = new Person(ID, NationalNo, FirstName, SecondName, ThirdName, LastName, DateOfBirth, Gendor, Address,
-                        Phone, Email, NationalityCountryID, ImagePath);
+                    person = new Person(ID, NationalNo, FirstName, SecondName, ThirdName, LastName, DateOfBirth,
+                        (Person.enGendor)Gendor, Address, Phone, Email, NationalityCountryID, ImagePath);
                 }
             }
             catch
@@ -35,6 +35,25 @@ namespace DVLD_Business
             }
 
             return person;
+        }
+        public static int AddNewPerson(in Person person)
+        {
+            if (person == null)
+                return -1;
+
+            int personId = -1;
+            try
+            {
+                personId = PersonData.AddNewPerson(person.NationalNo, person.FirstName, person.SecondName, person.ThirdName,
+                person.LastName, person.DateOfBirth, (int)person.Gendor, person.Address, person.Phone, person.Email,
+                person.NationalityCountryID, person.ImagePath);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            return personId;
         }
     }
 }
