@@ -81,5 +81,37 @@ namespace DVLD_Business
             }
             return found;
         }
+        public static bool UpdatePerson(in Person person)
+        {
+            bool succeed = false;
+            try
+            {
+                succeed = PersonData.UpdatePerson(person.ID, person.NationalNo, person.FirstName, person.SecondName,
+                    person.ThirdName, person.LastName, person.DateOfBirth, (int)person.Gendor, person.Address,
+                    person.Phone, person.Email, person.NationalityCountryID, person.ImagePath);
+            }
+            catch(Exception ex)
+            {
+                succeed = false;
+                throw;
+            }
+
+            return succeed;
+        }
+        public static bool DeletePerson(int ID)
+        {
+            bool succeed = false;
+            try
+            {
+                succeed = PersonData.DeletePerson(ID);
+            }
+            catch(Exception ex)
+            {
+                succeed = false;
+                throw;
+            }
+
+            return succeed;
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Dynamic;
 using System.Linq;
@@ -55,6 +56,7 @@ namespace DVLD_DataAccess
                     else
                         ImagePath = "";
 
+                    reader.Close();
                     found = true;
                 }
             }
@@ -177,6 +179,106 @@ namespace DVLD_DataAccess
             }
 
             return found;
+        }
+
+        public static bool UpdatePerson(int ID, string nationalNo, string firstName, string secondName,
+    string thirdName, string lastName, DateTime dateOfBirth, int gendor, string address,
+    string phone, string email, int nationalityCountryID, string imagePath)
+        {
+            // First, check if the person actually exists using your existing method
+            if (!isExist(ID))
+            {
+                return false;
+            }
+
+            int rowsAffected = 0;
+            string query = @"
+        UPDATE [dbo].[People]
+        SET [NationalNo] = @NationalNo,
+            [FirstName] = @FirstName,
+            [SecondName] = @SecondName,
+            [ThirdName] = @ThirdName,
+            [LastName] = @LastName,
+            [DateOfBirth] = @DateOfBirth,
+            [Gendor] = @Gendor,
+            [Address] = @Address,
+            [Phone] = @Phone,
+            [Email] = @Email,
+            [NationalityCountryID] = @NationalityCountryID,
+            [ImagePath] = @ImagePath
+        WHERE [PersonID] = @PersonID;";
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+            SqlCommand command = new SqlCommand(query, connection);
+
+            // Pass parameters
+            command.Parameters.AddWithValue("@PersonID", ID);
+            command.Parameters.AddWithValue("@NationalNo", nationalNo);
+            command.Parameters.AddWithValue("@FirstName", firstName);
+            command.Parameters.AddWithValue("@SecondName", secondName);
+            command.Parameters.AddWithValue("@ThirdName", string.IsNullOrEmpty(thirdName) ? (object)DBNull.Value : thirdName);
+            command.Parameters.AddWithValue("@LastName", lastName);
+            command.Parameters.AddWithValue("@DateOfBirth", dateOfBirth);
+            command.Parameters.AddWithValue("@Gendor", gendor);
+            command.Parameters.AddWithValue("@Address", address);
+            command.Parameters.AddWithValue("@Phone", phone);
+            command.Parameters.AddWithValue("@Email", string.IsNullOrEmpty(email) ? (object)DBNull.Value : email);
+            command.Parameters.AddWithValue("@NationalityCountryID", nationalityCountryID);
+            command.Parameters.AddWithValue("@ImagePath", string.IsNullOrEmpty(imagePath) ? (object)DBNull.Value : imagePath);
+
+            try
+            {
+                connection.Open();
+                rowsAffected = command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                rowsAffected = 0;
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return (rowsAffected > 0);
+        }
+        public static bool DeletePerson(int ID)
+        {
+            // Verify existence first
+            if (!isExist(ID))
+            {
+                return false;
+            }
+
+            int rowsAffected = 0;
+            string query = "DELETE FROM [dbo].[People] WHERE [PersonID] = @PersonID;";
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@PersonID", ID);
+
+            try
+            {
+                connection.Open();
+                rowsAffected = command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                // Handle or log exception (e.g., foreign key violation if the person is linked to a Local Driving License Application)
+                rowsAffected = 0;
+            }
+            finally
+            {
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
+                connection.Dispose();
+            }
+
+            return (rowsAffected > 0);
         }
     }
 }
