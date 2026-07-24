@@ -64,10 +64,48 @@ namespace DVLD_Console
                 Console.WriteLine("Error : " + ex.ToString());
             }
         }
+        static void testIsExistByID()
+        {
+            try
+            {
+                if(PersonService.isExist(1))
+                {
+                    Console.WriteLine("Peron with ID : 1 is exist");
+                }
+                else
+                {
+                    Console.WriteLine("Peron with ID : 1 is NOT exist");
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Error : " + ex.ToString());
+            }
+        }
+        static void testIsExistByNationNo()
+        {
+            try
+            {
+                if (PersonService.isExist("N1"))
+                {
+                    Console.WriteLine("Peron with NationalNo : N1 is exist");
+                }
+                else
+                {
+                    Console.WriteLine("Peron with NationalNo : N1 is NOT exist");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error : " + ex.ToString());
+            }
+        }
         static void Main(string[] args)
         {
             //testGetPerson();
-            testAddNewPerson();
+            //testAddNewPerson();
+            //testIsExistByID();
+            testIsExistByNationNo();
             Console.ReadLine();
         }
     }

@@ -55,5 +55,31 @@ namespace DVLD_Business
 
             return personId;
         }
+        public static bool isExist(int ID)
+        {
+            bool found = false;
+            try
+            {
+                found = PersonData.isExist(ID);
+            }
+            catch(Exception ex)
+            {
+                throw;
+            }
+            return found;
+        }
+        public static bool isExist(string nationalNo)
+        {
+            bool found = false;
+            try
+            {
+                found = PersonData.isExist(nationalNo);
+            }
+            catch(Exception ex)
+            {
+                throw;
+            }
+            return found;
+        }
     }
 }

@@ -112,10 +112,71 @@ namespace DVLD_DataAccess
             }
             catch (Exception ex)
             {
+                _ID = -1;
                 throw;
+            }
+            finally
+            {
+                connection.Close();
             }
 
             return _ID;
+        }
+        public static bool isExist(int ID)
+        {
+            bool found = false;
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+            string query = $"SELECT Found=1 FROM People WHERE PersonID = @ID;";
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@ID", ID);
+
+            try
+            {
+                connection.Open();
+                object result = command.ExecuteScalar();
+                found = (result != null);
+
+            }
+            catch(Exception ex)
+            {
+                found = false;
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return found;
+        }
+        public static bool isExist(string nationalNo)
+        {
+            bool found = false;
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+            string query = $"SELECT Found=1 FROM People WHERE NationalNo = @NationalNo;";
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@NationalNo", nationalNo);
+
+            try
+            {
+                connection.Open();
+                object result = command.ExecuteScalar();
+                found = (result != null);
+
+            }
+            catch (Exception ex)
+            {
+                found = false;
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return found;
         }
     }
 }
