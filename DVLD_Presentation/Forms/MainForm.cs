@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DVLD_Presentation.Forms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +13,7 @@ namespace DVLD_Presentation
 {
     public partial class MainForm : Form
     {
+
         public MainForm()
         {
             InitializeComponent();
@@ -20,6 +22,19 @@ namespace DVLD_Presentation
         private void MainForm_Load(object sender, EventArgs e)
         {
 
+        }
+
+        Form peopleManagementForm;
+        private void peopleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (peopleManagementForm == null || peopleManagementForm.IsDisposed)
+            {
+                peopleManagementForm = new PeopleManagementForm();
+                peopleManagementForm.MdiParent = this;
+            }
+
+            peopleManagementForm.Show();
+            peopleManagementForm.BringToFront();
         }
     }
 }

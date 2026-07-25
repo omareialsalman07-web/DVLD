@@ -35,5 +35,10 @@ namespace DVLD_Presentation
             lbCountry.Text = person.NationalityCountryID.ToString();
             lbAge.Text = person.Age().ToString();
         }
+
+        private void ctrlPersonCard_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

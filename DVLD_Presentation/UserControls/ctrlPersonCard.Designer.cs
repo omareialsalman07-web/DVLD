@@ -323,6 +323,7 @@
             this.Controls.Add(this.label1);
             this.Name = "ctrlPersonCard";
             this.Size = new System.Drawing.Size(908, 369);
+            this.Load += new System.EventHandler(this.ctrlPersonCard_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
