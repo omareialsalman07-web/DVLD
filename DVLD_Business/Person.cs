@@ -36,6 +36,12 @@ namespace DVLD_Business
             return age;
         }
 
+        public string FullName()
+        {
+            return FirstName + " " + SecondName + " "
+                + ((ThirdName == null) ? "" : ThirdName) + " "
+                + LastName;
+        }
         public Person(string NationalNo, string FirstName,  string SecondName, string ThirdName, 
         string LastName, DateTime DateOfBirth, enGendor Gendor, string Address, string Phone, string Email, 
         int NationalityCountryID, string ImagePath)
