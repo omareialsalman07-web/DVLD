@@ -28,13 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lstPeople = new System.Windows.Forms.ListView();
             this.ID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.NationalNo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.FirstName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.LastName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SeconedName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ThirdName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.LastName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Gendor = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.DateOfBirth = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Nationality = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -43,10 +44,19 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lbRecoreds = new System.Windows.Forms.Label();
+            this.cmManagePeople = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.btnClose = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.tsmPersonDetails = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmAddNewPerson = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmSendEmail = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmPhoneCall = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmManagePeople.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -64,6 +74,7 @@
             this.Nationality,
             this.Phone,
             this.Email});
+            this.lstPeople.ContextMenuStrip = this.cmManagePeople;
             this.lstPeople.Font = new System.Drawing.Font("Microsoft Tai Le", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstPeople.FullRowSelect = true;
             this.lstPeople.HideSelection = false;
@@ -89,11 +100,6 @@
             this.FirstName.Text = "First Name";
             this.FirstName.Width = 90;
             // 
-            // LastName
-            // 
-            this.LastName.Text = "Last Name";
-            this.LastName.Width = 101;
-            // 
             // SeconedName
             // 
             this.SeconedName.Text = "Seconed Name";
@@ -103,6 +109,11 @@
             // 
             this.ThirdName.Text = "Third Name";
             this.ThirdName.Width = 108;
+            // 
+            // LastName
+            // 
+            this.LastName.Text = "Last Name";
+            this.LastName.Width = 101;
             // 
             // Gendor
             // 
@@ -160,6 +171,20 @@
             this.lbRecoreds.TabIndex = 6;
             this.lbRecoreds.Text = "????";
             // 
+            // cmManagePeople
+            // 
+            this.cmManagePeople.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmManagePeople.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.cmManagePeople.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmPersonDetails,
+            this.tsmAddNewPerson,
+            this.tsmEdit,
+            this.tsmDelete,
+            this.tsmSendEmail,
+            this.tsmPhoneCall});
+            this.cmManagePeople.Name = "cmManagePeople";
+            this.cmManagePeople.Size = new System.Drawing.Size(215, 188);
+            // 
             // btnClose
             // 
             this.btnClose.Image = global::DVLD_Presentation.Properties.Resources.cancel;
@@ -204,6 +229,56 @@
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
+            // tsmPersonDetails
+            // 
+            this.tsmPersonDetails.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tsmPersonDetails.Image = global::DVLD_Presentation.Properties.Resources.details;
+            this.tsmPersonDetails.Name = "tsmPersonDetails";
+            this.tsmPersonDetails.Size = new System.Drawing.Size(214, 26);
+            this.tsmPersonDetails.Text = "Show Details";
+            this.tsmPersonDetails.Click += new System.EventHandler(this.tsmPersonDetails_Click);
+            // 
+            // tsmAddNewPerson
+            // 
+            this.tsmAddNewPerson.Image = global::DVLD_Presentation.Properties.Resources.user;
+            this.tsmAddNewPerson.Name = "tsmAddNewPerson";
+            this.tsmAddNewPerson.Size = new System.Drawing.Size(191, 26);
+            this.tsmAddNewPerson.Text = "Add New Person";
+            // 
+            // tsmEdit
+            // 
+            this.tsmEdit.Image = global::DVLD_Presentation.Properties.Resources.edit;
+            this.tsmEdit.Name = "tsmEdit";
+            this.tsmEdit.Size = new System.Drawing.Size(191, 26);
+            this.tsmEdit.Text = "Edit";
+            // 
+            // tsmDelete
+            // 
+            this.tsmDelete.Image = global::DVLD_Presentation.Properties.Resources.delete;
+            this.tsmDelete.Name = "tsmDelete";
+            this.tsmDelete.Size = new System.Drawing.Size(191, 26);
+            this.tsmDelete.Text = "Delete";
+            // 
+            // tsmSendEmail
+            // 
+            this.tsmSendEmail.Image = global::DVLD_Presentation.Properties.Resources.mail;
+            this.tsmSendEmail.Name = "tsmSendEmail";
+            this.tsmSendEmail.Size = new System.Drawing.Size(191, 26);
+            this.tsmSendEmail.Text = "Send Email";
+            // 
+            // tsmPhoneCall
+            // 
+            this.tsmPhoneCall.Image = global::DVLD_Presentation.Properties.Resources.mobile;
+            this.tsmPhoneCall.Name = "tsmPhoneCall";
+            this.tsmPhoneCall.Size = new System.Drawing.Size(191, 26);
+            this.tsmPhoneCall.Text = "Phone Call";
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
             // PeopleManagementForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -222,6 +297,7 @@
             this.Name = "PeopleManagementForm";
             this.Text = "PeopleManagementForm";
             this.Load += new System.EventHandler(this.PeopleManagementForm_Load);
+            this.cmManagePeople.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -249,5 +325,13 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lbRecoreds;
         private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.ContextMenuStrip cmManagePeople;
+        private System.Windows.Forms.ToolStripMenuItem tsmPersonDetails;
+        private System.Windows.Forms.ToolStripMenuItem tsmAddNewPerson;
+        private System.Windows.Forms.ToolStripMenuItem tsmEdit;
+        private System.Windows.Forms.ToolStripMenuItem tsmDelete;
+        private System.Windows.Forms.ToolStripMenuItem tsmSendEmail;
+        private System.Windows.Forms.ToolStripMenuItem tsmPhoneCall;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
     }
 }

@@ -58,5 +58,15 @@ namespace DVLD_Presentation.Forms
         {
             this.Close();
         }
+
+        private void tsmPersonDetails_Click(object sender, EventArgs e)
+        {
+            if (lstPeople.SelectedItems.Count == 0)
+                return;
+
+            int personID = int.Parse(lstPeople.SelectedItems[0].Text);
+            Form personCardForm = new PersonCardForm(personID);
+            personCardForm.ShowDialog();
+        }
     }
 }
