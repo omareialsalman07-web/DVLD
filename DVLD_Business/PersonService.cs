@@ -37,7 +37,7 @@ namespace DVLD_Business
 
             return person;
         }
-        public static DataTable GetAllPeople()
+        public static DataTable GetAllPeople_ToTable()
         {
             DataTable data = null;
 
@@ -52,6 +52,39 @@ namespace DVLD_Business
 
             return data;
         }
+        public static List<Person> GetAllPeople()
+        {
+            List<Person> peopleList = new List<Person>();
+
+            DataTable data = GetAllPeople_ToTable();
+
+            foreach (DataRow row in data.Rows)
+            {
+                Person person = new Person
+                (
+                    ID: Convert.ToInt32(row["PersonID"]),
+                    NationalNo: row["NationalNo"]?.ToString(),
+                    FirstName: row["FirstName"]?.ToString(),
+                    SecondName: row["SecondName"]?.ToString(),
+                    ThirdName: row["ThirdName"]?.ToString(),
+                    LastName: row["LastName"]?.ToString(),
+                    DateOfBirth: Convert.ToDateTime(row["DateOfBirth"]),
+                    // Cast the raw database integer (0 or 1) directly to your enum type
+                    Gendor: (Person.enGendor)Convert.ToInt32(row["Gendor"]),
+                    Address: row["Address"]?.ToString(),
+                    Phone: row["Phone"]?.ToString(),
+                    Email: row["Email"]?.ToString(),
+                    NationalityCountryID: Convert.ToInt32(row["NationalityCountryID"]),
+                    ImagePath: row["ImagePath"]?.ToString()
+                );
+
+                peopleList.Add(person);
+            }
+
+            return peopleList;
+        }
+
+
         public static int AddNewPerson(in Person person)
         {
             if (person == null)
