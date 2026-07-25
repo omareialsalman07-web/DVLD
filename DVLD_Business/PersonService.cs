@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -35,6 +36,21 @@ namespace DVLD_Business
             }
 
             return person;
+        }
+        public static DataTable GetAllPeople()
+        {
+            DataTable data = null;
+
+            try
+            {
+                data = PersonData.GetAllPeople();
+            }
+            catch(Exception ex)
+            {
+                throw;
+            }
+
+            return data;
         }
         public static int AddNewPerson(in Person person)
         {

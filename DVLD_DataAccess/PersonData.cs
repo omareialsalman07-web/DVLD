@@ -72,6 +72,36 @@ namespace DVLD_DataAccess
 
             return found;
         }
+        public static DataTable GetAllPeople()
+        {
+            DataTable data = null;
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+            string query = "SELECT * FROM People";
+            SqlCommand command = new SqlCommand(query, connection);
+
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+                if(reader != null && reader.HasRows)
+                {
+                    data = new DataTable();
+                    data.Load(reader);
+                }
+            }
+            catch(Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return data;
+        }
         public static int AddNewPerson(string NationalNo, string FirstName, string SecondName,
             string ThirdName, string LastName, DateTime DateOfBirth, int Gendor, string Address,
             string Phone, string Email, int NationalityCountryID, string ImagePath)
@@ -180,7 +210,6 @@ namespace DVLD_DataAccess
 
             return found;
         }
-
         public static bool UpdatePerson(int ID, string nationalNo, string firstName, string secondName,
     string thirdName, string lastName, DateTime dateOfBirth, int gendor, string address,
     string phone, string email, int nationalityCountryID, string imagePath)
