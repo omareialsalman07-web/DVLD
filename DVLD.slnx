@@ -2,5 +2,4 @@
   <Project Path="DVLD_Business/DVLD_Business.csproj" Id="45be9305-6929-4239-9a4a-eec7ae67cb2a" />
   <Project Path="DVLD_Console/DVLD_Console.csproj" Id="1eba285d-51c1-4763-a0ec-eaeb8375baf3" />
   <Project Path="DVLD_DataAccess/DVLD_DataAccess.csproj" Id="97f40956-9f3d-419b-8397-8c664b619588" />
-  <Project Path="Presentation/Console/Console.csproj" Id="504bbdd0-fee5-4d03-9db6-766509dc73ed" />
 </Solution>

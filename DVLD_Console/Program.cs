@@ -24,7 +24,8 @@ namespace DVLD_Console
             //PeopleManagementTest.TestIsExistByID(1);
             //PeopleManagementTest.TestIsExistByNationalNo("N1");
             //PeopleManagementTest.TestUpdatePerson(2);
-            PeopleManagementTest.TestDeletePerson(2);
+            //PeopleManagementTest.TestDeletePerson(2);
+            PeopleManagementTest.TestGetAllPeople();
 
 
             Console.ReadLine();
