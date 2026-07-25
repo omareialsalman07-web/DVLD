@@ -20,6 +20,8 @@ namespace DVLD_Presentation.Forms
 
         private void LoadPeople()
         {
+            lstPeople.Items.Clear();
+
             try
             {
                 List<Person> people = PersonService.GetAllPeople();
@@ -67,6 +69,33 @@ namespace DVLD_Presentation.Forms
             int personID = int.Parse(lstPeople.SelectedItems[0].Text);
             Form personCardForm = new PersonCardForm(personID);
             personCardForm.ShowDialog();
+        }
+
+        private void tsmDelete_Click(object sender, EventArgs e)
+        {
+            if (lstPeople.SelectedItems.Count == 0)
+                return;
+
+            int personID = int.Parse(lstPeople.SelectedItems[0].Text);
+
+            try
+            {
+                var result = MessageBox.Show("Are you sure of deleting this person", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    PersonService.DeletePerson(personID);
+                    LoadPeople();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error : " + ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            LoadPeople();
         }
     }
 }
