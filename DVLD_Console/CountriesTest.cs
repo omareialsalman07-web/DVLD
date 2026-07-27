@@ -22,9 +22,10 @@ namespace DVLD_Console
             Console.WriteLine("Name   : " + country.Name);
             Console.WriteLine("--------------------------------------");
         }
-
-        internal static void TestGetCountryByID(int countryID)
+        internal static void testGetCountryByID(int countryID)
         {
+            Console.WriteLine("\n------- Testing GetCountryByID --------");
+
             try
             {
                 Country country = CountryService.Find(countryID);
@@ -35,6 +36,23 @@ namespace DVLD_Console
                 else
                 {
                     Console.WriteLine("Can't find a country with ID : " + countryID);
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Error : " + ex.ToString());
+            }
+        }
+        internal static void testGetAllCountries()
+        {
+            Console.WriteLine("\n------- Testing GetAllCountries --------");
+
+            try 
+            {
+                List<Country> countries = CountryService.GetAllCountries();
+                foreach (Country country in countries)
+                {
+                    PrintCountry(country);
                 }
             }
             catch(Exception ex)

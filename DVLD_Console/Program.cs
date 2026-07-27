@@ -25,7 +25,8 @@ namespace DVLD_Console
             //PeopleManagementTest.TestDeletePerson(2);
             //PeopleManagementTest.TestGetAllPeople();
 
-            CountriesTest.TestGetCountryByID(90);
+            //CountriesTest.testGetCountryByID(90);
+            CountriesTest.testGetAllCountries();
 
 
             Console.ReadLine();

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,6 +41,37 @@ namespace DVLD_DataAccess
             }
 
             return found;
+        }
+        public static DataTable GetAllCountries()
+        {
+            DataTable data = null;
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+
+            string query = "SELECT * FROM Countries;";
+            SqlCommand command = new SqlCommand(query, connection);
+
+            try
+            {
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                if(reader != null && reader.HasRows)
+                {
+                    data = new DataTable();
+                    data.Load(reader);
+                }
+            }
+            catch
+            {
+                data = null;
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return data;
         }
     }
 }
