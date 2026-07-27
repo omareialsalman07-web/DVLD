@@ -33,7 +33,6 @@ namespace DVLD_Presentation
             lbAddress.Text = person.Address.ToString();
             lbBirthOfDate.Text = person.DateOfBirth.ToString();
             lbPhone.Text = person.Phone.ToString();
-            lbCountry.Text = person.NationalityCountryID.ToString();
             lbAge.Text = person.Age().ToString();
 
             if(String.IsNullOrEmpty(person.ImagePath))
@@ -46,6 +45,15 @@ namespace DVLD_Presentation
                     case Person.enGendor.Female:
                         pictureBox1.Image = Resources.Female;
                         break;
+                }
+
+                try
+                {
+                    lbCountry.Text = CountryService.Find(person.NationalityCountryID).Name;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error : " + ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
