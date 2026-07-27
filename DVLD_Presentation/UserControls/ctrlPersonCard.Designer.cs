@@ -39,7 +39,6 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.lbFullName = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnEditImage = new System.Windows.Forms.Button();
             this.btnRemoveImage = new System.Windows.Forms.Button();
             this.lbGendor = new System.Windows.Forms.Label();
@@ -52,6 +51,7 @@
             this.lbID = new System.Windows.Forms.Label();
             this.lbAge = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -167,17 +167,9 @@
             this.lbFullName.TabIndex = 11;
             this.lbFullName.Text = "????";
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(752, 120);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(138, 137);
-            this.pictureBox1.TabIndex = 12;
-            this.pictureBox1.TabStop = false;
-            // 
             // btnEditImage
             // 
-            this.btnEditImage.Location = new System.Drawing.Point(752, 263);
+            this.btnEditImage.Location = new System.Drawing.Point(782, 263);
             this.btnEditImage.Name = "btnEditImage";
             this.btnEditImage.Size = new System.Drawing.Size(67, 33);
             this.btnEditImage.TabIndex = 13;
@@ -186,7 +178,7 @@
             // 
             // btnRemoveImage
             // 
-            this.btnRemoveImage.Location = new System.Drawing.Point(823, 263);
+            this.btnRemoveImage.Location = new System.Drawing.Point(853, 263);
             this.btnRemoveImage.Name = "btnRemoveImage";
             this.btnRemoveImage.Size = new System.Drawing.Size(67, 33);
             this.btnRemoveImage.TabIndex = 14;
@@ -293,6 +285,15 @@
             this.label12.TabIndex = 23;
             this.label12.Text = "Age : ";
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(782, 120);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(138, 137);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 12;
+            this.pictureBox1.TabStop = false;
+            // 
             // ctrlPersonCard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -322,7 +323,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "ctrlPersonCard";
-            this.Size = new System.Drawing.Size(908, 369);
+            this.Size = new System.Drawing.Size(937, 369);
             this.Load += new System.EventHandler(this.ctrlPersonCard_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

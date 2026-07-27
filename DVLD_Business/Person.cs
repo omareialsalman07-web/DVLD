@@ -8,7 +8,7 @@ namespace DVLD_Business
 {
     public class Person
     {
-        public enum enGendor { Male = 0, eFemale = 1}
+        public enum enGendor { Male = 0, Female = 1}
 
         public int ID { get; }
         public string NationalNo { get; set; }

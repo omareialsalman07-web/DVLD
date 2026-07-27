@@ -64,8 +64,10 @@ namespace DVLD_Presentation.Forms
         private void tsmPersonDetails_Click(object sender, EventArgs e)
         {
             if (lstPeople.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("There is no seleced item to this operation!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
-
+            }
             int personID = int.Parse(lstPeople.SelectedItems[0].Text);
             Form personCardForm = new PersonCardForm(personID);
             personCardForm.ShowDialog();
@@ -74,8 +76,10 @@ namespace DVLD_Presentation.Forms
         private void tsmDelete_Click(object sender, EventArgs e)
         {
             if (lstPeople.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("There is no seleced item to this operation!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
-
+            }
             int personID = int.Parse(lstPeople.SelectedItems[0].Text);
 
             try

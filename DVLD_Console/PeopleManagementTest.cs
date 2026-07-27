@@ -1,9 +1,9 @@
-﻿using DVLD_Business;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DVLD_Business;
 
 namespace DVLD_Console
 {
@@ -50,7 +50,7 @@ namespace DVLD_Console
             try
             {
                 Console.WriteLine("\n--- Testing Get All People ---");
-                System.Data.DataTable dtPeople = PersonService.GetAllPeople();
+                System.Data.DataTable dtPeople = PersonService.GetAllPeople_ToTable();
 
                 if (dtPeople != null && dtPeople.Rows.Count > 0)
                 {

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DVLD_Business;
+using DVLD_Presentation.Properties;
 
 namespace DVLD_Presentation
 {
@@ -34,6 +35,19 @@ namespace DVLD_Presentation
             lbPhone.Text = person.Phone.ToString();
             lbCountry.Text = person.NationalityCountryID.ToString();
             lbAge.Text = person.Age().ToString();
+
+            if(String.IsNullOrEmpty(person.ImagePath))
+            {
+                switch(person.Gendor)
+                {
+                    case Person.enGendor.Male:
+                        pictureBox1.Image = Resources.Male;
+                        break;
+                    case Person.enGendor.Female:
+                        pictureBox1.Image = Resources.Female;
+                        break;
+                }
+            }
         }
 
         private void ctrlPersonCard_Load(object sender, EventArgs e)
