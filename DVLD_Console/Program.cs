@@ -9,7 +9,6 @@ namespace DVLD_Console
 {
     internal class Program
     {
-        
         static void Main(string[] args)
         {
             //PeopleManagementTest.TestIsExistByID(1);
@@ -24,9 +23,10 @@ namespace DVLD_Console
             //PeopleManagementTest.TestUpdatePerson(2);
             //PeopleManagementTest.TestDeletePerson(2);
             //PeopleManagementTest.TestGetAllPeople();
+            PeopleManagementTest.TestGetAllPeople(PersonService.enFilter.NationalityCountryID, "90");
 
             //CountriesTest.testGetCountryByID(90);
-            CountriesTest.testGetAllCountries();
+            //CountriesTest.testGetAllCountries();
 
 
             Console.ReadLine();

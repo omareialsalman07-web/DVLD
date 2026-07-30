@@ -83,6 +83,45 @@ namespace DVLD_Console
                 Console.WriteLine("Error : " + ex.ToString());
             }
         }
+        internal static void TestGetAllPeople(PersonService.enFilter filterBy, object value)
+        {
+            try
+            {
+                Console.WriteLine("\n--- Testing Get All People Like " + filterBy.ToString() + " ---");
+                System.Data.DataTable dtPeople = PersonService.GetAllPeople_ToTable(filterBy, value);
+
+                if (dtPeople != null && dtPeople.Rows.Count > 0)
+                {
+                    Console.WriteLine($"Found {dtPeople.Rows.Count} person(s) in the database.\n");
+
+                    // Print table headers
+                    Console.WriteLine(string.Format("{0,-5} | {1,-12} | {2,-15} | {3,-15} | {4,-20}",
+                        "ID", "NationalNo", "First Name", "Last Name", "Email"));
+                    Console.WriteLine(new string('-', 75));
+
+                    // Loop through rows and print details
+                    foreach (System.Data.DataRow row in dtPeople.Rows)
+                    {
+                        Console.WriteLine(string.Format("{0,-5} | {1,-12} | {2,-15} | {3,-15} | {4,-20}",
+                            row["PersonID"],
+                            row["NationalNo"],
+                            row["FirstName"],
+                            row["LastName"],
+                            row["Email"] == DBNull.Value ? "N/A" : row["Email"]
+                        ));
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No people found in the database or table is empty.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error : " + ex.ToString());
+            }
+        }
+
         internal static void TestAddNewPerson(string nationalNo, string firstName, string secondName, string thirdName, string lastName, DateTime dateOfBirth, Person.enGendor gender, string address, string phone, string email, int nationalityCountryID, string imagePath)
         {
             try
