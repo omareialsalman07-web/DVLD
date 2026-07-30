@@ -103,6 +103,40 @@ namespace DVLD_DataAccess
 
             return data;
         }
+        public static DataTable GetAllPeople_Like(string ColumnName, string Value)
+        {
+            DataTable data = null;
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+
+            // 2. Safely concatenate the validated column name, but use a parameter for the value
+            string query = $"SELECT * FROM People WHERE [{ColumnName}] LIKE '%' + @Value + '%';";
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@ColumnName", ColumnName);
+            command.Parameters.AddWithValue("@Value", Value);
+
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+                if(reader != null && reader.HasRows)
+                {
+                    data = new DataTable();
+                    data.Load(reader);
+                }
+            }
+            catch(Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return data;
+        }
         public static int AddNewPerson(string NationalNo, string FirstName, string SecondName,
             string ThirdName, string LastName, DateTime DateOfBirth, int Gendor, string Address,
             string Phone, string Email, int NationalityCountryID, string ImagePath)

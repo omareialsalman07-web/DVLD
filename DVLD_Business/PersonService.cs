@@ -11,6 +11,9 @@ namespace DVLD_Business
 {
     public static class PersonService
     {
+        public enum enFilter { PersonID, NationalNo, FirstName, SecondName, ThirdName, LastName, NationalityCountryID,
+        Gendor, Phone, Email }
+
         public static Person Find(int ID)
         {
             Person person = null;
@@ -83,8 +86,51 @@ namespace DVLD_Business
 
             return peopleList;
         }
+        public static DataTable GetAllPeople_ToTable(enFilter filterBy, object value)
+        {
+            DataTable data = null;
+            try
+            {
+                data = PersonData.GetAllPeople_Like(filterBy.ToString(), value);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
 
+            return data;
+        }
+        public static List<Person> GetAllPeople(enFilter filterBy, string value)
+        {
+            List<Person> peopleList = new List<Person>();
 
+            DataTable data = GetAllPeople_ToTable(filterBy, value);
+
+            foreach (DataRow row in data.Rows)
+            {
+                Person person = new Person
+                (
+                    ID: Convert.ToInt32(row["PersonID"]),
+                    NationalNo: row["NationalNo"]?.ToString(),
+                    FirstName: row["FirstName"]?.ToString(),
+                    SecondName: row["SecondName"]?.ToString(),
+                    ThirdName: row["ThirdName"]?.ToString(),
+                    LastName: row["LastName"]?.ToString(),
+                    DateOfBirth: Convert.ToDateTime(row["DateOfBirth"]),
+                    // Cast the raw database integer (0 or 1) directly to your enum type
+                    Gendor: (Person.enGendor)Convert.ToInt32(row["Gendor"]),
+                    Address: row["Address"]?.ToString(),
+                    Phone: row["Phone"]?.ToString(),
+                    Email: row["Email"]?.ToString(),
+                    NationalityCountryID: Convert.ToInt32(row["NationalityCountryID"]),
+                    ImagePath: row["ImagePath"]?.ToString()
+                );
+
+                peopleList.Add(person);
+            }
+
+            return peopleList;
+        }
         public static int AddNewPerson(in Person person)
         {
             if (person == null)
