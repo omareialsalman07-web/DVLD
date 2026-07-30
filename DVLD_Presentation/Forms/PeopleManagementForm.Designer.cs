@@ -169,6 +169,7 @@
             this.tsmAddNewPerson.Name = "tsmAddNewPerson";
             this.tsmAddNewPerson.Size = new System.Drawing.Size(214, 26);
             this.tsmAddNewPerson.Text = "Add New Person";
+            this.tsmAddNewPerson.Click += new System.EventHandler(this.tsmAddNewPerson_Click);
             // 
             // tsmEdit
             // 
@@ -176,6 +177,7 @@
             this.tsmEdit.Name = "tsmEdit";
             this.tsmEdit.Size = new System.Drawing.Size(214, 26);
             this.tsmEdit.Text = "Edit";
+            this.tsmEdit.Click += new System.EventHandler(this.tsmEdit_Click);
             // 
             // tsmDelete
             // 
@@ -252,6 +254,7 @@
             this.button1.Size = new System.Drawing.Size(65, 65);
             this.button1.TabIndex = 4;
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // btnRefresh
             // 

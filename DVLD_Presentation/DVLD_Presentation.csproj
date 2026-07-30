@@ -48,6 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\AddEditPersonForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddEditPersonForm.Designer.cs">
+      <DependentUpon>AddEditPersonForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\PeopleManagementForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,6 +86,9 @@
     <Compile Include="Forms\TestFormcs.Designer.cs">
       <DependentUpon>TestFormcs.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Forms\AddEditPersonForm.resx">
+      <DependentUpon>AddEditPersonForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\PeopleManagementForm.resx">
       <DependentUpon>PeopleManagementForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -165,6 +174,27 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Male.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\name.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\name2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\id-card.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Datetime.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\country.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

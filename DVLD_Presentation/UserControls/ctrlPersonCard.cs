@@ -57,7 +57,6 @@ namespace DVLD_Presentation
                 }
             }
         }
-
         private void ctrlPersonCard_Load(object sender, EventArgs e)
         {
 

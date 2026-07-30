@@ -101,5 +101,37 @@ namespace DVLD_Presentation.Forms
         {
             LoadPeople();
         }
+
+        private void tsmAddNewPerson_Click(object sender, EventArgs e)
+        {
+            Form form = new AddEditPersonForm(AddEditPersonForm.enMode.eAddNew);
+            form.ShowDialog();
+        }
+
+        private void tsmEdit_Click(object sender, EventArgs e)
+        {
+            if (lstPeople.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("There is no seleced item to this operation!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            try
+            {
+                Person personToEdit = PersonService.Find(int.Parse(lstPeople.SelectedItems[0].Text));
+                Form form = new AddEditPersonForm(AddEditPersonForm.enMode.eEdit, personToEdit);
+                form.ShowDialog();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Form form = new AddEditPersonForm(AddEditPersonForm.enMode.eAddNew);
+            form.ShowDialog();
+        }
     }
 }
