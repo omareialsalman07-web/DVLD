@@ -32,6 +32,7 @@ namespace DVLD_DataAccess
                 {
                     NationalNo = (string)reader["NationalNo"];
                     FirstName = (string)reader["FirstName"];
+                    SecondName = (string)reader["SecondName"];
 
                     if (reader["ThirdName"] != DBNull.Value)
                         ThirdName = (string)reader["ThirdName"];
