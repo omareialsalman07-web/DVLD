@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lbTitle = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -67,6 +68,7 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.PersonImage = new System.Windows.Forms.PictureBox();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
@@ -75,6 +77,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PersonImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // lbTitle
@@ -196,6 +199,7 @@
             this.txtFirstName.Name = "txtFirstName";
             this.txtFirstName.Size = new System.Drawing.Size(190, 27);
             this.txtFirstName.TabIndex = 37;
+            this.txtFirstName.Validating += new System.ComponentModel.CancelEventHandler(this.txtEmpty_Validating);
             // 
             // txtSeconedName
             // 
@@ -204,6 +208,7 @@
             this.txtSeconedName.Name = "txtSeconedName";
             this.txtSeconedName.Size = new System.Drawing.Size(190, 27);
             this.txtSeconedName.TabIndex = 38;
+            this.txtSeconedName.Validating += new System.ComponentModel.CancelEventHandler(this.txtEmpty_Validating);
             // 
             // txtThirdName
             // 
@@ -220,6 +225,7 @@
             this.txtLastName.Name = "txtLastName";
             this.txtLastName.Size = new System.Drawing.Size(190, 27);
             this.txtLastName.TabIndex = 40;
+            this.txtLastName.Validating += new System.ComponentModel.CancelEventHandler(this.txtEmpty_Validating);
             // 
             // txtNationalNo
             // 
@@ -228,6 +234,7 @@
             this.txtNationalNo.Name = "txtNationalNo";
             this.txtNationalNo.Size = new System.Drawing.Size(190, 27);
             this.txtNationalNo.TabIndex = 41;
+            this.txtNationalNo.Validating += new System.ComponentModel.CancelEventHandler(this.txtNationalNo_Validating);
             // 
             // rbMale
             // 
@@ -268,6 +275,7 @@
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.Size = new System.Drawing.Size(190, 27);
             this.txtPhone.TabIndex = 45;
+            this.txtPhone.Validating += new System.ComponentModel.CancelEventHandler(this.txtEmpty_Validating);
             // 
             // cbCountries
             // 
@@ -293,6 +301,7 @@
             this.txtAddress.Name = "txtAddress";
             this.txtAddress.Size = new System.Drawing.Size(563, 86);
             this.txtAddress.TabIndex = 48;
+            this.txtAddress.Validating += new System.ComponentModel.CancelEventHandler(this.txtEmpty_Validating);
             // 
             // label12
             // 
@@ -467,6 +476,10 @@
             this.PersonImage.TabIndex = 33;
             this.PersonImage.TabStop = false;
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // AddEditPersonForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -523,6 +536,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PersonImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -569,5 +583,6 @@
         private System.Windows.Forms.PictureBox pictureBox6;
         private System.Windows.Forms.PictureBox pictureBox7;
         private System.Windows.Forms.PictureBox pictureBox8;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

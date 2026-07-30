@@ -205,5 +205,41 @@ namespace DVLD_Presentation.Forms
             else
                 _Update();
         }
+
+        private void txtEmpty_Validating(object sender, CancelEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            if (string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                errorProvider1.SetError(textBox, "This control should have a value!");
+            }
+            else
+            {
+                errorProvider1.SetError(textBox, "");
+            }
+        }
+
+        private void txtNationalNo_Validating(object sender, CancelEventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(txtNationalNo.Text))
+                {
+                    errorProvider1.SetError(txtNationalNo, "This control should have a value!");
+                }
+                else if (PersonService.isExist(txtNationalNo.Text))
+                {
+                    errorProvider1.SetError(txtNationalNo, "Another person has the same value!");
+                }
+                else
+                {
+                    errorProvider1.SetError(txtNationalNo, "");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
