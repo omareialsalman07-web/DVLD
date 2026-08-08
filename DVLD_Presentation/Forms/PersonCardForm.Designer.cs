@@ -36,7 +36,7 @@
             // 
             this.btnClose.Image = global::DVLD_Presentation.Properties.Resources.cancel;
             this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(832, 384);
+            this.btnClose.Location = new System.Drawing.Point(1027, 333);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(113, 50);
             this.btnClose.TabIndex = 1;
@@ -46,16 +46,16 @@
             // 
             // ctrlPersonCard1
             // 
-            this.ctrlPersonCard1.Location = new System.Drawing.Point(8, 12);
+            this.ctrlPersonCard1.Location = new System.Drawing.Point(12, 12);
             this.ctrlPersonCard1.Name = "ctrlPersonCard1";
-            this.ctrlPersonCard1.Size = new System.Drawing.Size(937, 369);
+            this.ctrlPersonCard1.Size = new System.Drawing.Size(1128, 312);
             this.ctrlPersonCard1.TabIndex = 2;
             // 
             // PersonCardForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(957, 446);
+            this.ClientSize = new System.Drawing.Size(1152, 395);
             this.Controls.Add(this.ctrlPersonCard1);
             this.Controls.Add(this.btnClose);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;

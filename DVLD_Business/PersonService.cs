@@ -11,7 +11,7 @@ namespace DVLD_Business
 {
     public static class PersonService
     {
-        public enum enFilter { PersonID, NationalNo, FirstName, SecondName, ThirdName, LastName, NationalityCountryID,
+        public enum enFilter { None, PersonID, NationalNo, FirstName, SecondName, ThirdName, LastName, NationalityCountryID,
         Gendor, Phone, Email }
 
         public static Person Find(int ID)
@@ -86,8 +86,11 @@ namespace DVLD_Business
 
             return peopleList;
         }
-        public static DataTable GetAllPeople_ToTable(enFilter filterBy, object value)
+        public static DataTable GetAllPeople_ToTable(enFilter filterBy, string value)
         {
+            if (filterBy == enFilter.None)
+                return null;
+
             DataTable data = null;
             try
             {

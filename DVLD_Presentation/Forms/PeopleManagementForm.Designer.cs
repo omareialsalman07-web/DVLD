@@ -46,17 +46,29 @@
             this.tsmAddNewPerson = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmSendEmail = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmPhoneCall = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lbRecoreds = new System.Windows.Forms.Label();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cbFilter = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.pGendorFilter = new System.Windows.Forms.Panel();
+            this.rbFemale = new System.Windows.Forms.RadioButton();
+            this.rbMale = new System.Windows.Forms.RadioButton();
+            this.cbNationality = new System.Windows.Forms.ComboBox();
+            this.pFilterValue = new System.Windows.Forms.Panel();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.mtxtFilter = new System.Windows.Forms.MaskedTextBox();
             this.btnClose = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnAddNewPerson = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cmManagePeople.SuspendLayout();
+            this.pGendorFilter.SuspendLayout();
+            this.pFilterValue.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -149,17 +161,18 @@
             this.tsmAddNewPerson,
             this.tsmEdit,
             this.tsmDelete,
+            this.toolStripSeparator1,
             this.tsmSendEmail,
             this.tsmPhoneCall});
             this.cmManagePeople.Name = "cmManagePeople";
-            this.cmManagePeople.Size = new System.Drawing.Size(192, 160);
+            this.cmManagePeople.Size = new System.Drawing.Size(192, 166);
             // 
             // tsmPersonDetails
             // 
             this.tsmPersonDetails.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tsmPersonDetails.Image = global::DVLD_Presentation.Properties.Resources.details;
             this.tsmPersonDetails.Name = "tsmPersonDetails";
-            this.tsmPersonDetails.Size = new System.Drawing.Size(214, 26);
+            this.tsmPersonDetails.Size = new System.Drawing.Size(191, 26);
             this.tsmPersonDetails.Text = "Show Details";
             this.tsmPersonDetails.Click += new System.EventHandler(this.tsmPersonDetails_Click);
             // 
@@ -167,7 +180,7 @@
             // 
             this.tsmAddNewPerson.Image = global::DVLD_Presentation.Properties.Resources.user;
             this.tsmAddNewPerson.Name = "tsmAddNewPerson";
-            this.tsmAddNewPerson.Size = new System.Drawing.Size(214, 26);
+            this.tsmAddNewPerson.Size = new System.Drawing.Size(191, 26);
             this.tsmAddNewPerson.Text = "Add New Person";
             this.tsmAddNewPerson.Click += new System.EventHandler(this.tsmAddNewPerson_Click);
             // 
@@ -175,7 +188,7 @@
             // 
             this.tsmEdit.Image = global::DVLD_Presentation.Properties.Resources.edit;
             this.tsmEdit.Name = "tsmEdit";
-            this.tsmEdit.Size = new System.Drawing.Size(214, 26);
+            this.tsmEdit.Size = new System.Drawing.Size(191, 26);
             this.tsmEdit.Text = "Edit";
             this.tsmEdit.Click += new System.EventHandler(this.tsmEdit_Click);
             // 
@@ -183,22 +196,27 @@
             // 
             this.tsmDelete.Image = global::DVLD_Presentation.Properties.Resources.delete;
             this.tsmDelete.Name = "tsmDelete";
-            this.tsmDelete.Size = new System.Drawing.Size(214, 26);
+            this.tsmDelete.Size = new System.Drawing.Size(191, 26);
             this.tsmDelete.Text = "Delete";
             this.tsmDelete.Click += new System.EventHandler(this.tsmDelete_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(188, 6);
             // 
             // tsmSendEmail
             // 
             this.tsmSendEmail.Image = global::DVLD_Presentation.Properties.Resources.mail;
             this.tsmSendEmail.Name = "tsmSendEmail";
-            this.tsmSendEmail.Size = new System.Drawing.Size(214, 26);
+            this.tsmSendEmail.Size = new System.Drawing.Size(191, 26);
             this.tsmSendEmail.Text = "Send Email";
             // 
             // tsmPhoneCall
             // 
             this.tsmPhoneCall.Image = global::DVLD_Presentation.Properties.Resources.mobile;
             this.tsmPhoneCall.Name = "tsmPhoneCall";
-            this.tsmPhoneCall.Size = new System.Drawing.Size(214, 26);
+            this.tsmPhoneCall.Size = new System.Drawing.Size(191, 26);
             this.tsmPhoneCall.Text = "Phone Call";
             // 
             // label1
@@ -232,6 +250,121 @@
             this.lbRecoreds.TabIndex = 6;
             this.lbRecoreds.Text = "????";
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // cbFilter
+            // 
+            this.cbFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbFilter.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cbFilter.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbFilter.FormattingEnabled = true;
+            this.cbFilter.Items.AddRange(new object[] {
+            "None",
+            "Person ID",
+            "National No",
+            "First Name",
+            "Seconed Name",
+            "Third Name",
+            "Last Name",
+            "Nationality",
+            "Gendor",
+            "Phone",
+            "Email"});
+            this.cbFilter.Location = new System.Drawing.Point(30, 124);
+            this.cbFilter.Name = "cbFilter";
+            this.cbFilter.Size = new System.Drawing.Size(182, 33);
+            this.cbFilter.TabIndex = 8;
+            this.cbFilter.SelectedIndexChanged += new System.EventHandler(this.cbFilter_SelectedIndexChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(97, 95);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(61, 26);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Filter";
+            // 
+            // pGendorFilter
+            // 
+            this.pGendorFilter.Controls.Add(this.rbFemale);
+            this.pGendorFilter.Controls.Add(this.rbMale);
+            this.pGendorFilter.Location = new System.Drawing.Point(17, 21);
+            this.pGendorFilter.Name = "pGendorFilter";
+            this.pGendorFilter.Size = new System.Drawing.Size(169, 24);
+            this.pGendorFilter.TabIndex = 10;
+            // 
+            // rbFemale
+            // 
+            this.rbFemale.AutoSize = true;
+            this.rbFemale.Location = new System.Drawing.Point(80, 4);
+            this.rbFemale.Name = "rbFemale";
+            this.rbFemale.Size = new System.Drawing.Size(69, 20);
+            this.rbFemale.TabIndex = 1;
+            this.rbFemale.TabStop = true;
+            this.rbFemale.Text = "Female";
+            this.rbFemale.UseVisualStyleBackColor = true;
+            // 
+            // rbMale
+            // 
+            this.rbMale.AutoSize = true;
+            this.rbMale.Location = new System.Drawing.Point(17, 3);
+            this.rbMale.Name = "rbMale";
+            this.rbMale.Size = new System.Drawing.Size(57, 20);
+            this.rbMale.TabIndex = 0;
+            this.rbMale.TabStop = true;
+            this.rbMale.Text = "Male";
+            this.rbMale.UseVisualStyleBackColor = true;
+            // 
+            // cbNationality
+            // 
+            this.cbNationality.DropDownHeight = 200;
+            this.cbNationality.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbNationality.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cbNationality.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbNationality.FormattingEnabled = true;
+            this.cbNationality.IntegralHeight = false;
+            this.cbNationality.Location = new System.Drawing.Point(6, 14);
+            this.cbNationality.Name = "cbNationality";
+            this.cbNationality.Size = new System.Drawing.Size(180, 33);
+            this.cbNationality.TabIndex = 11;
+            // 
+            // pFilterValue
+            // 
+            this.pFilterValue.Controls.Add(this.pGendorFilter);
+            this.pFilterValue.Controls.Add(this.cbNationality);
+            this.pFilterValue.Controls.Add(this.btnSearch);
+            this.pFilterValue.Controls.Add(this.mtxtFilter);
+            this.pFilterValue.Location = new System.Drawing.Point(218, 112);
+            this.pFilterValue.Name = "pFilterValue";
+            this.pFilterValue.Size = new System.Drawing.Size(251, 64);
+            this.pFilterValue.TabIndex = 12;
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.FlatAppearance.BorderSize = 0;
+            this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSearch.Image = global::DVLD_Presentation.Properties.Resources.search;
+            this.btnSearch.Location = new System.Drawing.Point(192, 15);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(42, 41);
+            this.btnSearch.TabIndex = 13;
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // mtxtFilter
+            // 
+            this.mtxtFilter.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mtxtFilter.Location = new System.Drawing.Point(6, 14);
+            this.mtxtFilter.Name = "mtxtFilter";
+            this.mtxtFilter.Size = new System.Drawing.Size(165, 33);
+            this.mtxtFilter.TabIndex = 13;
+            // 
             // btnClose
             // 
             this.btnClose.Image = global::DVLD_Presentation.Properties.Resources.cancel;
@@ -244,17 +377,17 @@
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // button1
+            // btnAddNewPerson
             // 
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Image = global::DVLD_Presentation.Properties.Resources.user;
-            this.button1.Location = new System.Drawing.Point(1172, 111);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(65, 65);
-            this.button1.TabIndex = 4;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnAddNewPerson.FlatAppearance.BorderSize = 0;
+            this.btnAddNewPerson.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddNewPerson.Image = global::DVLD_Presentation.Properties.Resources.user;
+            this.btnAddNewPerson.Location = new System.Drawing.Point(1172, 111);
+            this.btnAddNewPerson.Name = "btnAddNewPerson";
+            this.btnAddNewPerson.Size = new System.Drawing.Size(65, 65);
+            this.btnAddNewPerson.TabIndex = 4;
+            this.btnAddNewPerson.UseVisualStyleBackColor = true;
+            this.btnAddNewPerson.Click += new System.EventHandler(this.btnAddNewPerson_Click);
             // 
             // btnRefresh
             // 
@@ -278,21 +411,18 @@
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
             // PeopleManagementForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1249, 635);
+            this.Controls.Add(this.pFilterValue);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.cbFilter);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.lbRecoreds);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnAddNewPerson);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label1);
@@ -303,6 +433,10 @@
             this.Text = "PeopleManagementForm";
             this.Load += new System.EventHandler(this.PeopleManagementForm_Load);
             this.cmManagePeople.ResumeLayout(false);
+            this.pGendorFilter.ResumeLayout(false);
+            this.pGendorFilter.PerformLayout();
+            this.pFilterValue.ResumeLayout(false);
+            this.pFilterValue.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -326,7 +460,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnRefresh;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnAddNewPerson;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lbRecoreds;
         private System.Windows.Forms.Button btnClose;
@@ -338,5 +472,15 @@
         private System.Windows.Forms.ToolStripMenuItem tsmSendEmail;
         private System.Windows.Forms.ToolStripMenuItem tsmPhoneCall;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ComboBox cbFilter;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Panel pGendorFilter;
+        private System.Windows.Forms.RadioButton rbFemale;
+        private System.Windows.Forms.RadioButton rbMale;
+        private System.Windows.Forms.ComboBox cbNationality;
+        private System.Windows.Forms.Panel pFilterValue;
+        private System.Windows.Forms.MaskedTextBox mtxtFilter;
+        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }

@@ -86,6 +86,9 @@
     <Compile Include="Forms\TestFormcs.Designer.cs">
       <DependentUpon>TestFormcs.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Forms\AddEditPersonForm.ar-JO.resx">
+      <DependentUpon>AddEditPersonForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddEditPersonForm.resx">
       <DependentUpon>AddEditPersonForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -195,6 +198,30 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\country.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\address.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gender.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\age.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DVLD_Background2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DVLD_Background1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\changePassword.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logout.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

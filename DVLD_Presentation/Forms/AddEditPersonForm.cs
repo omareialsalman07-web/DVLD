@@ -31,13 +31,19 @@ namespace DVLD_Presentation.Forms
 
         private void loadCountries()
         {
-            DataTable dtCountries = CountryService.GetAllCountries_ToTable();
+            try
+            {
+                DataTable dtCountries = CountryService.GetAllCountries_ToTable();
 
-            cbCountries.DataSource = dtCountries;
-            cbCountries.DisplayMember = "CountryName"; // The column name you want to show in the dropdown
-            cbCountries.ValueMember = "CountryID";   // The underlying column name for the ID
+                cbCountries.DataSource = dtCountries;
+                cbCountries.DisplayMember = "CountryName"; // The column name you want to show in the dropdown
+                cbCountries.ValueMember = "CountryID";   // The underlying column name for the ID
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
-
         private void setupConmponents()
         {
             dateTimePicker.MaxDate = DateTime.Today.AddYears(-18);

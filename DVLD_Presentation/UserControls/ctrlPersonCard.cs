@@ -8,12 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DVLD_Business;
+using DVLD_Presentation.Forms;
 using DVLD_Presentation.Properties;
 
 namespace DVLD_Presentation
 {
     public partial class ctrlPersonCard : UserControl
     {
+        Person Person = null;
         public ctrlPersonCard()
         {
             InitializeComponent();
@@ -21,23 +23,23 @@ namespace DVLD_Presentation
 
         public void LoadPerson(int personID)
         {
-            Person person = PersonService.Find(personID);
-            if (person == null)
+            Person = PersonService.Find(personID);
+            if (Person == null)
                 return;
 
-            lbID.Text = person.ID.ToString();
-            lbFullName.Text = person.FullName().ToString();
-            lbNationalNo.Text = person.NationalNo.ToString();
-            lbGendor.Text = person.Gendor.ToString();
-            lbEmail.Text = person.Email.ToString();
-            lbAddress.Text = person.Address.ToString();
-            lbBirthOfDate.Text = person.DateOfBirth.ToString();
-            lbPhone.Text = person.Phone.ToString();
-            lbAge.Text = person.Age().ToString();
+            lbID.Text = Person.ID.ToString();
+            lbFullName.Text = Person.FullName().ToString();
+            lbNationalNo.Text = Person.NationalNo.ToString();
+            lbGendor.Text = Person.Gendor.ToString();
+            lbEmail.Text = Person.Email.ToString();
+            lbAddress.Text = Person.Address.ToString();
+            lbBirthOfDate.Text = Person.DateOfBirth.ToString();
+            lbPhone.Text = Person.Phone.ToString();
+            lbAge.Text = Person.Age().ToString();
 
-            if(String.IsNullOrEmpty(person.ImagePath))
+            if(String.IsNullOrEmpty(Person.ImagePath))
             {
-                switch(person.Gendor)
+                switch(Person.Gendor)
                 {
                     case Person.enGendor.Male:
                         pictureBox1.Image = Resources.Male;
@@ -49,7 +51,7 @@ namespace DVLD_Presentation
 
                 try
                 {
-                    lbCountry.Text = CountryService.Find(person.NationalityCountryID).Name;
+                    lbCountry.Text = CountryService.Find(Person.NationalityCountryID).Name;
                 }
                 catch (Exception ex)
                 {
@@ -60,6 +62,12 @@ namespace DVLD_Presentation
         private void ctrlPersonCard_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void lkbEditPersonInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Form form = new AddEditPersonForm(AddEditPersonForm.enMode.eEdit, Person);
+            form.ShowDialog();
         }
     }
 }
