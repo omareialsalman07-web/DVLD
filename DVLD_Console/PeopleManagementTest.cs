@@ -24,6 +24,7 @@ namespace DVLD_Console
             Console.WriteLine("Third Name             : " + person.ThirdName);
             Console.WriteLine("Last Name              : " + person.LastName);
             Console.WriteLine("Birth of Date          : " + person.DateOfBirth.ToShortDateString());
+
             Console.WriteLine("Gender                 : " + person.Gendor);
             Console.WriteLine("Phone                  : " + person.Phone);
             Console.WriteLine("Email                  : " + person.Email);
@@ -83,7 +84,7 @@ namespace DVLD_Console
                 Console.WriteLine("Error : " + ex.ToString());
             }
         }
-        internal static void TestGetAllPeople(PersonService.enFilter filterBy, object value)
+        internal static void TestGetAllPeople(PersonService.enFilter filterBy, string value)
         {
             try
             {
@@ -103,11 +104,11 @@ namespace DVLD_Console
                     foreach (System.Data.DataRow row in dtPeople.Rows)
                     {
                         Console.WriteLine(string.Format("{0,-5} | {1,-12} | {2,-15} | {3,-15} | {4,-20}",
-                            row["PersonID"],
-                            row["NationalNo"],
-                            row["FirstName"],
-                            row["LastName"],
-                            row["Email"] == DBNull.Value ? "N/A" : row["Email"]
+                        row["PersonID"],
+                        row["NationalNo"],
+                        row["FirstName"],
+                        row["LastName"],
+                        row["Email"] == DBNull.Value ? "N/A" : row["Email"]
                         ));
                     }
                 }

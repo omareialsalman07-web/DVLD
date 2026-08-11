@@ -23,10 +23,12 @@ namespace DVLD_Console
             //PeopleManagementTest.TestUpdatePerson(2);
             //PeopleManagementTest.TestDeletePerson(2);
             //PeopleManagementTest.TestGetAllPeople();
-            PeopleManagementTest.TestGetAllPeople(PersonService.enFilter.NationalityCountryID, "90");
+            //PeopleManagementTest.TestGetAllPeople(PersonService.enFilter.NationalityCountryID, "90");
 
             //CountriesTest.testGetCountryByID(90);
             //CountriesTest.testGetAllCountries();
+
+            UsersTest.TestCreateUser(1007, "Yz", "1234");
 
 
             Console.ReadLine();
