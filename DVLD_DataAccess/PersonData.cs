@@ -109,7 +109,6 @@ namespace DVLD_DataAccess
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
 
-            // 2. Safely concatenate the validated column name, but use a parameter for the value
             string query = $"SELECT * FROM People WHERE [{ColumnName}] LIKE '%' + @Value + '%';";
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@ColumnName", ColumnName);
@@ -330,8 +329,8 @@ namespace DVLD_DataAccess
             }
             catch (Exception ex)
             {
-                // Handle or log exception (e.g., foreign key violation if the person is linked to a Local Driving License Application)
                 rowsAffected = 0;
+                throw;
             }
             finally
             {
