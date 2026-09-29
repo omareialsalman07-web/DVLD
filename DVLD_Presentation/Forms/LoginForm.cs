@@ -41,6 +41,12 @@ namespace DVLD_Presentation.Forms
                     return;
                 }
 
+                if (!user.IsActive)
+                {
+                    MessageBox.Show("This user is not acitive, contact your admin", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 Form mainForm = new MainForm(user, this);
                 mainForm.Show();
                 this.Hide();
