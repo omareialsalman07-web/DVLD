@@ -28,8 +28,14 @@ namespace DVLD_Console
             //CountriesTest.testGetCountryByID(90);
             //CountriesTest.testGetAllCountries();
 
-            UsersTest.TestCreateUser(1007, "Yz", "1234");
-
+            //UsersTest.TestCreateUser(1007, "Yz", "1234", true);
+            ///UsersTest.TestSetActive(1, true);
+            //UsersTest.TestGetPerson(1);
+            //UsersTest.TestIsExistByUserName("Yz");
+            //UsersTest.TestIsExistByID(1);
+            //UsersTest.TestUpdateUser(1);
+            //UsersTest.TestDeleteUser(1);
+            //UsersTest.TestGetAllUsers();
 
             Console.ReadLine();
         }
