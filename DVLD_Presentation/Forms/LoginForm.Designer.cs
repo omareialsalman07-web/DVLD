@@ -36,6 +36,8 @@
             this.btnLogin = new System.Windows.Forms.Button();
             this.txb_UserName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnShowPass = new System.Windows.Forms.Button();
+            this.btnHidePass = new System.Windows.Forms.Button();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -67,7 +69,7 @@
             this.chb_rememberMe.Location = new System.Drawing.Point(432, 394);
             this.chb_rememberMe.Name = "chb_rememberMe";
             this.chb_rememberMe.Size = new System.Drawing.Size(162, 29);
-            this.chb_rememberMe.TabIndex = 31;
+            this.chb_rememberMe.TabIndex = 28;
             this.chb_rememberMe.Text = "Remember Me";
             this.chb_rememberMe.UseVisualStyleBackColor = true;
             // 
@@ -79,7 +81,8 @@
             this.txt_Pass.Location = new System.Drawing.Point(425, 329);
             this.txt_Pass.Name = "txt_Pass";
             this.txt_Pass.Size = new System.Drawing.Size(286, 34);
-            this.txt_Pass.TabIndex = 30;
+            this.txt_Pass.TabIndex = 27;
+            this.txt_Pass.UseSystemPasswordChar = true;
             // 
             // label2
             // 
@@ -100,7 +103,7 @@
             this.btnLogin.Location = new System.Drawing.Point(432, 446);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(252, 51);
-            this.btnLogin.TabIndex = 27;
+            this.btnLogin.TabIndex = 29;
             this.btnLogin.Text = "Login";
             this.btnLogin.UseVisualStyleBackColor = false;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
@@ -125,6 +128,28 @@
             this.label1.Size = new System.Drawing.Size(541, 32);
             this.label1.TabIndex = 25;
             this.label1.Text = "Drivers And Vehicles Liseince Department";
+            // 
+            // btnShowPass
+            // 
+            this.btnShowPass.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnShowPass.Image = global::DVLD_Presentation.Properties.Resources.show;
+            this.btnShowPass.Location = new System.Drawing.Point(718, 357);
+            this.btnShowPass.Name = "btnShowPass";
+            this.btnShowPass.Size = new System.Drawing.Size(37, 24);
+            this.btnShowPass.TabIndex = 36;
+            this.btnShowPass.UseVisualStyleBackColor = true;
+            this.btnShowPass.Click += new System.EventHandler(this.btnShowPass_Click);
+            // 
+            // btnHidePass
+            // 
+            this.btnHidePass.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHidePass.Image = global::DVLD_Presentation.Properties.Resources.hide;
+            this.btnHidePass.Location = new System.Drawing.Point(718, 357);
+            this.btnHidePass.Name = "btnHidePass";
+            this.btnHidePass.Size = new System.Drawing.Size(37, 24);
+            this.btnHidePass.TabIndex = 37;
+            this.btnHidePass.UseVisualStyleBackColor = true;
+            this.btnHidePass.Click += new System.EventHandler(this.btnHidePass_Click);
             // 
             // pictureBox3
             // 
@@ -160,7 +185,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(782, 553);
+            this.ClientSize = new System.Drawing.Size(789, 553);
+            this.Controls.Add(this.btnHidePass);
+            this.Controls.Add(this.btnShowPass);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBox3);
@@ -196,5 +223,7 @@
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.TextBox txb_UserName;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnShowPass;
+        private System.Windows.Forms.Button btnHidePass;
     }
 }

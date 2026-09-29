@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DVLD_Settings.cs" />
     <Compile Include="Forms\AddEditPersonForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -234,6 +235,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\dvld_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\show.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\hide.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
