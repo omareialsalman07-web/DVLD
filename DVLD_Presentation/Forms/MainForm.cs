@@ -8,15 +8,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DVLD_Business;
 
 namespace DVLD_Presentation
 {
     public partial class MainForm : Form
     {
-
-        public MainForm()
+        private User CurrnetUser;
+        LoginForm loginForm;
+        public MainForm(User currnetUser, LoginForm loginForm)
         {
             InitializeComponent();
+
+            CurrnetUser = currnetUser;
+            this.loginForm = loginForm;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -35,6 +40,14 @@ namespace DVLD_Presentation
 
             peopleManagementForm.Show();
             peopleManagementForm.BringToFront();
+        }
+
+        private void signOutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (loginForm != null)
+                loginForm.Show();
+
+            this.Close();
         }
     }
 }
