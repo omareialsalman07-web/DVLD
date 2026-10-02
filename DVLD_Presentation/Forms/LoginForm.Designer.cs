@@ -36,12 +36,12 @@
             this.btnLogin = new System.Windows.Forms.Button();
             this.txb_UserName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnShowPass = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.btnHidePass = new System.Windows.Forms.Button();
+            this.btnShowPass = new System.Windows.Forms.Button();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -131,17 +131,18 @@
             this.label1.TabIndex = 25;
             this.label1.Text = "Drivers And Vehicles Liseince Department";
             // 
-            // btnShowPass
+            // button1
             // 
-            this.btnShowPass.FlatAppearance.BorderSize = 0;
-            this.btnShowPass.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnShowPass.Image = global::DVLD_Presentation.Properties.Resources.show;
-            this.btnShowPass.Location = new System.Drawing.Point(718, 357);
-            this.btnShowPass.Name = "btnShowPass";
-            this.btnShowPass.Size = new System.Drawing.Size(37, 24);
-            this.btnShowPass.TabIndex = 36;
-            this.btnShowPass.UseVisualStyleBackColor = true;
-            this.btnShowPass.Click += new System.EventHandler(this.btnShowPass_Click);
+            this.button1.BackgroundImage = global::DVLD_Presentation.Properties.Resources.close;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Location = new System.Drawing.Point(702, 12);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(65, 49);
+            this.button1.TabIndex = 38;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // btnHidePass
             // 
@@ -154,6 +155,18 @@
             this.btnHidePass.TabIndex = 37;
             this.btnHidePass.UseVisualStyleBackColor = true;
             this.btnHidePass.Click += new System.EventHandler(this.btnHidePass_Click);
+            // 
+            // btnShowPass
+            // 
+            this.btnShowPass.FlatAppearance.BorderSize = 0;
+            this.btnShowPass.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnShowPass.Image = global::DVLD_Presentation.Properties.Resources.show;
+            this.btnShowPass.Location = new System.Drawing.Point(718, 357);
+            this.btnShowPass.Name = "btnShowPass";
+            this.btnShowPass.Size = new System.Drawing.Size(37, 24);
+            this.btnShowPass.TabIndex = 36;
+            this.btnShowPass.UseVisualStyleBackColor = true;
+            this.btnShowPass.Click += new System.EventHandler(this.btnShowPass_Click);
             // 
             // pictureBox3
             // 
@@ -185,21 +198,9 @@
             this.pictureBox1.TabIndex = 28;
             this.pictureBox1.TabStop = false;
             // 
-            // button1
-            // 
-            this.button1.BackgroundImage = global::DVLD_Presentation.Properties.Resources.close;
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(702, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(65, 49);
-            this.button1.TabIndex = 38;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // LoginForm
             // 
+            this.AcceptButton = this.btnLogin;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -220,6 +221,7 @@
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "LoginForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();

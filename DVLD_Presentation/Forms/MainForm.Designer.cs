@@ -107,6 +107,7 @@
             this.currenUserInfoToolStripMenuItem.Name = "currenUserInfoToolStripMenuItem";
             this.currenUserInfoToolStripMenuItem.Size = new System.Drawing.Size(250, 32);
             this.currenUserInfoToolStripMenuItem.Text = "Curren User Info";
+            this.currenUserInfoToolStripMenuItem.Click += new System.EventHandler(this.currenUserInfoToolStripMenuItem_Click);
             // 
             // changePassordToolStripMenuItem
             // 
@@ -114,6 +115,7 @@
             this.changePassordToolStripMenuItem.Name = "changePassordToolStripMenuItem";
             this.changePassordToolStripMenuItem.Size = new System.Drawing.Size(250, 32);
             this.changePassordToolStripMenuItem.Text = "Change Password";
+            this.changePassordToolStripMenuItem.Click += new System.EventHandler(this.changePassordToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 

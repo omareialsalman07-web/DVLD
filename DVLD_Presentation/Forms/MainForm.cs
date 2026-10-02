@@ -49,5 +49,17 @@ namespace DVLD_Presentation
 
             this.Close();
         }
+
+        private void currenUserInfoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form userInfoForm = new UserCardForm(CurrnetUser);
+            userInfoForm.Show();
+        }
+
+        private void changePassordToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form changePasswordForm = new ChangePasswordForm(CurrnetUser);
+            changePasswordForm.Show();
+        }
     }
 }

@@ -39,8 +39,6 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.lbFullName = new System.Windows.Forms.Label();
-            this.btnEditImage = new System.Windows.Forms.Button();
-            this.btnRemoveImage = new System.Windows.Forms.Button();
             this.lbGendor = new System.Windows.Forms.Label();
             this.lbEmail = new System.Windows.Forms.Label();
             this.lbAddress = new System.Windows.Forms.Label();
@@ -186,24 +184,6 @@
             this.lbFullName.Size = new System.Drawing.Size(60, 25);
             this.lbFullName.TabIndex = 11;
             this.lbFullName.Text = "????";
-            // 
-            // btnEditImage
-            // 
-            this.btnEditImage.Location = new System.Drawing.Point(978, 263);
-            this.btnEditImage.Name = "btnEditImage";
-            this.btnEditImage.Size = new System.Drawing.Size(67, 33);
-            this.btnEditImage.TabIndex = 13;
-            this.btnEditImage.Text = "Edit";
-            this.btnEditImage.UseVisualStyleBackColor = true;
-            // 
-            // btnRemoveImage
-            // 
-            this.btnRemoveImage.Location = new System.Drawing.Point(1049, 263);
-            this.btnRemoveImage.Name = "btnRemoveImage";
-            this.btnRemoveImage.Size = new System.Drawing.Size(67, 33);
-            this.btnRemoveImage.TabIndex = 14;
-            this.btnRemoveImage.Text = "Remove";
-            this.btnRemoveImage.UseVisualStyleBackColor = true;
             // 
             // lbGendor
             // 
@@ -452,8 +432,6 @@
             this.Controls.Add(this.lbAddress);
             this.Controls.Add(this.lbEmail);
             this.Controls.Add(this.lbGendor);
-            this.Controls.Add(this.btnRemoveImage);
-            this.Controls.Add(this.btnEditImage);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lbFullName);
             this.Controls.Add(this.label10);
@@ -498,8 +476,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label lbFullName;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button btnEditImage;
-        private System.Windows.Forms.Button btnRemoveImage;
         private System.Windows.Forms.Label lbGendor;
         private System.Windows.Forms.Label lbEmail;
         private System.Windows.Forms.Label lbAddress;
