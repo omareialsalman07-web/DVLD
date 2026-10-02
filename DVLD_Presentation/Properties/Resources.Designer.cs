@@ -303,6 +303,16 @@ namespace DVLD_Presentation.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap mavis_hopper_p0CFOn8mVuQ_unsplash {
+            get {
+                object obj = ResourceManager.GetObject("mavis-hopper-p0CFOn8mVuQ-unsplash", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap mobile {
             get {
                 object obj = ResourceManager.GetObject("mobile", resourceCulture);

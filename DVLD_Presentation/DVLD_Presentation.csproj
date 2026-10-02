@@ -242,5 +242,8 @@
   <ItemGroup>
     <None Include="Resources\hide.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mavis-hopper-p0CFOn8mVuQ-unsplash.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

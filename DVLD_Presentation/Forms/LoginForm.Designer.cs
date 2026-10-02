@@ -41,6 +41,7 @@
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -91,13 +92,14 @@
             this.label2.ForeColor = System.Drawing.SystemColors.Highlight;
             this.label2.Location = new System.Drawing.Point(467, 127);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(141, 50);
+            this.label2.Size = new System.Drawing.Size(137, 49);
             this.label2.TabIndex = 29;
             this.label2.Text = "Log in";
             // 
             // btnLogin
             // 
             this.btnLogin.BackColor = System.Drawing.SystemColors.Highlight;
+            this.btnLogin.FlatAppearance.BorderSize = 0;
             this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLogin.Location = new System.Drawing.Point(432, 446);
@@ -123,7 +125,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Baskerville Old Face", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label1.Location = new System.Drawing.Point(143, 55);
+            this.label1.Location = new System.Drawing.Point(115, 51);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(541, 32);
             this.label1.TabIndex = 25;
@@ -131,6 +133,7 @@
             // 
             // btnShowPass
             // 
+            this.btnShowPass.FlatAppearance.BorderSize = 0;
             this.btnShowPass.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShowPass.Image = global::DVLD_Presentation.Properties.Resources.show;
             this.btnShowPass.Location = new System.Drawing.Point(718, 357);
@@ -142,6 +145,7 @@
             // 
             // btnHidePass
             // 
+            this.btnHidePass.FlatAppearance.BorderSize = 0;
             this.btnHidePass.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHidePass.Image = global::DVLD_Presentation.Properties.Resources.hide;
             this.btnHidePass.Location = new System.Drawing.Point(718, 357);
@@ -181,11 +185,26 @@
             this.pictureBox1.TabIndex = 28;
             this.pictureBox1.TabStop = false;
             // 
+            // button1
+            // 
+            this.button1.BackgroundImage = global::DVLD_Presentation.Properties.Resources.close;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Location = new System.Drawing.Point(702, 12);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(65, 49);
+            this.button1.TabIndex = 38;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(789, 553);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnHidePass);
             this.Controls.Add(this.btnShowPass);
             this.Controls.Add(this.panel2);
@@ -199,7 +218,7 @@
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.txb_UserName);
             this.Controls.Add(this.label1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "LoginForm";
             this.Text = "Login";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
@@ -225,5 +244,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnShowPass;
         private System.Windows.Forms.Button btnHidePass;
+        private System.Windows.Forms.Button button1;
     }
 }
