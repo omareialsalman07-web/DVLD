@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,8 @@ namespace DVLD_Business
 {
     public static class UserService
     {
+        public enum enFilter { None, UserID, PersonID, FullName, UserName, IsActive };
+
         public static int AddNewUser(in User user)
         {
             int _id = -1;
@@ -64,6 +67,41 @@ namespace DVLD_Business
             }
 
             return usersList;
+        }
+        public static DataTable GetAllUsersForDisplay()
+        {
+            DataTable dt = null;
+
+            try
+            {
+                dt = UserData.GetAllUsersForDisplay();
+            }
+            catch(Exception ex)
+            {
+                dt = null;
+                throw;
+            }
+
+            return dt;
+        }
+        public static DataTable GetAllUsersForDisplay_Like(enFilter filter, string val)
+        {
+            DataTable dt = null;
+
+            try
+            {
+                if(filter == enFilter.None)
+                    dt = UserData.GetAllUsersForDisplay();
+                else
+                    dt = UserData.GetAllUsersForDisplay_Like(filter.ToString(), val);
+            }
+            catch (Exception ex)
+            {
+                dt = null;
+                throw;
+            }
+
+            return dt;
         }
         public static User Find(int userID)
         {

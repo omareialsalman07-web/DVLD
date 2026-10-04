@@ -111,6 +111,87 @@ namespace DVLD_DataAccess
 
             return tb;
         }
+        public static DataTable GetAllUsersForDisplay()
+        {
+            DataTable dt = new DataTable();
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+
+            string query = @"SELECT 
+                                Users.UserID,
+                                Users.PersonID,
+                                People.FirstName + ' ' +
+                                People.SecondName+ ' ' +
+                                ISNULL(People.ThirdName, '') + ' ' +
+                                People.LastName AS FullName,
+                                Users.UserName,
+                                Users.IsActive
+                                FROM Users
+                                INNER JOIN People 
+                                    ON Users.PersonID = People.PersonID;";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            try
+            {
+                connection.Open();
+
+                dt.Load(command.ExecuteReader());
+
+            }
+            catch(Exception ex)
+            {
+                dt = null;
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return dt;
+        }
+        public static DataTable GetAllUsersForDisplay_Like(string ColumnName, string val)
+        {
+            DataTable dt = new DataTable();
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+
+            string query = $@"SELECT * FROM
+                            (
+                                SELECT 
+                                    Users.UserID,
+                                    Users.PersonID,
+                                    People.FirstName + ' ' +
+                                    People.SecondName+ ' ' +
+                                    ISNULL(People.ThirdName, '') + ' ' +
+                                    People.LastName AS FullName,
+                                    Users.UserName,
+                                    Users.IsActive
+                                FROM Users
+                                INNER JOIN People 
+                                    ON Users.PersonID = People.PersonID
+                            ) AS R1 Where [{ColumnName}] LIKE '%' + @Val + '%';";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@Val", val);
+
+            try
+            {
+                connection.Open();
+                dt.Load(command.ExecuteReader());
+
+            }
+            catch (Exception ex)
+            {
+                dt = null;
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return dt;
+        }
         public static bool GetUserByUserID(int UserID, ref int personID, ref string userName, ref string password, ref bool isActive)
         {
             return GetUserBy("UserID", UserID, ref UserID, ref personID, ref userName, ref password, ref isActive);
