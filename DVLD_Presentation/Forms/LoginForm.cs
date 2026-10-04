@@ -60,7 +60,8 @@ namespace DVLD_Presentation.Forms
 
                 _SaveLoginData();
 
-                Form mainForm = new MainForm(user, this);
+                Form mainForm = new MainForm(this);
+                DVLD_Settings.Login(user);
                 mainForm.Show();
                 this.Hide();
             }

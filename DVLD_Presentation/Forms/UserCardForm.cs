@@ -13,22 +13,34 @@ namespace DVLD_Presentation.Forms
 {
     public partial class UserCardForm : Form
     {
-        User _User;
-        public UserCardForm(User user)
+        int UserID;
+        public UserCardForm()
         {
             InitializeComponent();
-            _User = user;
+            UserID = -1;
+        }
+        public UserCardForm(int userID = -1)
+        {
+            InitializeComponent();
+            UserID = userID;
         }
 
         private void UserCardForm_Load(object sender, EventArgs e)
         {
-            if(_User == null)
+            if (UserID == -1)
             {
-                MessageBox.Show("Can't load user information!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+                if (DVLD_Settings.GetCurrnetUser() == null)
+                {
+                    MessageBox.Show("Can't load user information!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-            ctrlUserCard1.LoadUser(_User);
+                ctrlUserCard1.LoadUser(DVLD_Settings.GetCurrnetUser());
+            }
+            else
+            {
+                ctrlUserCard1.LoadUser(UserID);
+            }
         }
     }
 }

@@ -13,12 +13,16 @@ namespace DVLD_Presentation.Forms
 {
     public partial class ChangePasswordForm : Form
     {
-        User _User;
-
-        public ChangePasswordForm(User _user)
+        private User _User;
+        public ChangePasswordForm()
         {
             InitializeComponent();
-            _User = _user;
+            _User = DVLD_Settings.GetCurrnetUser();
+        }
+        public ChangePasswordForm(User user)
+        {
+            InitializeComponent();
+            _User = user;
         }
 
         private void ChangePasswordForm_Load(object sender, EventArgs e)
@@ -51,7 +55,7 @@ namespace DVLD_Presentation.Forms
             {
                 _ProvideError(sender, "Current password can't be blank!");
             }
-            else if(txb_CurrentPass.Text != _User.Password)
+            else if(txb_CurrentPass.Text != DVLD_Settings.GetCurrnetUser().Password)
             {
                 _ProvideError(sender, "Current Password Is Incorrenct!");
             }
@@ -98,7 +102,7 @@ namespace DVLD_Presentation.Forms
                 return;
             }
 
-            if (txb_CurrentPass.Text != _User.Password)
+            if (txb_CurrentPass.Text != DVLD_Settings.GetCurrnetUser().Password)
             {
                 MessageBox.Show("Current Password is wrong!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -110,8 +114,8 @@ namespace DVLD_Presentation.Forms
                 return;
             }
 
-            _User.Password = txtNewPass.Text;
-            if (UserService.UpdateUser(_User))
+            DVLD_Settings.GetCurrnetUser().Password = txtNewPass.Text;
+            if (UserService.UpdateUser(DVLD_Settings.GetCurrnetUser()))
             {
                 DialogResult dialogResult = MessageBox.Show("Updated Password Successfully!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if(dialogResult == DialogResult.OK)

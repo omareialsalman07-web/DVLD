@@ -14,13 +14,11 @@ namespace DVLD_Presentation
 {
     public partial class MainForm : Form
     {
-        private User CurrnetUser;
         LoginForm loginForm;
-        public MainForm(User currnetUser, LoginForm loginForm)
+        public MainForm(LoginForm loginForm)
         {
             InitializeComponent();
 
-            CurrnetUser = currnetUser;
             this.loginForm = loginForm;
         }
 
@@ -39,7 +37,6 @@ namespace DVLD_Presentation
             }
 
             peopleManagementForm.Show();
-            peopleManagementForm.BringToFront();
         }
 
         private void signOutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -47,19 +44,32 @@ namespace DVLD_Presentation
             if (loginForm != null)
                 loginForm.Show();
 
+            DVLD_Settings.Logout();
             this.Close();
         }
 
         private void currenUserInfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form userInfoForm = new UserCardForm(CurrnetUser);
+            Form userInfoForm = new UserCardForm();
             userInfoForm.Show();
         }
 
         private void changePassordToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form changePasswordForm = new ChangePasswordForm(CurrnetUser);
+            Form changePasswordForm = new ChangePasswordForm();
             changePasswordForm.Show();
+        }
+
+        Form usersManagementForm;
+        private void usersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (usersManagementForm == null || usersManagementForm.IsDisposed)
+            {
+                usersManagementForm = new UsersManagmentForm();
+                usersManagementForm.MdiParent = this;
+            }
+
+            usersManagementForm.Show();
         }
     }
 }
