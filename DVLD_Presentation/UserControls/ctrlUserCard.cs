@@ -17,11 +17,27 @@ namespace DVLD_Presentation.UserControls
         {
             InitializeComponent();
         }
+        public void LoadUser(int userID)
+        {
+            User user = null;
+            try
+            {
+                user = UserService.Find(userID);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            LoadUser(user);
+        }
         public void LoadUser(User user)
         {
             if (user == null)
+            {
+                MessageBox.Show("Can't load a user!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
-
+            }
             ctrlPersonCard1.LoadPerson(user.PersonID);
 
             lb_UserID.Text = user.ID.ToString();

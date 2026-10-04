@@ -21,11 +21,12 @@ namespace DVLD_Presentation
             InitializeComponent();
         }
 
-        public void LoadPerson(int personID)
+        private void _LoadPerson(Person person)
         {
-            Person = PersonService.Find(personID);
-            if (Person == null)
+            if (person == null)
                 return;
+
+            Person = person;
 
             lbID.Text = Person.ID.ToString();
             lbFullName.Text = Person.FullName().ToString();
@@ -58,6 +59,18 @@ namespace DVLD_Presentation
                     MessageBox.Show("Error : " + ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+        public void LoadPerson(int personID)
+        {
+            Person = PersonService.Find(personID);
+            if (Person == null)
+                return;
+
+            _LoadPerson(Person);
+        }
+        public void LoadPerson(Person person)
+        {
+            _LoadPerson(person);
         }
         private void ctrlPersonCard_Load(object sender, EventArgs e)
         {
