@@ -155,7 +155,7 @@
             // cmManagePeople
             // 
             this.cmManagePeople.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmManagePeople.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.cmManagePeople.ImageScalingSize = new System.Drawing.Size(35, 35);
             this.cmManagePeople.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmPersonDetails,
             this.tsmAddNewPerson,
@@ -165,14 +165,14 @@
             this.tsmSendEmail,
             this.tsmPhoneCall});
             this.cmManagePeople.Name = "cmManagePeople";
-            this.cmManagePeople.Size = new System.Drawing.Size(192, 166);
+            this.cmManagePeople.Size = new System.Drawing.Size(230, 290);
             // 
             // tsmPersonDetails
             // 
             this.tsmPersonDetails.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tsmPersonDetails.Image = global::DVLD_Presentation.Properties.Resources.details;
             this.tsmPersonDetails.Name = "tsmPersonDetails";
-            this.tsmPersonDetails.Size = new System.Drawing.Size(191, 26);
+            this.tsmPersonDetails.Size = new System.Drawing.Size(229, 42);
             this.tsmPersonDetails.Text = "Show Details";
             this.tsmPersonDetails.Click += new System.EventHandler(this.tsmPersonDetails_Click);
             // 
@@ -180,7 +180,7 @@
             // 
             this.tsmAddNewPerson.Image = global::DVLD_Presentation.Properties.Resources.user;
             this.tsmAddNewPerson.Name = "tsmAddNewPerson";
-            this.tsmAddNewPerson.Size = new System.Drawing.Size(191, 26);
+            this.tsmAddNewPerson.Size = new System.Drawing.Size(229, 42);
             this.tsmAddNewPerson.Text = "Add New Person";
             this.tsmAddNewPerson.Click += new System.EventHandler(this.tsmAddNewPerson_Click);
             // 
@@ -188,7 +188,7 @@
             // 
             this.tsmEdit.Image = global::DVLD_Presentation.Properties.Resources.edit;
             this.tsmEdit.Name = "tsmEdit";
-            this.tsmEdit.Size = new System.Drawing.Size(191, 26);
+            this.tsmEdit.Size = new System.Drawing.Size(229, 42);
             this.tsmEdit.Text = "Edit";
             this.tsmEdit.Click += new System.EventHandler(this.tsmEdit_Click);
             // 
@@ -196,27 +196,27 @@
             // 
             this.tsmDelete.Image = global::DVLD_Presentation.Properties.Resources.delete;
             this.tsmDelete.Name = "tsmDelete";
-            this.tsmDelete.Size = new System.Drawing.Size(191, 26);
+            this.tsmDelete.Size = new System.Drawing.Size(229, 42);
             this.tsmDelete.Text = "Delete";
             this.tsmDelete.Click += new System.EventHandler(this.tsmDelete_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(188, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(226, 6);
             // 
             // tsmSendEmail
             // 
             this.tsmSendEmail.Image = global::DVLD_Presentation.Properties.Resources.mail;
             this.tsmSendEmail.Name = "tsmSendEmail";
-            this.tsmSendEmail.Size = new System.Drawing.Size(191, 26);
+            this.tsmSendEmail.Size = new System.Drawing.Size(229, 42);
             this.tsmSendEmail.Text = "Send Email";
             // 
             // tsmPhoneCall
             // 
             this.tsmPhoneCall.Image = global::DVLD_Presentation.Properties.Resources.mobile;
             this.tsmPhoneCall.Name = "tsmPhoneCall";
-            this.tsmPhoneCall.Size = new System.Drawing.Size(191, 26);
+            this.tsmPhoneCall.Size = new System.Drawing.Size(229, 42);
             this.tsmPhoneCall.Text = "Phone Call";
             // 
             // label1

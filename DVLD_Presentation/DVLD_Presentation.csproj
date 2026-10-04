@@ -48,6 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\AddEditUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddEditUser.Designer.cs">
+      <DependentUpon>AddEditUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="DVLD_Settings.cs" />
     <Compile Include="Forms\AddEditPersonForm.cs">
       <SubType>Form</SubType>
@@ -85,6 +91,17 @@
     <Compile Include="Forms\PersonCardForm.Designer.cs">
       <DependentUpon>PersonCardForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\UsersManagmentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\UsersManagmentForm.Designer.cs">
+      <DependentUpon>UsersManagmentForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ctrlPersonCard.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -111,6 +128,9 @@
     <Compile Include="UserControls\ctrlUserCard.Designer.cs">
       <DependentUpon>ctrlUserCard.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Forms\AddEditUser.resx">
+      <DependentUpon>AddEditUser.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddEditPersonForm.ar-JO.resx">
       <DependentUpon>AddEditPersonForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -132,6 +152,9 @@
     <EmbeddedResource Include="Forms\UserCardForm.resx">
       <DependentUpon>UserCardForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UsersManagmentForm.resx">
+      <DependentUpon>UsersManagmentForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ctrlPersonCard.resx">
       <DependentUpon>ctrlPersonCard.cs</DependentUpon>
     </EmbeddedResource>
@@ -140,14 +163,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="UserControls\ctrlUserCard.resx">
       <DependentUpon>ctrlUserCard.cs</DependentUpon>
     </EmbeddedResource>
@@ -271,6 +289,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\mavis-hopper-p0CFOn8mVuQ-unsplash.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\next.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\next1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\back-button.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\new-person.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
