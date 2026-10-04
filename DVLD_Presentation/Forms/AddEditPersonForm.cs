@@ -15,6 +15,9 @@ namespace DVLD_Presentation.Forms
 {
     public partial class AddEditPersonForm : Form
     {
+        public delegate void OnCreatePersonFinish(int personID);
+        public OnCreatePersonFinish onCreatePersonFinish;
+
         public enum enMode { eAddNew, eEdit }
         enMode _Mode;
 
@@ -134,9 +137,11 @@ namespace DVLD_Presentation.Forms
 
             try
             {
-                if (PersonService.AddNewPerson(person) != -1)
+                int personID;
+                if ((personID =PersonService.AddNewPerson(person)) != -1)
                 {
                     MessageBox.Show("Added new person successfully!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    onCreatePersonFinish?.Invoke(personID);
                     Close();
                 }
                 else
