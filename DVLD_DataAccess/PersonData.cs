@@ -12,7 +12,7 @@ namespace DVLD_DataAccess
 {
     public static class PersonData
     {
-        public static bool GetPersonByID(int ID, ref string NationalNo, ref string FirstName, ref string SecondName,
+        private static bool GetPersonBy(string column, object val, ref int ID, ref string NationalNo, ref string FirstName, ref string SecondName,
             ref string ThirdName, ref string LastName, ref DateTime DateOfBirth, ref int Gendor, ref string Address,
             ref string Phone, ref string Email, ref int NationalityCountryID, ref string ImagePath)
         {
@@ -20,9 +20,9 @@ namespace DVLD_DataAccess
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
 
-            string query = "SELECT * FROM People WHERE PersonID = @ID;";
+            string query = $"SELECT * FROM People WHERE {column} = @Val;";
             SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@ID", ID);
+            command.Parameters.AddWithValue("@Val", val);
             try
             {
                 connection.Open();
@@ -30,6 +30,7 @@ namespace DVLD_DataAccess
                 SqlDataReader reader = command.ExecuteReader();
                 if(reader.Read())
                 {
+                    ID = Convert.ToInt32(reader["PersonID"]);
                     NationalNo = (string)reader["NationalNo"];
                     FirstName = (string)reader["FirstName"];
                     SecondName = (string)reader["SecondName"];
@@ -72,6 +73,22 @@ namespace DVLD_DataAccess
             }
 
             return found;
+        }
+        public static bool GetPersonByID(int ID, ref string NationalNo, ref string FirstName, ref string SecondName,
+            ref string ThirdName, ref string LastName, ref DateTime DateOfBirth, ref int Gendor, ref string Address,
+            ref string Phone, ref string Email, ref int NationalityCountryID, ref string ImagePath)
+        {
+            return GetPersonBy("PersonID", ID, ref ID, ref NationalNo, ref FirstName, ref SecondName,
+                ref ThirdName, ref LastName, ref DateOfBirth, ref Gendor, 
+                ref Address, ref Phone, ref Email, ref NationalityCountryID, ref ImagePath);
+        }
+        public static bool GetPersonByNationNo(string NationalNo, ref int ID, ref string FirstName, ref string SecondName,
+            ref string ThirdName, ref string LastName, ref DateTime DateOfBirth, ref int Gendor, ref string Address,
+            ref string Phone, ref string Email, ref int NationalityCountryID, ref string ImagePath)
+        {
+            return GetPersonBy("NationalNo", NationalNo, ref ID, ref NationalNo, ref FirstName, ref SecondName,
+                ref ThirdName, ref LastName, ref DateOfBirth, ref Gendor,
+                ref Address, ref Phone, ref Email, ref NationalityCountryID, ref ImagePath);
         }
         public static DataTable GetAllPeople()
         {

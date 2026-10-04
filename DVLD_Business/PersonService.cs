@@ -40,6 +40,33 @@ namespace DVLD_Business
 
             return person;
         }
+        public static Person Find(string NationalNo)
+        {
+            Person person = null;
+
+            int ID = -1;
+            string FirstName = "", SecondName = "", ThirdName = "", LastName = "", Address = "",
+                Phone = "", Email = "", ImagePath = "";
+            DateTime DateOfBirth= DateTime.Now;  
+            int Gendor = -1, NationalityCountryID = -1;
+
+            try
+            {
+                if(PersonData.GetPersonByNationNo(NationalNo, ref ID, ref FirstName, ref SecondName, ref ThirdName, ref LastName,
+                    ref DateOfBirth, ref Gendor, ref Address, ref Phone, ref Email, ref NationalityCountryID, ref ImagePath))
+                {
+                    person = new Person(ID, NationalNo, FirstName, SecondName, ThirdName, LastName, DateOfBirth,
+                        (Person.enGendor)Gendor, Address, Phone, Email, NationalityCountryID, ImagePath);
+                }
+            }
+            catch
+            {
+                person = null;
+                throw;
+            }
+
+            return person;
+        }
         public static DataTable GetAllPeople_ToTable()
         {
             DataTable data = null;
