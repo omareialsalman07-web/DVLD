@@ -16,9 +16,18 @@ namespace DVLD_Presentation
         {
             string localDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             localDataPath = Path.Combine(localDataPath, "DVLD");
-            Directory.CreateDirectory(localDataPath);
+            Directory.CreateDirectory(localDataPath); // If already existed nothing happen
 
             return localDataPath;
+        }
+
+        internal static string GetPeoplePicturePath()
+        {
+            // path for images
+            string peoplePath = Path.Combine(GetLocalDataPath(), "People");
+            Directory.CreateDirectory(peoplePath); // If already existed nothing happen
+
+            return peoplePath;
         }
 
         public static User GetCurrnetUser() { return CurrentUser; }

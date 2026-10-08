@@ -60,7 +60,7 @@
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.PersonImage = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
@@ -70,7 +70,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PersonImage)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -398,14 +398,14 @@
             this.pictureBox4.TabIndex = 55;
             this.pictureBox4.TabStop = false;
             // 
-            // pictureBox1
+            // PersonImage
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(978, 120);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(138, 137);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 12;
-            this.pictureBox1.TabStop = false;
+            this.PersonImage.Location = new System.Drawing.Point(978, 120);
+            this.PersonImage.Name = "PersonImage";
+            this.PersonImage.Size = new System.Drawing.Size(138, 137);
+            this.PersonImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PersonImage.TabIndex = 12;
+            this.PersonImage.TabStop = false;
             // 
             // ctrlPersonCard
             // 
@@ -432,7 +432,7 @@
             this.Controls.Add(this.lbAddress);
             this.Controls.Add(this.lbEmail);
             this.Controls.Add(this.lbGendor);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.PersonImage);
             this.Controls.Add(this.lbFullName);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
@@ -446,7 +446,6 @@
             this.Controls.Add(this.label1);
             this.Name = "ctrlPersonCard";
             this.Size = new System.Drawing.Size(1128, 312);
-            this.Load += new System.EventHandler(this.ctrlPersonCard_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
@@ -456,7 +455,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PersonImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -475,7 +474,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label lbFullName;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox PersonImage;
         private System.Windows.Forms.Label lbGendor;
         private System.Windows.Forms.Label lbEmail;
         private System.Windows.Forms.Label lbAddress;

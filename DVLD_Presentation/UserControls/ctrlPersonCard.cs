@@ -38,27 +38,32 @@ namespace DVLD_Presentation
             lbPhone.Text = Person.Phone.ToString();
             lbAge.Text = Person.Age().ToString();
 
-            if(String.IsNullOrEmpty(Person.ImagePath))
+            if (String.IsNullOrEmpty(Person.ImagePath))
             {
-                switch(Person.Gendor)
+                switch (Person.Gendor)
                 {
                     case Person.enGendor.Male:
-                        pictureBox1.Image = Resources.Male;
+                        PersonImage.Image = Resources.Male;
                         break;
                     case Person.enGendor.Female:
-                        pictureBox1.Image = Resources.Female;
+                        PersonImage.Image = Resources.Female;
                         break;
                 }
-
-                try
-                {
-                    lbCountry.Text = CountryService.Find(Person.NationalityCountryID).Name;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error : " + ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
             }
+            else
+            {
+                PersonImage.Image = Image.FromFile(Person.ImagePath);
+            }
+
+            try
+            {
+                lbCountry.Text = CountryService.Find(Person.NationalityCountryID).Name;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error : " + ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
         public bool LoadPerson(int personID)
         {
@@ -72,10 +77,6 @@ namespace DVLD_Presentation
         public void LoadPerson(Person person)
         {
             _LoadPerson(person);
-        }
-        private void ctrlPersonCard_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void lkbEditPersonInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

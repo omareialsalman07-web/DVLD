@@ -89,6 +89,5 @@ namespace DVLD_Presentation.UserControls
             addNewPersonForm.onCreatePersonFinish += _OnCreatePersonFinshed;
             addNewPersonForm.ShowDialog();
         }
-
     }
 }

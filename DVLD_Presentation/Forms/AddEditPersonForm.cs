@@ -21,7 +21,8 @@ namespace DVLD_Presentation.Forms
         public enum enMode { eAddNew, eEdit }
         enMode _Mode;
 
-        string _ImagePath = null;
+        string _PersonImagePath = null;
+        string _SelectedPersonImagePath = null;
         Person PersonToEdit = null;
         public AddEditPersonForm(enMode mode, Person personToEdit = null)
         {
@@ -92,9 +93,8 @@ namespace DVLD_Presentation.Forms
 
             if(!String.IsNullOrEmpty(PersonToEdit.ImagePath))
             {
-                PersonImage.Image = Image.FromFile(_ImagePath);
+                PersonImage.Image = Image.FromFile(PersonToEdit.ImagePath);
             }
-
         }
 
         private void AddEditPersonForm_Load(object sender, EventArgs e)
@@ -109,7 +109,7 @@ namespace DVLD_Presentation.Forms
 
         private void rbMale_CheckedChanged(object sender, EventArgs e)
         {
-            if (!String.IsNullOrEmpty(_ImagePath))
+            if (!String.IsNullOrEmpty(_SelectedPersonImagePath) || !String.IsNullOrEmpty(PersonToEdit.ImagePath))
                 return;
 
             PersonImage.Image = Resources.Male;
@@ -117,7 +117,7 @@ namespace DVLD_Presentation.Forms
 
         private void rbFemale_CheckedChanged(object sender, EventArgs e)
         {
-            if (!String.IsNullOrEmpty(_ImagePath))
+            if (!String.IsNullOrEmpty(_SelectedPersonImagePath) || !String.IsNullOrEmpty(PersonToEdit.ImagePath))
                 return;
 
             PersonImage.Image = Resources.Female;
@@ -128,17 +128,46 @@ namespace DVLD_Presentation.Forms
             this.Close();
         }
 
+        private void _UpdatePersonImagePath()
+        {
+            if(string.IsNullOrEmpty(_SelectedPersonImagePath))
+            {
+                if (!string.IsNullOrEmpty(PersonToEdit.ImagePath) &&
+                    File.Exists(PersonToEdit.ImagePath))
+                {
+                    File.Delete(PersonToEdit.ImagePath);
+
+                    _PersonImagePath = null;
+                }
+                return;
+            }
+
+            string imageName = Guid.NewGuid().ToString() + ".png";
+
+            string newPath = Path.Combine(DVLD_Settings.GetPeoplePicturePath(), imageName);
+            File.Copy(_SelectedPersonImagePath, newPath);
+
+            if(!string.IsNullOrEmpty(PersonToEdit.ImagePath)) // in case we are updating person data (in edit mode)
+            {
+                File.Delete(PersonToEdit.ImagePath);
+            }
+
+            _PersonImagePath = newPath;
+        }
+
         private void _AddNew()
         {
+            _UpdatePersonImagePath();
+
             Person person = new Person(txtNationalNo.Text, txtFirstName.Text, txtSeconedName.Text,
                 txtThirdName.Text, txtLastName.Text, dateTimePicker.Value,
                 (rbMale.Checked) ? Person.enGendor.Male : Person.enGendor.Female, txtAddress.Text, txtPhone.Text,
-                 txtEmail.Text, Convert.ToInt32(cbCountries.SelectedValue), _ImagePath);
+                 txtEmail.Text, Convert.ToInt32(cbCountries.SelectedValue), _PersonImagePath);
 
             try
             {
                 int personID;
-                if ((personID =PersonService.AddNewPerson(person)) != -1)
+                if ((personID = PersonService.AddNewPerson(person)) != -1)
                 {
                     MessageBox.Show("Added new person successfully!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     onCreatePersonFinish?.Invoke(personID);
@@ -161,11 +190,13 @@ namespace DVLD_Presentation.Forms
         }
         private void _Update()
         {
-               PersonToEdit.NationalNo = txtNationalNo.Text;
-               PersonToEdit.FirstName = txtFirstName.Text;
-               PersonToEdit.SecondName = txtSeconedName.Text;
-               PersonToEdit.ThirdName = txtThirdName.Text;
-               PersonToEdit.LastName = txtLastName.Text;
+            _UpdatePersonImagePath();
+
+            PersonToEdit.NationalNo = txtNationalNo.Text;
+            PersonToEdit.FirstName = txtFirstName.Text;
+            PersonToEdit.SecondName = txtSeconedName.Text;
+            PersonToEdit.ThirdName = txtThirdName.Text;
+            PersonToEdit.LastName = txtLastName.Text;
 
 
             if (rbMale.Checked)
@@ -178,6 +209,7 @@ namespace DVLD_Presentation.Forms
             PersonToEdit.DateOfBirth = dateTimePicker.Value;
             PersonToEdit.Phone = txtPhone.Text;
             PersonToEdit.NationalityCountryID = Convert.ToInt32(cbCountries.SelectedValue);
+            PersonToEdit.ImagePath = _PersonImagePath;
 
             try
             {
@@ -251,6 +283,34 @@ namespace DVLD_Presentation.Forms
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            openFileDialog1.Filter = @"Image Files|*.jpg;*.jpeg;*.png;*.gif;*.bmp;*.tif;
+                                        *.tiff;*.webp;*.ico;*.svg";
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string imagePath = openFileDialog1.FileName;
+                _SelectedPersonImagePath = imagePath;
+                PersonImage.Image = Image.FromFile(imagePath);
+            }
+        }
+
+        private void lkl_RemoveImage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            // Release the image file
+            PersonImage.Image?.Dispose();
+            PersonImage.Image = null;
+
+            _SelectedPersonImagePath = null;
+            _PersonImagePath = null;
+
+            // Set default image
+            PersonImage.Image = rbMale.Checked
+                ? Resources.Male
+                : Resources.Female;
         }
     }
 }
