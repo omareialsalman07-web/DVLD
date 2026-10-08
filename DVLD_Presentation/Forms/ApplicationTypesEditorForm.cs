@@ -29,7 +29,11 @@ namespace DVLD_Presentation.Forms
             }
             catch(Exception ex)
             {
+<<<<<<< HEAD
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+=======
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+>>>>>>> feature-ManageTestTypes
             }
 
             if(applicationType == null)

@@ -71,11 +71,5 @@ namespace DVLD_Presentation
 
             usersManagementForm.Show();
         }
-
-        private void manageTestTypesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Form manageApplicationTypesForm = new ManageApplicationTypesForm();
-            manageApplicationTypesForm.ShowDialog();
-        }
     }
 }
