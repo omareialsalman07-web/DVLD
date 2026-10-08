@@ -61,11 +61,23 @@
     <Compile Include="Forms\AddEditPersonForm.Designer.cs">
       <DependentUpon>AddEditPersonForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ApplicationTypesEditorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ApplicationTypesEditorForm.Designer.cs">
+      <DependentUpon>ApplicationTypesEditorForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ChangePasswordForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\ChangePasswordForm.Designer.cs">
       <DependentUpon>ChangePasswordForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ManageApplicationTypesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ManageApplicationTypesForm.Designer.cs">
+      <DependentUpon>ManageApplicationTypesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\UserCardForm.cs">
       <SubType>Form</SubType>
@@ -137,11 +149,17 @@
     <EmbeddedResource Include="Forms\AddEditPersonForm.resx">
       <DependentUpon>AddEditPersonForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ApplicationTypesEditorForm.resx">
+      <DependentUpon>ApplicationTypesEditorForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\ChangePasswordForm.resx">
       <DependentUpon>ChangePasswordForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ManageApplicationTypesForm.resx">
+      <DependentUpon>ManageApplicationTypesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PeopleManagementForm.resx">
       <DependentUpon>PeopleManagementForm.cs</DependentUpon>
@@ -301,6 +319,27 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\new-person.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Driving_License.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\services.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bust.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\planning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\exam-time.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\charge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\price-tag.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
