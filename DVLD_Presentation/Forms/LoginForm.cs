@@ -118,10 +118,5 @@ namespace DVLD_Presentation.Forms
             btnShowPass.Visible = true;
             btnHidePass.Visible = false;
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
     }
 }

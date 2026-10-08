@@ -36,7 +36,6 @@
             this.btnLogin = new System.Windows.Forms.Button();
             this.txb_UserName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.btnHidePass = new System.Windows.Forms.Button();
             this.btnShowPass = new System.Windows.Forms.Button();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
@@ -131,19 +130,6 @@
             this.label1.TabIndex = 25;
             this.label1.Text = "Drivers And Vehicles Liseince Department";
             // 
-            // button1
-            // 
-            this.button1.BackgroundImage = global::DVLD_Presentation.Properties.Resources.close;
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(702, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(65, 49);
-            this.button1.TabIndex = 38;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // btnHidePass
             // 
             this.btnHidePass.FlatAppearance.BorderSize = 0;
@@ -205,7 +191,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(789, 553);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnHidePass);
             this.Controls.Add(this.btnShowPass);
             this.Controls.Add(this.panel2);
@@ -219,7 +204,7 @@
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.txb_UserName);
             this.Controls.Add(this.label1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "LoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
@@ -246,6 +231,5 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnShowPass;
         private System.Windows.Forms.Button btnHidePass;
-        private System.Windows.Forms.Button button1;
     }
 }

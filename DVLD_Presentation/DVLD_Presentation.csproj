@@ -79,8 +79,6 @@
     <Compile Include="Forms\ManageApplicationTypesForm.Designer.cs">
       <DependentUpon>ManageApplicationTypesForm.cs</DependentUpon>
     </Compile>
-<<<<<<< HEAD
-=======
     <Compile Include="Forms\ManageTestTypesForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,7 +91,6 @@
     <Compile Include="Forms\TestTypesEditorForm.Designer.cs">
       <DependentUpon>TestTypesEditorForm.cs</DependentUpon>
     </Compile>
->>>>>>> feature-ManageTestTypes
     <Compile Include="Forms\UserCardForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -176,12 +173,9 @@
     <EmbeddedResource Include="Forms\ManageApplicationTypesForm.resx">
       <DependentUpon>ManageApplicationTypesForm.cs</DependentUpon>
     </EmbeddedResource>
-<<<<<<< HEAD
-=======
     <EmbeddedResource Include="Forms\ManageTestTypesForm.resx">
       <DependentUpon>ManageTestTypesForm.cs</DependentUpon>
     </EmbeddedResource>
->>>>>>> feature-ManageTestTypes
     <EmbeddedResource Include="Forms\PeopleManagementForm.resx">
       <DependentUpon>PeopleManagementForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -365,11 +359,11 @@
   <ItemGroup>
     <None Include="Resources\price-tag.png" />
   </ItemGroup>
-<<<<<<< HEAD
-=======
   <ItemGroup>
     <None Include="Resources\description.png" />
   </ItemGroup>
->>>>>>> feature-ManageTestTypes
+  <ItemGroup>
+    <None Include="Resources\close1.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

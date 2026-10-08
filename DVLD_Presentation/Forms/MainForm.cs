@@ -71,5 +71,17 @@ namespace DVLD_Presentation
 
             usersManagementForm.Show();
         }
+        private void manageApplicationTypesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form manageApplicationTypesForm = new ManageApplicationTypesForm();
+            manageApplicationTypesForm.Show();
+        }
+
+        private void manageTestTypesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form manageTestTypesForm = new ManageTestTypesForm();
+            manageTestTypesForm.Show();
+        }
+
     }
 }
