@@ -79,6 +79,18 @@
     <Compile Include="Forms\ManageApplicationTypesForm.Designer.cs">
       <DependentUpon>ManageApplicationTypesForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ManageTestTypesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ManageTestTypesForm.Designer.cs">
+      <DependentUpon>ManageTestTypesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\TestTypesEditorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TestTypesEditorForm.Designer.cs">
+      <DependentUpon>TestTypesEditorForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\UserCardForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -161,11 +173,17 @@
     <EmbeddedResource Include="Forms\ManageApplicationTypesForm.resx">
       <DependentUpon>ManageApplicationTypesForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ManageTestTypesForm.resx">
+      <DependentUpon>ManageTestTypesForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\PeopleManagementForm.resx">
       <DependentUpon>PeopleManagementForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PersonCardForm.resx">
       <DependentUpon>PersonCardForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TestTypesEditorForm.resx">
+      <DependentUpon>TestTypesEditorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\UserCardForm.resx">
       <DependentUpon>UserCardForm.cs</DependentUpon>
@@ -340,6 +358,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\price-tag.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\description.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

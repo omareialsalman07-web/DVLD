@@ -37,8 +37,12 @@ namespace DVLD_Console
             //UsersTest.TestDeleteUser(1);
             //UsersTest.TestGetAllUsers();
 
-            ApplicationTypesTest.TestUpdateApplicationInfo();
-            ApplicationTypesTest.TestGetAllApplicationTypes();
+            //ApplicationTypesTest.TestUpdateApplicationInfo();
+            //ApplicationTypesTest.TestGetAllApplicationTypes();
+
+            //TestTypesTest.TestGetAllTestTypes();
+            //TestTypesTest.TestUpdateTestInfo();
+            //TestTypesTest.TestGetTestType();
 
             Console.ReadLine();
         }

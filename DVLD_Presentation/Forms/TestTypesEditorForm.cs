@@ -1,50 +1,59 @@
 ﻿using DVLD_Business;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DVLD_Presentation.Forms
 {
-    public partial class ApplicationTypesEditorForm : Form
+    public partial class TestTypesEditorForm : Form
     {
-        int ApplicationTypeID;
-        public ApplicationTypesEditorForm(int ApplicationTypeID)
+        int TestTypeID;
+        public TestTypesEditorForm(int TestTypeID)
         {
             InitializeComponent();
-            this.ApplicationTypeID = ApplicationTypeID;
+            this.TestTypeID = TestTypeID;
         }
 
-        private void ApplicationTypesEditorForm_Load(object sender, EventArgs e)
+        private void TestTypesEditorForm_Load(object sender, EventArgs e)
         {
-            ApplicationType applicationType = null;
+            TestType testType = null;
             try
             {
-                applicationType = ApplicationTypeService.Find(ApplicationTypeID);
+                testType = TestTypeService.Find(TestTypeID);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            if(applicationType == null)
+            if (testType == null)
             {
-                MessageBox.Show("Some this went wrong, can't load application type!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("Some this went wrong, can't load Test Type!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return;
             }
 
-            txb_Title.Text = applicationType.Title;
-            mtxb_Fees.Text = applicationType.Fees.ToString();
+            txb_Title.Text = testType.Title;
+            txt_Description.Text = testType.Description;
+            mtxb_Fees.Text = testType.Fees.ToString();
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         private void btn_Save_Click(object sender, EventArgs e)
         {
-            if(string.IsNullOrWhiteSpace(txb_Title.Text) || string.IsNullOrWhiteSpace(mtxb_Fees.Text))
+            if (string.IsNullOrWhiteSpace(txb_Title.Text) || 
+                string.IsNullOrWhiteSpace(txt_Description.Text) || string.IsNullOrWhiteSpace(mtxb_Fees.Text))
             {
                 MessageBox.Show("Please fill all the areas!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -52,7 +61,7 @@ namespace DVLD_Presentation.Forms
 
             try
             {
-                if(ApplicationTypeService.UpdateApplicationInfo(ApplicationTypeID, txb_Title.Text, Convert.ToSingle(mtxb_Fees.Text)))
+                if (TestTypeService.UpdateTestInfo(TestTypeID, txb_Title.Text, txt_Description.Text, Convert.ToSingle(mtxb_Fees.Text)))
                 {
                     MessageBox.Show("Updated Application successfully!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -63,13 +72,8 @@ namespace DVLD_Presentation.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
     }
 }

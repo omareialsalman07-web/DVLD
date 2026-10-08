@@ -74,6 +74,12 @@ namespace DVLD_Presentation
 
         private void manageTestTypesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Form manageTestTypesForm = new ManageTestTypesForm();
+            manageTestTypesForm.ShowDialog();
+        }
+
+        private void manageApplicationTypesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             Form manageApplicationTypesForm = new ManageApplicationTypesForm();
             manageApplicationTypesForm.ShowDialog();
         }
