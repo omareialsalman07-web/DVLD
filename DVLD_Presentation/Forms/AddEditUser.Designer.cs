@@ -32,10 +32,7 @@
             this.Label = new System.Windows.Forms.Label();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.PersonInfo = new System.Windows.Forms.TabPage();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.comboBox = new System.Windows.Forms.ComboBox();
-            this.textBox = new System.Windows.Forms.TextBox();
-            this.ctrlPersonCard1 = new DVLD_Presentation.ctrlPersonCard();
+            this.btn_Next = new System.Windows.Forms.Button();
             this.LoginInfo = new System.Windows.Forms.TabPage();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -46,15 +43,12 @@
             this.txb_ConfirmPass = new System.Windows.Forms.TextBox();
             this.txb_Pass = new System.Windows.Forms.TextBox();
             this.txb_UserName = new System.Windows.Forms.TextBox();
-            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.btn_Next = new System.Windows.Forms.Button();
-            this.btn_AddNewPerson = new System.Windows.Forms.Button();
-            this.bnt_Search = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.ctrlUserSelecter1 = new DVLD_Presentation.UserControls.ctrlUserSelecter();
             this.tabControl.SuspendLayout();
             this.PersonInfo.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.LoginInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
@@ -63,7 +57,7 @@
             // 
             this.Label.AutoSize = true;
             this.Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label.Location = new System.Drawing.Point(400, 9);
+            this.Label.Location = new System.Drawing.Point(496, 9);
             this.Label.Name = "Label";
             this.Label.Size = new System.Drawing.Size(162, 38);
             this.Label.TabIndex = 2;
@@ -81,9 +75,8 @@
             // 
             // PersonInfo
             // 
+            this.PersonInfo.Controls.Add(this.ctrlUserSelecter1);
             this.PersonInfo.Controls.Add(this.btn_Next);
-            this.PersonInfo.Controls.Add(this.groupBox1);
-            this.PersonInfo.Controls.Add(this.ctrlPersonCard1);
             this.PersonInfo.Location = new System.Drawing.Point(4, 25);
             this.PersonInfo.Name = "PersonInfo";
             this.PersonInfo.Padding = new System.Windows.Forms.Padding(3);
@@ -92,49 +85,20 @@
             this.PersonInfo.Text = "Person Information";
             this.PersonInfo.UseVisualStyleBackColor = true;
             // 
-            // groupBox1
+            // btn_Next
             // 
-            this.groupBox1.Controls.Add(this.btn_AddNewPerson);
-            this.groupBox1.Controls.Add(this.bnt_Search);
-            this.groupBox1.Controls.Add(this.comboBox);
-            this.groupBox1.Controls.Add(this.textBox);
-            this.groupBox1.Location = new System.Drawing.Point(3, 6);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1128, 100);
-            this.groupBox1.TabIndex = 9;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Find Person";
-            // 
-            // comboBox
-            // 
-            this.comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox.FormattingEnabled = true;
-            this.comboBox.Items.AddRange(new object[] {
-            "Person ID",
-            "National Number"});
-            this.comboBox.Location = new System.Drawing.Point(141, 43);
-            this.comboBox.Name = "comboBox";
-            this.comboBox.Size = new System.Drawing.Size(201, 33);
-            this.comboBox.TabIndex = 5;
-            this.comboBox.TabStop = false;
-            this.comboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox_SelectedIndexChanged);
-            // 
-            // textBox
-            // 
-            this.textBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox.Location = new System.Drawing.Point(348, 46);
-            this.textBox.Name = "textBox";
-            this.textBox.Size = new System.Drawing.Size(226, 30);
-            this.textBox.TabIndex = 1;
-            this.textBox.Validating += new System.ComponentModel.CancelEventHandler(this.textBox1_Validating);
-            // 
-            // ctrlPersonCard1
-            // 
-            this.ctrlPersonCard1.Location = new System.Drawing.Point(3, 112);
-            this.ctrlPersonCard1.Name = "ctrlPersonCard1";
-            this.ctrlPersonCard1.Size = new System.Drawing.Size(1128, 312);
-            this.ctrlPersonCard1.TabIndex = 8;
+            this.btn_Next.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btn_Next.Image = global::DVLD_Presentation.Properties.Resources.next;
+            this.btn_Next.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btn_Next.Location = new System.Drawing.Point(994, 482);
+            this.btn_Next.Name = "btn_Next";
+            this.btn_Next.Padding = new System.Windows.Forms.Padding(12);
+            this.btn_Next.Size = new System.Drawing.Size(126, 49);
+            this.btn_Next.TabIndex = 10;
+            this.btn_Next.Text = "Next";
+            this.btn_Next.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_Next.UseVisualStyleBackColor = true;
+            this.btn_Next.Click += new System.EventHandler(this.btn_Next_Click);
             // 
             // LoginInfo
             // 
@@ -248,49 +212,6 @@
             this.txb_UserName.TabIndex = 0;
             this.txb_UserName.Validating += new System.ComponentModel.CancelEventHandler(this.txb_UserName_Validating);
             // 
-            // errorProvider1
-            // 
-            this.errorProvider1.ContainerControl = this;
-            // 
-            // btn_Next
-            // 
-            this.btn_Next.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btn_Next.Image = global::DVLD_Presentation.Properties.Resources.next;
-            this.btn_Next.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btn_Next.Location = new System.Drawing.Point(994, 482);
-            this.btn_Next.Name = "btn_Next";
-            this.btn_Next.Padding = new System.Windows.Forms.Padding(12);
-            this.btn_Next.Size = new System.Drawing.Size(126, 49);
-            this.btn_Next.TabIndex = 10;
-            this.btn_Next.Text = "Next";
-            this.btn_Next.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_Next.UseVisualStyleBackColor = true;
-            this.btn_Next.Click += new System.EventHandler(this.btn_Next_Click);
-            // 
-            // btn_AddNewPerson
-            // 
-            this.btn_AddNewPerson.FlatAppearance.BorderSize = 0;
-            this.btn_AddNewPerson.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_AddNewPerson.Image = global::DVLD_Presentation.Properties.Resources.new_person;
-            this.btn_AddNewPerson.Location = new System.Drawing.Point(639, 49);
-            this.btn_AddNewPerson.Name = "btn_AddNewPerson";
-            this.btn_AddNewPerson.Size = new System.Drawing.Size(37, 30);
-            this.btn_AddNewPerson.TabIndex = 7;
-            this.btn_AddNewPerson.UseVisualStyleBackColor = true;
-            this.btn_AddNewPerson.Click += new System.EventHandler(this.btn_AddNewPerson_Click);
-            // 
-            // bnt_Search
-            // 
-            this.bnt_Search.FlatAppearance.BorderSize = 0;
-            this.bnt_Search.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bnt_Search.Image = global::DVLD_Presentation.Properties.Resources.search;
-            this.bnt_Search.Location = new System.Drawing.Point(596, 46);
-            this.bnt_Search.Name = "bnt_Search";
-            this.bnt_Search.Size = new System.Drawing.Size(37, 30);
-            this.bnt_Search.TabIndex = 6;
-            this.bnt_Search.UseVisualStyleBackColor = true;
-            this.bnt_Search.Click += new System.EventHandler(this.bnt_Search_Click);
-            // 
             // btnSave
             // 
             this.btnSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
@@ -321,6 +242,17 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
+            // ctrlUserSelecter1
+            // 
+            this.ctrlUserSelecter1.Location = new System.Drawing.Point(0, 6);
+            this.ctrlUserSelecter1.Name = "ctrlUserSelecter1";
+            this.ctrlUserSelecter1.Size = new System.Drawing.Size(1130, 430);
+            this.ctrlUserSelecter1.TabIndex = 11;
+            // 
             // AddEditUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -334,8 +266,6 @@
             this.Load += new System.EventHandler(this.AddEditUser_Load);
             this.tabControl.ResumeLayout(false);
             this.PersonInfo.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.LoginInfo.ResumeLayout(false);
             this.LoginInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
@@ -349,10 +279,6 @@
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage PersonInfo;
         private System.Windows.Forms.TabPage LoginInfo;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ComboBox comboBox;
-        private System.Windows.Forms.TextBox textBox;
-        private ctrlPersonCard ctrlPersonCard1;
         private System.Windows.Forms.Button btn_Next;
         private System.Windows.Forms.CheckBox chb_IsActive;
         private System.Windows.Forms.TextBox txb_ConfirmPass;
@@ -366,7 +292,6 @@
         private System.Windows.Forms.Label lb_UserID;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ErrorProvider errorProvider1;
-        private System.Windows.Forms.Button bnt_Search;
-        private System.Windows.Forms.Button btn_AddNewPerson;
+        private UserControls.ctrlUserSelecter ctrlUserSelecter1;
     }
 }

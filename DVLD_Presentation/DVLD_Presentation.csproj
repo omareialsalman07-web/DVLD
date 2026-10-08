@@ -152,6 +152,12 @@
     <Compile Include="UserControls\ctrlUserCard.Designer.cs">
       <DependentUpon>ctrlUserCard.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ctrlUserSelecter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\ctrlUserSelecter.Designer.cs">
+      <DependentUpon>ctrlUserSelecter.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Forms\AddEditUser.resx">
       <DependentUpon>AddEditUser.cs</DependentUpon>
     </EmbeddedResource>
@@ -204,6 +210,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ctrlUserCard.resx">
       <DependentUpon>ctrlUserCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\ctrlUserSelecter.resx">
+      <DependentUpon>ctrlUserSelecter.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

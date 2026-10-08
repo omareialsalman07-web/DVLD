@@ -17,7 +17,6 @@ namespace DVLD_Presentation
         public enum enMode { eAdd, eEdit };
         enMode Mode;
         User _User;
-        int PersonID = -1;
         public AddEditUser(enMode Mode, User user = null)
         {
             InitializeComponent();
@@ -33,12 +32,10 @@ namespace DVLD_Presentation
                 if (_User == null)
                     return;
 
-                PersonID = _User.PersonID;
+                ctrlUserSelecter1.SetSelected_PersonID(_User.PersonID);
 
                 txb_Pass.Enabled = false;
                 txb_ConfirmPass.Enabled = false;
-
-                ctrlPersonCard1.LoadPerson(_User.PersonID);
 
                 lb_UserID.Text = _User.ID.ToString();
                 txb_UserName.Text = _User.UserName;
@@ -52,66 +49,10 @@ namespace DVLD_Presentation
 
         private void AddEditUser_Load(object sender, EventArgs e)
         {
-            comboBox.SelectedIndex = 0;
             _RestForm();
         }
 
-        private void textBox1_Validating(object sender, CancelEventArgs e)
-        {
-            if(string.IsNullOrWhiteSpace(textBox.Text))
-            {
-                //textBox.Focus();
-                errorProvider1.SetError(textBox, "This text box can't be blank!");
-                return;
-            }
-
-            bool exists;
-            if (comboBox.SelectedIndex == 0)
-            {
-                exists = PersonService.isExist(Convert.ToInt32(textBox.Text));
-            }
-            else
-            {
-                exists = PersonService.isExist(textBox.Text);
-            }
-
-            if (!exists)
-            {
-                //textBox.Focus();
-                errorProvider1.SetError(textBox, "No matching person was found.");
-            }
-            else
-            {
-                errorProvider1.SetError(textBox, "");
-            } 
-        }
-
-        private void bnt_Search_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(textBox.Text))
-                return;
-
-            Person person = (comboBox.SelectedIndex == 0) ? PersonService.Find(Convert.ToInt32(textBox.Text))
-                : PersonService.Find(textBox.Text);
-
-            if (person == null)
-                return;
-
-            ctrlPersonCard1.LoadPerson(person);
-            PersonID = person.ID;
-        }
-
-        private void btn_Next_Click(object sender, EventArgs e)
-        {
-            if (PersonID != -1)
-            {
-                tabControl.SelectedIndex = 1;
-            }
-            else
-            {
-                MessageBox.Show("Please select a vailed person!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+        
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -192,7 +133,7 @@ namespace DVLD_Presentation
 
         private void _AddNew()
         {
-            User user = new User(PersonID, txb_UserName.Text, txb_Pass.Text, chb_IsActive.Checked);
+            User user = new User(ctrlUserSelecter1.GetSelected_PersonID(), txb_UserName.Text, txb_Pass.Text, chb_IsActive.Checked);
             int id = UserService.AddNewUser(user);
 
             if (id != -1)
@@ -203,7 +144,7 @@ namespace DVLD_Presentation
                 if (dialog == DialogResult.OK)
                 {
                     Mode = enMode.eEdit;
-                    _User = new User(id, PersonID, user.UserName, user.Password, user.IsActive);
+                    _User = new User(id, ctrlUserSelecter1.GetSelected_PersonID(), user.UserName, user.Password, user.IsActive);
                     _RestForm();
                 }
             }
@@ -219,7 +160,7 @@ namespace DVLD_Presentation
 
             _User.UserName = txb_UserName.Text;
             _User.IsActive = chb_IsActive.Checked;
-            _User.PersonID = PersonID;
+            _User.PersonID = ctrlUserSelecter1.GetSelected_PersonID();
             if(UserService.UpdateUser(_User))
             {
                 MessageBox.Show("We updated user successfully!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -245,23 +186,10 @@ namespace DVLD_Presentation
 
         }
 
-        private void comboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void btn_Next_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void _OnCreatePersonFinshed(int personID)
-        {
-
-            ctrlPersonCard1.LoadPerson(personID);
-            PersonID = personID;
-        }
-
-        private void btn_AddNewPerson_Click(object sender, EventArgs e)
-        {
-            AddEditPersonForm addNewPersonForm = new AddEditPersonForm(AddEditPersonForm.enMode.eAddNew);
-            addNewPersonForm.onCreatePersonFinish += _OnCreatePersonFinshed;
-            addNewPersonForm.ShowDialog();
+            if (ctrlUserSelecter1.IsPersonSelected())
+                tabControl.SelectedIndex = 1;
         }
     }
 }

@@ -60,13 +60,14 @@ namespace DVLD_Presentation
                 }
             }
         }
-        public void LoadPerson(int personID)
+        public bool LoadPerson(int personID)
         {
             Person = PersonService.Find(personID);
             if (Person == null)
-                return;
+                return false;
 
             _LoadPerson(Person);
+            return true;
         }
         public void LoadPerson(Person person)
         {
