@@ -12,7 +12,7 @@ namespace DVLD_Console
         static void Main(string[] args)
         {
             //PeopleManagementTest.TestIsExistByID(1);
-            PeopleManagementTest.TestGetPerson(1);
+            //PeopleManagementTest.TestGetPerson(1);
             /*PeopleManagementTest.TestAddNewPerson(
                 "N99", "Ali", "Khaled", "Sami", "Hassan",
                 new DateTime(1998, 5, 20), Person.enGendor.Male,
@@ -36,6 +36,9 @@ namespace DVLD_Console
             //UsersTest.TestUpdateUser(1);
             //UsersTest.TestDeleteUser(1);
             //UsersTest.TestGetAllUsers();
+
+            ApplicationTypesTest.TestUpdateApplicationInfo();
+            ApplicationTypesTest.TestGetAllApplicationTypes();
 
             Console.ReadLine();
         }
