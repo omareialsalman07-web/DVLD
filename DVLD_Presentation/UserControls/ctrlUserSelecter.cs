@@ -86,7 +86,7 @@ namespace DVLD_Presentation.UserControls
         private void btn_AddNewPerson_Click(object sender, EventArgs e)
         {
             AddEditPersonForm addNewPersonForm = new AddEditPersonForm(AddEditPersonForm.enMode.eAddNew);
-            addNewPersonForm.onCreatePersonFinish += _OnCreatePersonFinshed;
+            addNewPersonForm.on_Create_Update_PersonFinish += _OnCreatePersonFinshed;
             addNewPersonForm.ShowDialog();
         }
     }

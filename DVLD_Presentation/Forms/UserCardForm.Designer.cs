@@ -46,6 +46,7 @@
             this.Controls.Add(this.ctrlUserCard1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "UserCardForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "User Card";
             this.Load += new System.EventHandler(this.UserCardForm_Load);
             this.ResumeLayout(false);

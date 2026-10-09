@@ -14,7 +14,10 @@ namespace DVLD_Presentation
 {
     public partial class AddEditUser : Form
     {
+        public delegate void On_Create_Update_UserFinsh(int UserID);
         public enum enMode { eAdd, eEdit };
+
+        public On_Create_Update_UserFinsh on_Create_Update_UserFinsh;
         enMode Mode;
         User _User;
         public AddEditUser(enMode Mode, User user = null)
@@ -190,6 +193,11 @@ namespace DVLD_Presentation
         {
             if (ctrlUserSelecter1.IsPersonSelected())
                 tabControl.SelectedIndex = 1;
+        }
+
+        private void AddEditUser_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            on_Create_Update_UserFinsh?.Invoke(_User.ID);
         }
     }
 }

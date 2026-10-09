@@ -32,6 +32,7 @@
             this.Label = new System.Windows.Forms.Label();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.PersonInfo = new System.Windows.Forms.TabPage();
+            this.ctrlUserSelecter1 = new DVLD_Presentation.UserControls.ctrlUserSelecter();
             this.btn_Next = new System.Windows.Forms.Button();
             this.LoginInfo = new System.Windows.Forms.TabPage();
             this.label5 = new System.Windows.Forms.Label();
@@ -46,7 +47,6 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.ctrlUserSelecter1 = new DVLD_Presentation.UserControls.ctrlUserSelecter();
             this.tabControl.SuspendLayout();
             this.PersonInfo.SuspendLayout();
             this.LoginInfo.SuspendLayout();
@@ -84,6 +84,13 @@
             this.PersonInfo.TabIndex = 0;
             this.PersonInfo.Text = "Person Information";
             this.PersonInfo.UseVisualStyleBackColor = true;
+            // 
+            // ctrlUserSelecter1
+            // 
+            this.ctrlUserSelecter1.Location = new System.Drawing.Point(0, 6);
+            this.ctrlUserSelecter1.Name = "ctrlUserSelecter1";
+            this.ctrlUserSelecter1.Size = new System.Drawing.Size(1130, 430);
+            this.ctrlUserSelecter1.TabIndex = 11;
             // 
             // btn_Next
             // 
@@ -246,13 +253,6 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // ctrlUserSelecter1
-            // 
-            this.ctrlUserSelecter1.Location = new System.Drawing.Point(0, 6);
-            this.ctrlUserSelecter1.Name = "ctrlUserSelecter1";
-            this.ctrlUserSelecter1.Size = new System.Drawing.Size(1130, 430);
-            this.ctrlUserSelecter1.TabIndex = 11;
-            // 
             // AddEditUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -263,6 +263,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "AddEditUser";
             this.Text = "Add New User";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AddEditUser_FormClosed);
             this.Load += new System.EventHandler(this.AddEditUser_Load);
             this.tabControl.ResumeLayout(false);
             this.PersonInfo.ResumeLayout(false);

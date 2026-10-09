@@ -83,5 +83,9 @@ namespace DVLD_Presentation
             manageTestTypesForm.Show();
         }
 
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            loginForm.Close();
+        }
     }
 }

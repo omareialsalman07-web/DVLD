@@ -1,21 +1,23 @@
-﻿using System;
+﻿using DVLD_Business;
+using DVLD_Presentation.Forms;
+using DVLD_Presentation.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DVLD_Business;
-using DVLD_Presentation.Forms;
-using DVLD_Presentation.Properties;
 
 namespace DVLD_Presentation
 {
     public partial class ctrlPersonCard : UserControl
     {
         Person Person = null;
+
         public ctrlPersonCard()
         {
             InitializeComponent();
@@ -52,7 +54,19 @@ namespace DVLD_Presentation
             }
             else
             {
-                PersonImage.Image = Image.FromFile(Person.ImagePath);
+                PersonImage.Image?.Dispose();
+                try
+                {
+                    // Load into a temporary image, create a cloned Bitmap, and close the file stream immediately
+                    using (var tempImg = Image.FromFile(Person.ImagePath))
+                    {
+                        PersonImage.Image = new Bitmap(tempImg);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
 
             try
@@ -61,7 +75,7 @@ namespace DVLD_Presentation
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error : " + ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
@@ -79,10 +93,26 @@ namespace DVLD_Presentation
             _LoadPerson(person);
         }
 
+        private void _OnAddEditPersonClose(int personID)
+        {
+            try
+            {
+                Person = PersonService.Find(personID);
+                _LoadPerson(Person);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void lkbEditPersonInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Form form = new AddEditPersonForm(AddEditPersonForm.enMode.eEdit, Person);
+            AddEditPersonForm form = new AddEditPersonForm(AddEditPersonForm.enMode.eEdit, Person);
+            form.on_Create_Update_PersonFinish += _OnAddEditPersonClose;
             form.ShowDialog();
         }
+
+       
     }
 }

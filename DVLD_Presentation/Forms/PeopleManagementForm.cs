@@ -49,7 +49,7 @@ namespace DVLD_Presentation.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void LoadPeople(PersonService.enFilter fillterBy, string value)
@@ -61,7 +61,7 @@ namespace DVLD_Presentation.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         void loadCountries_ToFilterCombo()
@@ -76,7 +76,7 @@ namespace DVLD_Presentation.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void PeopleManagementForm_Load(object sender, EventArgs e)
@@ -121,7 +121,7 @@ namespace DVLD_Presentation.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error : " + ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void btnAddNewPerson_Click(object sender, EventArgs e)
@@ -135,9 +135,17 @@ namespace DVLD_Presentation.Forms
             cbFilter.SelectedIndex = 0; // None
 
         }
+
+        private void _OnAddEditFormClose(int personID)
+        {
+            LoadPeople();
+            cbFilter.SelectedIndex = 0; // None
+        }
+
         private void tsmAddNewPerson_Click(object sender, EventArgs e)
         {
-            Form form = new AddEditPersonForm(AddEditPersonForm.enMode.eAddNew);
+            AddEditPersonForm form = new AddEditPersonForm(AddEditPersonForm.enMode.eAddNew);
+            form.on_Create_Update_PersonFinish += _OnAddEditFormClose;
             form.ShowDialog();
         }
         private void tsmEdit_Click(object sender, EventArgs e)
@@ -151,7 +159,9 @@ namespace DVLD_Presentation.Forms
             try
             {
                 Person personToEdit = PersonService.Find(int.Parse(lstPeople.SelectedItems[0].Text));
-                Form form = new AddEditPersonForm(AddEditPersonForm.enMode.eEdit, personToEdit);
+                AddEditPersonForm form = new AddEditPersonForm(AddEditPersonForm.enMode.eEdit, personToEdit);
+                form.on_Create_Update_PersonFinish += _OnAddEditFormClose;
+
                 form.ShowDialog();
             }
             catch (Exception ex)

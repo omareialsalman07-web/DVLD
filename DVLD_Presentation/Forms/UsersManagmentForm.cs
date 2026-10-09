@@ -97,12 +97,10 @@ namespace DVLD_Presentation.Forms
             _FillUsersList(UserService.GetAllUsersForDisplay());
         }
 
-        Form addEditUser;
         private void btn_AddUser_Click(object sender, EventArgs e)
         {
-            addEditUser = new AddEditUser(AddEditUser.enMode.eAdd);
-                //addEditUser.MdiParent = this;
-            
+            AddEditUser addEditUser = new AddEditUser(AddEditUser.enMode.eAdd);
+            addEditUser.on_Create_Update_UserFinsh += _OnAddEditFormClose;
             addEditUser.ShowDialog();
         }
 
@@ -118,9 +116,17 @@ namespace DVLD_Presentation.Forms
             userCardForm.ShowDialog();
         }
 
+        private void _OnAddEditFormClose(int userID)
+        {
+            cmb_Filter.SelectedIndex = 0;
+            maskedTextBox.Text = "";
+            _FillUsersList(UserService.GetAllUsersForDisplay());
+        }
+
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            Form addNewUserForm = new AddEditUser(AddEditUser.enMode.eAdd);
+            AddEditUser addNewUserForm = new AddEditUser(AddEditUser.enMode.eAdd);
+            addNewUserForm.on_Create_Update_UserFinsh += _OnAddEditFormClose;
             addNewUserForm.ShowDialog();
         }
 
@@ -135,7 +141,8 @@ namespace DVLD_Presentation.Forms
             try
             {
                 User userToEdit = UserService.Find(int.Parse(lst_Users.SelectedItems[0].Text));
-                Form addNewUserForm = new AddEditUser(AddEditUser.enMode.eEdit, userToEdit);
+                AddEditUser addNewUserForm = new AddEditUser(AddEditUser.enMode.eEdit, userToEdit);
+                addNewUserForm.on_Create_Update_UserFinsh += _OnAddEditFormClose;
                 addNewUserForm.ShowDialog();
             }
             catch (Exception ex)

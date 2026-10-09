@@ -71,7 +71,7 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.btnClose = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
-            this.PersonImage = new System.Windows.Forms.PictureBox();
+            this.px_PersonImage = new System.Windows.Forms.PictureBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.lkl_RemoveImage = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -84,7 +84,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PersonImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.px_PersonImage)).BeginInit();
             this.SuspendLayout();
             // 
             // lbTitle
@@ -247,7 +247,7 @@
             resources.ApplyResources(this.lkL_SetImage, "lkL_SetImage");
             this.lkL_SetImage.Name = "lkL_SetImage";
             this.lkL_SetImage.TabStop = true;
-            this.lkL_SetImage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            this.lkL_SetImage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lkl_SetImage_LinkClicked);
             // 
             // errorProvider1
             // 
@@ -332,12 +332,12 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // PersonImage
+            // px_PersonImage
             // 
-            this.PersonImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            resources.ApplyResources(this.PersonImage, "PersonImage");
-            this.PersonImage.Name = "PersonImage";
-            this.PersonImage.TabStop = false;
+            this.px_PersonImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.px_PersonImage, "px_PersonImage");
+            this.px_PersonImage.Name = "px_PersonImage";
+            this.px_PersonImage.TabStop = false;
             // 
             // openFileDialog1
             // 
@@ -385,7 +385,7 @@
             this.Controls.Add(this.txtSeconedName);
             this.Controls.Add(this.txtFirstName);
             this.Controls.Add(this.lbID);
-            this.Controls.Add(this.PersonImage);
+            this.Controls.Add(this.px_PersonImage);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
@@ -409,7 +409,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PersonImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.px_PersonImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -418,7 +418,7 @@
         #endregion
 
         private System.Windows.Forms.Label lbTitle;
-        private System.Windows.Forms.PictureBox PersonImage;
+        private System.Windows.Forms.PictureBox px_PersonImage;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;

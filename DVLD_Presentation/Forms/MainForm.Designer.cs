@@ -154,7 +154,7 @@
             // 
             this.currenUserInfoToolStripMenuItem.Image = global::DVLD_Presentation.Properties.Resources.details;
             this.currenUserInfoToolStripMenuItem.Name = "currenUserInfoToolStripMenuItem";
-            this.currenUserInfoToolStripMenuItem.Size = new System.Drawing.Size(194, 26);
+            this.currenUserInfoToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.currenUserInfoToolStripMenuItem.Text = "Curren User Info";
             this.currenUserInfoToolStripMenuItem.Click += new System.EventHandler(this.currenUserInfoToolStripMenuItem_Click);
             // 
@@ -162,20 +162,20 @@
             // 
             this.changePassordToolStripMenuItem.Image = global::DVLD_Presentation.Properties.Resources.changePassword;
             this.changePassordToolStripMenuItem.Name = "changePassordToolStripMenuItem";
-            this.changePassordToolStripMenuItem.Size = new System.Drawing.Size(194, 26);
+            this.changePassordToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.changePassordToolStripMenuItem.Text = "Change Password";
             this.changePassordToolStripMenuItem.Click += new System.EventHandler(this.changePassordToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(191, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(221, 6);
             // 
             // signOutToolStripMenuItem
             // 
             this.signOutToolStripMenuItem.Image = global::DVLD_Presentation.Properties.Resources.logout;
             this.signOutToolStripMenuItem.Name = "signOutToolStripMenuItem";
-            this.signOutToolStripMenuItem.Size = new System.Drawing.Size(194, 26);
+            this.signOutToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.signOutToolStripMenuItem.Text = "Sign Out";
             this.signOutToolStripMenuItem.Click += new System.EventHandler(this.signOutToolStripMenuItem_Click);
             // 
@@ -195,6 +195,7 @@
             this.Name = "MainForm";
             this.Text = "Main Form";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
