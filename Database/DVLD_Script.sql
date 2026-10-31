@@ -150,14 +150,11 @@ IF OBJECT_ID(N'dbo.Applications', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.Applications (
         ApplicationID     INT IDENTITY(1,1) NOT NULL,
-        PersonID          INT               NOT NULL,
         ApplicationTypeID INT               NOT NULL,
         [Date]            DATETIME          NOT NULL,
         [Status]          TINYINT           NOT NULL,   -- 1 New, 2 Cancelled, 3 Completed
         CreatedByUserID   INT               NOT NULL,
         CONSTRAINT PK_Applications PRIMARY KEY CLUSTERED (ApplicationID),
-        CONSTRAINT FK_Applications_People
-            FOREIGN KEY (PersonID) REFERENCES dbo.People(PersonID),
         CONSTRAINT FK_Applications_ApplicationTypes
             FOREIGN KEY (ApplicationTypeID) REFERENCES dbo.ApplicationTypes(ID),
         CONSTRAINT FK_Applications_Users
@@ -173,11 +170,14 @@ BEGIN
         LocalLicenseApplicationID INT IDENTITY(1,1) NOT NULL,   -- L.L.AID
         ApplicationID             INT               NOT NULL,
         LicenseClassID            INT               NOT NULL,
+        PersonID                  INT               NOT NULL,
         CONSTRAINT PK_LocalLicenseApplications PRIMARY KEY CLUSTERED (LocalLicenseApplicationID),
         CONSTRAINT FK_LocalLicenseApplications_Applications
             FOREIGN KEY (ApplicationID) REFERENCES dbo.Applications(ApplicationID),
         CONSTRAINT FK_LocalLicenseApplications_LicenseClasses
-            FOREIGN KEY (LicenseClassID) REFERENCES dbo.LicenseClasses(LicenseClassID)
+            FOREIGN KEY (LicenseClassID) REFERENCES dbo.LicenseClasses(LicenseClassID),
+        CONSTRAINT FK_LocalLicenseApplications_People
+            FOREIGN KEY (PersonID) REFERENCES dbo.People(PersonID)
     );
 END
 GO
@@ -205,6 +205,7 @@ BEGIN
         LicenseID       INT IDENTITY(1,1) NOT NULL,
         IssueTypeID     INT               NOT NULL,
         IssueDate       DATETIME          NOT NULL,
+        ExpirationDate  DATETIME          NOT NULL,
         DriverID        INT               NOT NULL,
         CreatedByUserID INT               NOT NULL,
         CONSTRAINT PK_Licenses PRIMARY KEY CLUSTERED (LicenseID),
@@ -245,6 +246,23 @@ BEGIN
         CONSTRAINT FK_InternationalLicenses_Licenses
             FOREIGN KEY (LicenseID) REFERENCES dbo.Licenses(LicenseID),
         CONSTRAINT FK_InternationalLicenses_LocalLicenses
+            FOREIGN KEY (LocalLicenseID) REFERENCES dbo.LocalLicenses(LocalLicenseID)
+    );
+END
+GO
+
+/* ---------- InternationalLicenseApplications ---------- */
+IF OBJECT_ID(N'dbo.InternationalLicenseApplications', N'U') IS NULL
+BEGIN
+    CREATE TABLE dbo.InternationalLicenseApplications (
+        InternationalLicenseApplicationID INT IDENTITY(1,1) NOT NULL,   -- I.LAID
+        ApplicationID                     INT               NOT NULL,
+        LocalLicenseID                    INT               NOT NULL,   -- L.LID
+        CONSTRAINT PK_InternationalLicenseApplications
+            PRIMARY KEY CLUSTERED (InternationalLicenseApplicationID),
+        CONSTRAINT FK_InternationalLicenseApplications_Applications
+            FOREIGN KEY (ApplicationID) REFERENCES dbo.Applications(ApplicationID),
+        CONSTRAINT FK_InternationalLicenseApplications_LocalLicenses
             FOREIGN KEY (LocalLicenseID) REFERENCES dbo.LocalLicenses(LocalLicenseID)
     );
 END
@@ -447,5 +465,50 @@ GO
 /* =====================================================================
    3) CHECK
    ===================================================================== */
-SELECT name AS TableName FROM sys.tables ORDER BY name;   -- expect 16 tables
+SELECT name AS TableName FROM sys.tables ORDER BY name;   -- expect 17 tables (+ sysdiagrams if you use diagrams)
+GO
+
+/* =====================================================================
+   4) DEFAULT ADMIN USER  (created only when there are no users yet)
+      UserName : admin
+      Password : 1234 change it after the fisrt login
+   ===================================================================== */
+IF NOT EXISTS (SELECT 1 FROM dbo.Users)
+BEGIN
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        DECLARE @PersonID INT;
+
+        -- reuse the admin person if it already exists, otherwise create it
+        SELECT @PersonID = PersonID FROM dbo.People WHERE NationalNo = N'ADMIN-0001';
+
+        IF @PersonID IS NULL
+        BEGIN
+            INSERT INTO dbo.People
+                (NationalNo, FirstName, SecondName, ThirdName, LastName, DateOfBirth,
+                 Gendor, [Address], Phone, Email, NationalityCountryID, ImagePath)
+            VALUES
+                (N'ADMIN-0001', N'System', N'Admin', NULL, N'Account', '1990-01-01',
+                 0, N'Head Office', N'0000000000', NULL,
+                 (SELECT TOP 1 CountryID FROM dbo.Countries WHERE CountryName = N'Jordan'),
+                 NULL);
+
+            SET @PersonID = SCOPE_IDENTITY();
+        END
+
+        INSERT INTO dbo.Users (PersonID, UserName, [Password], IsActive)
+        VALUES (@PersonID, N'admin', '1234' , 1);
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0 ROLLBACK TRANSACTION;
+        THROW;
+    END CATCH
+END
+GO
+
+SELECT u.UserID, u.UserName, u.IsActive, p.FirstName, p.LastName
+FROM dbo.Users u JOIN dbo.People p ON p.PersonID = u.PersonID;
 GO
