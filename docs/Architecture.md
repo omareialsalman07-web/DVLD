@@ -28,3 +28,4 @@ The general flow of the application is:
 
 #### __Logical Design:__
 ![Logical](Diagrams/DVLD_Logical_ERD.drawio.png)
+
