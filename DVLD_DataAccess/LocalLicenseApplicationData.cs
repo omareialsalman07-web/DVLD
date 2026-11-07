@@ -12,22 +12,23 @@ namespace DVLD_DataAccess
 {
     public static class LocalLicenseApplicationData
     {
-        private static bool _CanCreateLocalLicenceApplication(int PersonID)
+        private static bool _CanCreateLocalLicenceApplication(int LicenseClassID, int PersonID)
         {
             bool success = false;
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
             string query = @"SELECT found = 1 FROM (
-                            SELECT Applications.ApplicationTypeID, LocalLicenseApplications.PersonID,
+                            SELECT LocalLicenseApplications.LicenseClassID, LocalLicenseApplications.PersonID,
                             Applications.Status FROM LocalLicenseApplications
                             INNER JOIN Applications
                             ON LocalLicenseApplications.ApplicationID = Applications.ApplicationID
                             ) R1
-                            WHERE R1.ApplicationTypeID = 1 and R1.PersonID = @PersonID and (R1.Status = 0 or R1.Status = 2);
+                            WHERE R1.LicenseClassID = @LicenseClassID and R1.PersonID = @PersonID and (R1.Status = 0 or R1.Status = 2);
                             ";
 
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@PersonID", PersonID);
+            command.Parameters.AddWithValue("@LicenseClassID", LicenseClassID);
 
             try
             {
@@ -49,7 +50,7 @@ namespace DVLD_DataAccess
         }
         public static int CreateLocalLicenseApplication(int LicenseClassID, int PersonID, int CreatedByUserID)
         {
-            if (!_CanCreateLocalLicenceApplication(PersonID))
+            if (!_CanCreateLocalLicenceApplication(LicenseClassID, PersonID))
             {
                 throw new InvalidOperationException("This person already has an active or finished local driving license application.");
             }
@@ -190,15 +191,25 @@ namespace DVLD_DataAccess
             DataTable dt = new DataTable(); ;
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
-            string query = @"SELECT LocalLicenseApplications.ApplicationID, LicenseClasses.ClassName, 
-                            People.FirstName + ' ' + People.SecondName + ' ' + ISNULL(People.ThirdName, '') +
-                            People.LastName AS FullName, Applications.Status FROM LocalLicenseApplications
-                            INNER JOIN People 
-                            ON LocalLicenseApplications.PersonID = People.PersonID
-                            INNER JOIN LicenseClasses 
-                            ON LocalLicenseApplications.LicenseClassID = LicenseClasses.LicenseClassID
+            string query = @"SELECT LocalLicenseApplications.LocalLicenseApplicationID,
+                                People.FirstName + ' ' + People.SecondName + ' ' +
+                                ISNULL(People.ThirdName + ' ', '') +
+                                People.LastName AS FullName,
+                                LicenseClasses.ClassName,
+                                Applications.Date,
+                                CASE Applications.Status
+                                    WHEN 0 THEN 'New'
+                                    WHEN 1 THEN 'Canceled'
+                                    WHEN 2 THEN 'Completed'
+                                    ELSE 'Unknown'
+                                END AS Status
+                            FROM LocalLicenseApplications
+                            INNER JOIN People
+                                ON LocalLicenseApplications.PersonID = People.PersonID
+                            INNER JOIN LicenseClasses
+                                ON LocalLicenseApplications.LicenseClassID = LicenseClasses.LicenseClassID
                             INNER JOIN Applications
-                            ON LocalLicenseApplications.ApplicationID = Applications.ApplicationID;";
+                                ON LocalLicenseApplications.ApplicationID = Applications.ApplicationID;";
 
             SqlCommand command = new SqlCommand(query, connection);
             try

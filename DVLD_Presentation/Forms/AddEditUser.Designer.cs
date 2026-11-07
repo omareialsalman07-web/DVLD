@@ -32,7 +32,7 @@
             this.Label = new System.Windows.Forms.Label();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.PersonInfo = new System.Windows.Forms.TabPage();
-            this.ctrlUserSelecter1 = new DVLD_Presentation.UserControls.ctrlUserSelecter();
+            this.ctrlUserSelecter1 = new DVLD_Presentation.UserControls.ctrlPersonSelecter();
             this.btn_Next = new System.Windows.Forms.Button();
             this.LoginInfo = new System.Windows.Forms.TabPage();
             this.label5 = new System.Windows.Forms.Label();
@@ -293,6 +293,6 @@
         private System.Windows.Forms.Label lb_UserID;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ErrorProvider errorProvider1;
-        private UserControls.ctrlUserSelecter ctrlUserSelecter1;
+        private UserControls.ctrlPersonSelecter ctrlUserSelecter1;
     }
 }

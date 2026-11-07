@@ -85,12 +85,30 @@ namespace DVLD_Business
 
             return dt;
         }
-        public static bool Complete(in LocalLicenseApplication localLicenseApplication)
+        public static bool Complete(int localLicenseApplicationID)
         {
             bool success = false;
             try
             {
-                success = LocalLicenseApplicationData.CompleteLocalLicenseApplication(localLicenseApplication.LocalLicenseApplicationID);
+                success = LocalLicenseApplicationData.CompleteLocalLicenseApplication(localLicenseApplicationID);
+            }
+            catch (Exception ex)
+            {
+                success = false;
+                throw ex;
+            }
+            return success;
+        }
+        public static bool Complete(in LocalLicenseApplication localLicenseApplication)
+        {
+            return Complete(localLicenseApplication.LocalLicenseApplicationID);
+        }
+        public static bool Cancle(int localLicenseApplicationID)
+        {
+            bool success = false;
+            try
+            {
+                success = LocalLicenseApplicationData.CancleLocalLicenseApplication(localLicenseApplicationID);
             }
             catch (Exception ex)
             {
@@ -101,17 +119,7 @@ namespace DVLD_Business
         }
         public static bool Cancle(in LocalLicenseApplication localLicenseApplication)
         {
-            bool success = false;
-            try
-            {
-                success = LocalLicenseApplicationData.CancleLocalLicenseApplication(localLicenseApplication.LocalLicenseApplicationID);
-            }
-            catch (Exception ex)
-            {
-                success = false;
-                throw ex;
-            }
-            return success;
+            return Cancle(localLicenseApplication.LocalLicenseApplicationID);
         }
     }
 }

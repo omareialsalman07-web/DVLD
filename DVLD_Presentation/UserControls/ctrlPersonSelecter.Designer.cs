@@ -1,6 +1,6 @@
 ﻿namespace DVLD_Presentation.UserControls
 {
-    partial class ctrlUserSelecter
+    partial class ctrlPersonSelecter
     {
         /// <summary> 
         /// Required designer variable.
@@ -111,13 +111,13 @@
             this.ctrlPersonCard1.Size = new System.Drawing.Size(1128, 312);
             this.ctrlPersonCard1.TabIndex = 10;
             // 
-            // ctrlUserSelecter
+            // ctrlPersonSelecter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.ctrlPersonCard1);
-            this.Name = "ctrlUserSelecter";
+            this.Name = "ctrlPersonSelecter";
             this.Size = new System.Drawing.Size(1130, 430);
             this.Load += new System.EventHandler(this.ctrlUserSelecter_Load);
             this.groupBox1.ResumeLayout(false);

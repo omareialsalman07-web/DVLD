@@ -61,6 +61,12 @@
     <Compile Include="Forms\AddEditPersonForm.Designer.cs">
       <DependentUpon>AddEditPersonForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\AddLocalLicenseApplicationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddLocalLicenseApplicationForm.Designer.cs">
+      <DependentUpon>AddLocalLicenseApplicationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ApplicationTypesEditorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,6 +84,12 @@
     </Compile>
     <Compile Include="Forms\ManageApplicationTypesForm.Designer.cs">
       <DependentUpon>ManageApplicationTypesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ManageLocalLicenseApplicationsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ManageLocalLicenseApplicationsForm.Designer.cs">
+      <DependentUpon>ManageLocalLicenseApplicationsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ManageTestTypesForm.cs">
       <SubType>Form</SubType>
@@ -152,11 +164,11 @@
     <Compile Include="UserControls\ctrlUserCard.Designer.cs">
       <DependentUpon>ctrlUserCard.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ctrlUserSelecter.cs">
+    <Compile Include="UserControls\ctrlPersonSelecter.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\ctrlUserSelecter.Designer.cs">
-      <DependentUpon>ctrlUserSelecter.cs</DependentUpon>
+    <Compile Include="UserControls\ctrlPersonSelecter.Designer.cs">
+      <DependentUpon>ctrlPersonSelecter.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Forms\AddEditUser.resx">
       <DependentUpon>AddEditUser.cs</DependentUpon>
@@ -166,6 +178,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddEditPersonForm.resx">
       <DependentUpon>AddEditPersonForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddLocalLicenseApplicationForm.resx">
+      <DependentUpon>AddLocalLicenseApplicationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ApplicationTypesEditorForm.resx">
       <DependentUpon>ApplicationTypesEditorForm.cs</DependentUpon>
@@ -178,6 +193,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ManageApplicationTypesForm.resx">
       <DependentUpon>ManageApplicationTypesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ManageLocalLicenseApplicationsForm.resx">
+      <DependentUpon>ManageLocalLicenseApplicationsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ManageTestTypesForm.resx">
       <DependentUpon>ManageTestTypesForm.cs</DependentUpon>
@@ -211,8 +229,8 @@
     <EmbeddedResource Include="UserControls\ctrlUserCard.resx">
       <DependentUpon>ctrlUserCard.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\ctrlUserSelecter.resx">
-      <DependentUpon>ctrlUserSelecter.cs</DependentUpon>
+    <EmbeddedResource Include="UserControls\ctrlPersonSelecter.resx">
+      <DependentUpon>ctrlPersonSelecter.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -373,6 +391,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\close1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\driver-license.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\globe.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\plus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cancle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\plus_small.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

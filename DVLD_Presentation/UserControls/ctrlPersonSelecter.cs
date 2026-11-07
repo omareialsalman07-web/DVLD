@@ -12,10 +12,10 @@ using System.Windows.Forms;
 
 namespace DVLD_Presentation.UserControls
 {
-    public partial class ctrlUserSelecter : UserControl
+    public partial class ctrlPersonSelecter : UserControl
     {
         private int _PersonID = -1;
-        public ctrlUserSelecter()
+        public ctrlPersonSelecter()
         {
             InitializeComponent();
         }

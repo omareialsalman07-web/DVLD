@@ -87,5 +87,17 @@ namespace DVLD_Presentation
         {
             loginForm.Close();
         }
+
+        private void locaLicenseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form addLocalLicenseForm = new AddLocalLicenseApplicationForm();
+            addLocalLicenseForm.ShowDialog();
+        }
+
+        private void localLicenseApplicationsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form manageLocalLicenseApplicationsForm = new ManageLocalLicenseApplicationsForm();
+            manageLocalLicenseApplicationsForm.ShowDialog();
+        }
     }
 }
