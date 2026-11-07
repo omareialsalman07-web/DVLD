@@ -44,6 +44,14 @@ namespace DVLD_Console
             //TestTypesTest.TestUpdateTestInfo();
             //TestTypesTest.TestGetTestType();
 
+            //TestLocalLicenseApplication.TestCreateLocalLicenseApplication(3, 1, 1);
+            //TestLocalLicenseApplication.TestGetAllLocalLicenseApplications();
+            //TestLocalLicenseApplication.TestGetLocalLicenseApplication(1);
+            //TestLocalLicenseApplication.TestIsExistByID(1);
+
+            //TestLocalLicenseApplication.TestGetAllLocalLicenseApplicationsForDisplay();
+            TestLocalLicenseApplication.TestCompleteLocalLicenseApplication(2);
+
             Console.ReadLine();
         }
     }

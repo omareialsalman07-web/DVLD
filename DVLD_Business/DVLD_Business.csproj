@@ -45,6 +45,8 @@
     <Compile Include="ApplicationTypeService.cs" />
     <Compile Include="Country.cs" />
     <Compile Include="CountryService.cs" />
+    <Compile Include="LocalLicenseApplication.cs" />
+    <Compile Include="LocalLicenseApplicationService.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="PersonService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
