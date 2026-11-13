@@ -262,6 +262,7 @@
             this.Controls.Add(this.Label);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "AddEditUser";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add New User";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AddEditUser_FormClosed);
             this.Load += new System.EventHandler(this.AddEditUser_Load);

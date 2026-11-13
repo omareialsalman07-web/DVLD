@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Deployment.Internal;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -68,7 +69,6 @@ namespace DVLD_Business
 
             return LocalLicenseApplicationsList;
         }
-
         public static DataTable GetAllLocalLicenseApplicationsForDisplay()
         {
             DataTable dt = null;
@@ -84,6 +84,46 @@ namespace DVLD_Business
             }
 
             return dt;
+        }
+        public static int GetTotalTestTrials(int LocalLicenseApplicationID, enTestType TestTypeID)
+        {
+            return LocalLicenseApplicationData.GetTotalTestTrials(LocalLicenseApplicationID, (int)TestTypeID);
+        }
+        public static int GetTotalPassedTests(int localLicenseApplicationID)
+        {
+            return LocalLicenseApplicationData.GetTotalPassedTests(localLicenseApplicationID);
+        }
+        public static bool HasTakenTestAppointment(int LocalLicenseApplicationID, enTestType TestTypeID)
+        {
+            return LocalLicenseApplicationData.HasTakenTestAppointment(LocalLicenseApplicationID, (int)TestTypeID);
+        }
+        public static Test GetCurrnetTest(int LocalLicenseApplicationID)
+        {
+            Test Test = null;
+            try
+            {
+                int _TestID = -1, _TestType = -1, _PrequistType = -1, _CreatedByUserID = -1;
+                string _Notes = "";
+                bool? _Result = false;
+                if (TestData.GetTestByLocalLicenseAppID(LocalLicenseApplicationID,
+                    ref _TestID, ref _TestType, ref _PrequistType, ref _Result, ref _Notes, ref _CreatedByUserID))
+                {
+                    if (!Enum.IsDefined(typeof(enTestType), _TestType))
+                        throw new Exception($"Invalid TestType: {_TestType}");
+
+                    if (!Enum.IsDefined(typeof(enTestType), _PrequistType))
+                        throw new Exception($"Invalid PrequisiteType: {_PrequistType}");
+
+                    Test = new Test(_TestID, (enTestType)_TestType, (enTestType)_PrequistType, _Result, _Notes, LocalLicenseApplicationID, _CreatedByUserID);
+                }
+            }
+            catch (Exception ex)
+            {
+                Test = null;
+                throw ex;
+            }
+
+            return Test;
         }
         public static bool Complete(int localLicenseApplicationID)
         {

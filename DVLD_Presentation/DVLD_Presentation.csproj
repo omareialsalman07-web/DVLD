@@ -79,6 +79,18 @@
     <Compile Include="Forms\ChangePasswordForm.Designer.cs">
       <DependentUpon>ChangePasswordForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\AddEditTestAppointmentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddEditTestAppointmentForm.Designer.cs">
+      <DependentUpon>AddEditTestAppointmentForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\LocalLicenseApplicationCardForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\LocalLicenseApplicationCardForm.Designer.cs">
+      <DependentUpon>LocalLicenseApplicationCardForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ManageApplicationTypesForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,6 +108,18 @@
     </Compile>
     <Compile Include="Forms\ManageTestTypesForm.Designer.cs">
       <DependentUpon>ManageTestTypesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SechdualeTestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SechdualeTestForm.Designer.cs">
+      <DependentUpon>SechdualeTestForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\TakeTestAppointmentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TakeTestAppointmentForm.Designer.cs">
+      <DependentUpon>TakeTestAppointmentForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\TestTypesEditorForm.cs">
       <SubType>Form</SubType>
@@ -138,6 +162,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ctrlBasicApplicationInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\ctrlBasicApplicationInfo.Designer.cs">
+      <DependentUpon>ctrlBasicApplicationInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ctrlLocalLicenseApplicationInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\ctrlLocalLicenseApplicationInfo.Designer.cs">
+      <DependentUpon>ctrlLocalLicenseApplicationInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ctrlPersonCard.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -170,6 +206,12 @@
     <Compile Include="UserControls\ctrlPersonSelecter.Designer.cs">
       <DependentUpon>ctrlPersonSelecter.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ctrlTestAppointmentInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\ctrlTestAppointmentInfo.Designer.cs">
+      <DependentUpon>ctrlTestAppointmentInfo.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Forms\AddEditUser.resx">
       <DependentUpon>AddEditUser.cs</DependentUpon>
     </EmbeddedResource>
@@ -187,6 +229,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ChangePasswordForm.resx">
       <DependentUpon>ChangePasswordForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddEditTestAppointmentForm.resx">
+      <DependentUpon>AddEditTestAppointmentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\LocalLicenseApplicationCardForm.resx">
+      <DependentUpon>LocalLicenseApplicationCardForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
@@ -206,6 +254,12 @@
     <EmbeddedResource Include="Forms\PersonCardForm.resx">
       <DependentUpon>PersonCardForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SechdualeTestForm.resx">
+      <DependentUpon>SechdualeTestForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TakeTestAppointmentForm.resx">
+      <DependentUpon>TakeTestAppointmentForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\TestTypesEditorForm.resx">
       <DependentUpon>TestTypesEditorForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -214,6 +268,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\UsersManagmentForm.resx">
       <DependentUpon>UsersManagmentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\ctrlBasicApplicationInfo.resx">
+      <DependentUpon>ctrlBasicApplicationInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\ctrlLocalLicenseApplicationInfo.resx">
+      <DependentUpon>ctrlLocalLicenseApplicationInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ctrlPersonCard.resx">
       <DependentUpon>ctrlPersonCard.cs</DependentUpon>
@@ -231,6 +291,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ctrlPersonSelecter.resx">
       <DependentUpon>ctrlPersonSelecter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\ctrlTestAppointmentInfo.resx">
+      <DependentUpon>ctrlTestAppointmentInfo.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -406,6 +469,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\plus_small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\road.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\content.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\eye-scan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\passedTest.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

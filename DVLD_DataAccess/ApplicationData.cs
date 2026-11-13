@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -9,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace DVLD_DataAccess
 {
-    internal static class ApplicationData
+    public static class ApplicationData
     {
-        internal static int CreateApplication(int ApplicationTypeID, DateTime Date, byte Status, int CreateByUserID)
+        public static int CreateApplication(int ApplicationType, DateTime Date, int Status, int CreateByUserID)
         {
             int _ID = 0;
 
@@ -23,7 +24,7 @@ namespace DVLD_DataAccess
                             SELECT SCOPE_IDENTITY();";
 
             SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@ApplicationTypeID", ApplicationTypeID);
+            command.Parameters.AddWithValue("@ApplicationTypeID", ApplicationType);
             command.Parameters.AddWithValue("@Date", Date);
             command.Parameters.AddWithValue("@Status", Status);
             command.Parameters.AddWithValue("@CreatedByUserID", CreateByUserID);
@@ -37,7 +38,7 @@ namespace DVLD_DataAccess
                     _ID = int.Parse(result.ToString());
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _ID = -1;
                 throw;
@@ -49,7 +50,43 @@ namespace DVLD_DataAccess
 
             return _ID;
         }
-        internal static bool isExistedByID(int ApplicationID)
+
+        public static bool GetApplicationInfoByID(int ApplicationID, ref int ApplicationTypeID,
+                                                  ref DateTime Date, ref byte Status, ref int CreatedByUserID)
+        {
+            bool isFound = false;
+
+            using (SqlConnection connection =
+                new SqlConnection(DataAccessSettings.ConnectionString))
+            {
+                string query = @"SELECT *
+                         FROM Applications
+                         WHERE ApplicationID = @ApplicationID";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ApplicationID", ApplicationID);
+
+                    connection.Open();
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            ApplicationTypeID = (int)reader["ApplicationTypeID"];
+                            Date = (DateTime)reader["Date"];
+                            Status = (byte)reader["Status"];
+                            CreatedByUserID = (int)reader["CreatedByUserID"];
+
+                            isFound = true;
+                        }
+                    }
+                }
+            }
+
+            return isFound;
+        }
+        public static bool isExistedByID(int ApplicationID)
         {
             bool success = false;
 
@@ -75,12 +112,12 @@ namespace DVLD_DataAccess
                 connection.Close();
             }
 
-
             return success;
         }
-        internal static byte GetApplicationStatus(int ApplicationID)
+
+        public static int GetApplicationStatus(int ApplicationID)
         {
-            byte Status = 0;
+            int Status = -1;
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
 
@@ -113,6 +150,7 @@ namespace DVLD_DataAccess
 
             return Status;
         }
+
         private static bool _UpdateApplicationStatus(int ApplicationID, byte newStatus)
         {
             if (!isExistedByID(ApplicationID))
@@ -154,7 +192,8 @@ namespace DVLD_DataAccess
 
             return success;
         }
-        internal static bool CompleteApplication(int ApplicationID)
+
+        public static bool CompleteApplication(int ApplicationID)
         {
             if (GetApplicationStatus(ApplicationID) == 1)
                 throw new Exception("Can't Complete a canceled Application!");
@@ -163,7 +202,8 @@ namespace DVLD_DataAccess
 
             return _UpdateApplicationStatus(ApplicationID, 2);
         }
-        internal static bool CancelApplication(int ApplicationID)
+
+        public static bool CancelApplication(int ApplicationID)
         {
             if (GetApplicationStatus(ApplicationID) == 2)
                 throw new Exception("Can't cancle a completed Application!");
@@ -171,6 +211,45 @@ namespace DVLD_DataAccess
                 throw new Exception("This Application already canceled!");
 
             return _UpdateApplicationStatus(ApplicationID, 1);
+        }
+        public static bool DeleteApplication(int ApplicationID)
+        {
+            if (!isExistedByID(ApplicationID))
+            {
+                throw new Exception($"There is no existing Application with ID: {ApplicationID}");
+            }
+
+            bool success = false;
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+
+            string query = @"DELETE FROM [dbo].[Applications]
+                     WHERE ApplicationID = @ApplicationID";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@ApplicationID", ApplicationID);
+
+            try
+            {
+                connection.Open();
+
+                int rowsAffected = command.ExecuteNonQuery();
+
+                success = rowsAffected > 0;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+                command.Dispose();
+                connection.Dispose();
+            }
+
+            return success;
         }
     }
 }

@@ -13,6 +13,7 @@ namespace DVLD_Presentation.Forms
 {
     public partial class ManageLocalLicenseApplicationsForm : Form
     {
+        private int _SelectedLLA_ID = -1;
         public ManageLocalLicenseApplicationsForm()
         {
             InitializeComponent();
@@ -58,11 +59,84 @@ namespace DVLD_Presentation.Forms
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btn_AddApplication_Click(object sender, EventArgs e)
         {
             AddLocalLicenseApplicationForm addLocalLicenseForm = new AddLocalLicenseApplicationForm();
             addLocalLicenseForm.onAddLocalLicenseApplicationFinish += _LoadLocalLicenseApplications;
             addLocalLicenseForm.ShowDialog();
+        }
+
+        private void RefreshForm()
+        {
+            _LoadLocalLicenseApplications();
+            _UpdateCMP_ManageApplication();
+        }
+
+        private void btn_refresh_Click(object sender, EventArgs e)
+        {
+            RefreshForm();   
+        }
+
+        private void _UpdateCMP_ManageApplication()
+        {
+            visionStToolStripMenuItem.Enabled = !TestService.IsPassedTest(enTestType.eVisionTest, _SelectedLLA_ID)
+                &&
+                !TestService.IsPassedTest(enTestType.eWrittenTest, _SelectedLLA_ID);
+            writtenTestToolStripMenuItem.Enabled = !TestService.IsPassedTest(enTestType.eWrittenTest, _SelectedLLA_ID)
+                &&
+                TestService.IsPassedTest(enTestType.eVisionTest, _SelectedLLA_ID);
+            streetTestToolStripMenuItem.Enabled = !TestService.IsPassedTest(enTestType.ePracticalTest, _SelectedLLA_ID)
+                &&
+                TestService.IsPassedTest(enTestType.eWrittenTest, _SelectedLLA_ID);
+
+            issueLicenseFirstTimeToolStripMenuItem.Enabled = TestService.IsPassedTest(enTestType.ePracticalTest, _SelectedLLA_ID);
+            showLiToolStripMenuItem.Enabled = false; // FOR now TODO later.!!!!!!!!!
+        }
+
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count <= 0)
+                return;
+            
+            _SelectedLLA_ID = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[0].Value);
+            _UpdateCMP_ManageApplication();
+        }
+
+        private void showApplicationInfoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count <= 0)
+                return;
+
+            Form form = new LocalLicenseApplicationCardForm(_SelectedLLA_ID);
+            form.ShowDialog();
+        }
+
+        private void _SechdualeTest(enTestType testType)
+        {
+            if (_SelectedLLA_ID == -1)
+            {
+                MessageBox.Show("Please selected an application!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            SechdualeTestForm sechdualeTestForm = new SechdualeTestForm(_SelectedLLA_ID, testType);
+            sechdualeTestForm.onSechdualeTestFormClose += RefreshForm;
+            sechdualeTestForm.ShowDialog();
+        }
+
+        private void visionStToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _SechdualeTest(enTestType.eVisionTest);
+        }
+
+        private void writtenTestToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _SechdualeTest(enTestType.eWrittenTest);
+        }
+
+        private void streetTestToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _SechdualeTest(enTestType.ePracticalTest);
         }
     }
 }

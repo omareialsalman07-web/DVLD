@@ -41,10 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application.cs" />
+    <Compile Include="ApplicationService.cs" />
     <Compile Include="ApplicationType.cs" />
     <Compile Include="ApplicationTypeService.cs" />
     <Compile Include="Country.cs" />
     <Compile Include="CountryService.cs" />
+    <Compile Include="DVLDEnums.cs" />
+    <Compile Include="TestAppointment.cs" />
     <Compile Include="LicenseClassService.cs" />
     <Compile Include="LocalicenseClass.cs" />
     <Compile Include="LocalLicenseApplication.cs" />
@@ -52,6 +56,9 @@
     <Compile Include="Person.cs" />
     <Compile Include="PersonService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Test.cs" />
+    <Compile Include="TestAppointmentService.cs" />
+    <Compile Include="TestService.cs" />
     <Compile Include="TestType.cs" />
     <Compile Include="TestTypeService.cs" />
     <Compile Include="User.cs" />

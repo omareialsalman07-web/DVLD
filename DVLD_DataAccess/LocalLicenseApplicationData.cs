@@ -17,13 +17,14 @@ namespace DVLD_DataAccess
             bool success = false;
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
-            string query = @"SELECT found = 1 FROM (
-                            SELECT LocalLicenseApplications.LicenseClassID, LocalLicenseApplications.PersonID,
-                            Applications.Status FROM LocalLicenseApplications
-                            INNER JOIN Applications
-                            ON LocalLicenseApplications.ApplicationID = Applications.ApplicationID
-                            ) R1
-                            WHERE R1.LicenseClassID = @LicenseClassID and R1.PersonID = @PersonID and (R1.Status = 0 or R1.Status = 2);
+            string query = @"SELECT found = 1 
+                            WHERE EXISTS
+                            (
+                                SELECT R = 'Y' FROM LocalLicenseApplications
+                                INNER JOIN Applications
+                                ON LocalLicenseApplications.ApplicationID = Applications.ApplicationID
+                                WHERE LocalLicenseApplications.LicenseClassID = @LicenseClassID and LocalLicenseApplications.PersonID = @PersonID and (Applications.Status = 0 or Applications.Status = 2)
+                            );
                             ";
 
             SqlCommand command = new SqlCommand(query, connection);
@@ -121,7 +122,8 @@ namespace DVLD_DataAccess
 
             return success;
         }
-        public static bool GetLocalLicenseApplicationByID(int LocalLicenseApplicationID, ref int ApplicationID, ref int LicenseClassID, ref int PersonID)
+        public static bool GetLocalLicenseApplicationByID(int LocalLicenseApplicationID, ref int ApplicationID,
+            ref int LicenseClassID, ref int PersonID)
         {
             bool success = false;
 
@@ -154,6 +156,103 @@ namespace DVLD_DataAccess
                 connection.Close();
             }
 
+
+            return success;
+        }
+        public static int GetTotalTestTrials(int LocalLicenseApplicationID, int TestTypeID)
+        {
+            int count = 0;
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+            string query = @"SELECT COUNT(Tests.TestID) FROM Tests
+                            WHERE
+                            Tests.LocalLicenseApplicationID = @LocalLicenseApplicationID
+                            AND Tests.TestTypeID = @TestTypeID
+                            AND Tests.Result is not null;";
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@LocalLicenseApplicationID", LocalLicenseApplicationID);
+            command.Parameters.AddWithValue("@TestTypeID", TestTypeID);
+
+            try
+            {
+                connection.Open();
+                object result = command.ExecuteScalar();
+                if (result != null)
+                    count = Convert.ToInt32(result);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return count;
+        }
+        public static int GetTotalPassedTests(int localLicenseApplicationID)
+        {
+            int count = 0;
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+            string query = @"SELECT COUNT(Tests.TestID) FROM Tests
+                            WHERE Tests.LocalLicenseApplicationID = @LocalLicenseApplicationID
+                            AND Tests.Result = 1;";
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@LocalLicenseApplicationID", localLicenseApplicationID);
+
+            try
+            {
+                connection.Open();
+                object result = command.ExecuteScalar();
+                if (result != null)
+                    count = Convert.ToInt32(result);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return count;
+        }
+        public static bool HasTakenTestAppointment(int LocalLicenseApplicationID, int TestTypeID)
+        {
+            bool success = false;
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+            string query = @"SELECT found = 1
+                             WHERE EXISTS
+                             (
+                                 SELECT TOP 1 R = 'Y' FROM Tests
+                                 WHERE Tests.LocalLicenseApplicationID = @LocalLicenseApplicationID AND
+                                 Tests.TestTypeID = @TestTypeID AND
+                                 Tests.Result IS NOT NULL
+                             );";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@LocalLicenseApplicationID", LocalLicenseApplicationID);
+            command.Parameters.AddWithValue("@TestTypeID", TestTypeID);
+
+            try
+            {
+                connection.Open();
+                object result = command.ExecuteScalar();
+                success = (result != null);
+            }
+            catch (Exception ex)
+            {
+                success = false;
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
 
             return success;
         }

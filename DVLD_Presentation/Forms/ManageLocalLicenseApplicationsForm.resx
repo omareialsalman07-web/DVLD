@@ -151,13 +151,64 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <metadata name="cms_ManageApplication.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="showApplicationInfoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>244, 26</value>
+  </data>
+  <data name="showApplicationInfoToolStripMenuItem.Text" xml:space="preserve">
+    <value>Show Application Info</value>
+  </data>
+  <data name="cancleApplicationToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>244, 26</value>
+  </data>
+  <data name="cancleApplicationToolStripMenuItem.Text" xml:space="preserve">
+    <value>Cancle Application</value>
+  </data>
+  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>241, 6</value>
+  </data>
+  <data name="visionStToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>171, 26</value>
+  </data>
+  <data name="visionStToolStripMenuItem.Text" xml:space="preserve">
+    <value>Vision Test</value>
+  </data>
+  <data name="writtenTestToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>171, 26</value>
+  </data>
+  <data name="writtenTestToolStripMenuItem.Text" xml:space="preserve">
+    <value>Written Test</value>
+  </data>
+  <data name="streetTestToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>171, 26</value>
+  </data>
+  <data name="streetTestToolStripMenuItem.Text" xml:space="preserve">
+    <value>Street Test</value>
+  </data>
+  <data name="sToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>244, 26</value>
+  </data>
+  <data name="sToolStripMenuItem.Text" xml:space="preserve">
+    <value>Sechdule Tests</value>
+  </data>
+  <data name="issueLicenseFirstTimeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>244, 26</value>
+  </data>
+  <data name="issueLicenseFirstTimeToolStripMenuItem.Text" xml:space="preserve">
+    <value>Issue License (First Time)</value>
+  </data>
+  <data name="showLiToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>244, 26</value>
+  </data>
+  <data name="showLiToolStripMenuItem.Text" xml:space="preserve">
+    <value>Show  License</value>
+  </data>
   <data name="cms_ManageApplication.Size" type="System.Drawing.Size, System.Drawing">
-    <value>208, 30</value>
+    <value>245, 140</value>
   </data>
   <data name="&gt;&gt;cms_ManageApplication.Name" xml:space="preserve">
     <value>cms_ManageApplication</value>
@@ -187,40 +238,61 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;dataGridView1.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="button1.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
-  </data>
-  <data name="button1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1237, 125</value>
-  </data>
-  <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>60, 60</value>
-  </data>
-  <data name="button1.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="&gt;&gt;button1.Name" xml:space="preserve">
-    <value>button1</value>
+  <data name="btn_AddApplication.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
   </data>
-  <data name="&gt;&gt;button1.Type" xml:space="preserve">
+  <data name="btn_AddApplication.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btn_AddApplication.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1237, 125</value>
+  </data>
+  <data name="btn_AddApplication.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 60</value>
+  </data>
+  <data name="btn_AddApplication.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;btn_AddApplication.Name" xml:space="preserve">
+    <value>btn_AddApplication</value>
+  </data>
+  <data name="&gt;&gt;btn_AddApplication.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;button1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;btn_AddApplication.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;btn_AddApplication.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="btn_refresh.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btn_refresh.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btn_refresh.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1161, 125</value>
+  </data>
+  <data name="btn_refresh.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 60</value>
+  </data>
+  <data name="btn_refresh.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;btn_refresh.Name" xml:space="preserve">
+    <value>btn_refresh</value>
+  </data>
+  <data name="&gt;&gt;btn_refresh.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn_refresh.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;btn_refresh.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="cancleApplicationToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>207, 26</value>
-  </data>
-  <data name="cancleApplicationToolStripMenuItem.Text" xml:space="preserve">
-    <value>Cancle Application</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -231,13 +303,64 @@
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>1321, 710</value>
   </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterScreen</value>
+  </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Manage Local License Applications</value>
+  </data>
+  <data name="&gt;&gt;showApplicationInfoToolStripMenuItem.Name" xml:space="preserve">
+    <value>showApplicationInfoToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;showApplicationInfoToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;cancleApplicationToolStripMenuItem.Name" xml:space="preserve">
     <value>cancleApplicationToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;cancleApplicationToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">
+    <value>toolStripSeparator1</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;sToolStripMenuItem.Name" xml:space="preserve">
+    <value>sToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;sToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;visionStToolStripMenuItem.Name" xml:space="preserve">
+    <value>visionStToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;visionStToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;writtenTestToolStripMenuItem.Name" xml:space="preserve">
+    <value>writtenTestToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;writtenTestToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;streetTestToolStripMenuItem.Name" xml:space="preserve">
+    <value>streetTestToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;streetTestToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;issueLicenseFirstTimeToolStripMenuItem.Name" xml:space="preserve">
+    <value>issueLicenseFirstTimeToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;issueLicenseFirstTimeToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;showLiToolStripMenuItem.Name" xml:space="preserve">
+    <value>showLiToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;showLiToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">

@@ -28,41 +28,12 @@ namespace DVLD_Business
             ClassFees = classFees;
         }
 
-        private LicenseClass(int id, string className,
+        public LicenseClass(int id, string className,
             string classDescription, byte minimumAllowedAge,
             byte validityLength, float classFees)
+            : this(className, classDescription, minimumAllowedAge, validityLength, classFees)
         {
             LicenseClassID = id;
-        }
-
-        public static LicenseClass Find(int id)
-        {
-            string className = string.Empty;
-            string classDescription = string.Empty;
-            byte minimumAllowedAge = 0;
-            byte validityLength = 0;
-            float classFees = 0;
-
-            bool found = LicenseClassData.GetLicenseClassByID(
-                id,
-                ref className,
-                ref classDescription,
-                ref minimumAllowedAge,
-                ref validityLength,
-                ref classFees
-            );
-
-            if (!found)
-                return null;
-
-            return new LicenseClass(
-                id,
-                className,
-                classDescription,
-                minimumAllowedAge,
-                validityLength,
-                classFees
-            );
         }
     }
 }
