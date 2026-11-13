@@ -44,7 +44,7 @@ BEGIN
         SecondName           NVARCHAR(20)      NOT NULL,
         ThirdName            NVARCHAR(20)      NULL,
         LastName             NVARCHAR(20)      NOT NULL,
-        DateOfBirth          DATETIME          NOT NULL,
+        DateOfBirth          TIME          NOT NULL,
         Gendor               TINYINT           NOT NULL
                              CONSTRAINT DF_People_Gendor DEFAULT (0),   -- 0 Male, 1 Female
         [Address]            NVARCHAR(500)     NOT NULL,
@@ -151,7 +151,7 @@ BEGIN
     CREATE TABLE dbo.Applications (
         ApplicationID     INT IDENTITY(1,1) NOT NULL,
         ApplicationTypeID INT               NOT NULL,
-        [Date]            DATETIME          NOT NULL,
+        [Date]            TIME          NOT NULL,
         [Status]          TINYINT           NOT NULL,   -- 1 New, 2 Cancelled, 3 Completed
         CreatedByUserID   INT               NOT NULL,
         CONSTRAINT PK_Applications PRIMARY KEY CLUSTERED (ApplicationID),
@@ -204,8 +204,8 @@ BEGIN
     CREATE TABLE dbo.Licenses (
         LicenseID       INT IDENTITY(1,1) NOT NULL,
         IssueTypeID     INT               NOT NULL,
-        IssueDate       DATETIME          NOT NULL,
-        ExpirationDate  DATETIME          NOT NULL,
+        IssueDate       TIME          NOT NULL,
+        ExpirationDate  TIME          NOT NULL,
         DriverID        INT               NOT NULL,
         CreatedByUserID INT               NOT NULL,
         CONSTRAINT PK_Licenses PRIMARY KEY CLUSTERED (LicenseID),
@@ -275,8 +275,8 @@ BEGIN
         DFL_ID           INT IDENTITY(1,1) NOT NULL,
         LicenseID        INT               NOT NULL,
         IsReleased       BIT               NOT NULL,
-        DetainedDate     DATETIME          NOT NULL,
-        ReleasedDate     DATETIME          NULL,
+        DetainedDate     TIME          NOT NULL,
+        ReleasedDate     TIME          NULL,
         CreatedByUserID  INT               NOT NULL,
         ReleasedByUserID INT               NULL,
         CONSTRAINT PK_DetainedFreedLicenses PRIMARY KEY CLUSTERED (DFL_ID),
@@ -297,7 +297,7 @@ BEGIN
         TestID                    INT IDENTITY(1,1) NOT NULL,
         TestTypeID                INT               NOT NULL,
         PrerequisiteTestTypeID    INT               NULL,
-        Result                    BIT               NOT NULL,
+        Result                    BIT               NULL,
         Notes                     NVARCHAR(500)     NULL,
         LocalLicenseApplicationID INT               NOT NULL,
         CreatedByUserID           INT               NOT NULL,
@@ -320,19 +320,37 @@ IF OBJECT_ID(N'dbo.TestAppointments', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.TestAppointments (
         TestAppointmentID INT IDENTITY(1,1) NOT NULL,
-        TestID            INT               NOT NULL,
-        [Date]            DATETIME          NOT NULL,
-        IsLocked          BIT               NOT NULL,
-        PaidFees          FLOAT             NOT NULL,
-        CreatedByUserID   INT               NOT NULL,
-        CONSTRAINT PK_TestAppointments PRIMARY KEY CLUSTERED (TestAppointmentID),
+        TestID INT NOT NULL,
+        [Date] TIME NOT NULL,
+        IsCancelled BIT NOT NULL,
+        IsTaked BIT NOT NULL,
+        PaidFees FLOAT NOT NULL,
+        CreatedByUserID INT NOT NULL,
+        RetakeTestApplicationID INT NULL,
+
+        CONSTRAINT PK_TestAppointments
+            PRIMARY KEY CLUSTERED (TestAppointmentID),
+
         CONSTRAINT FK_TestAppointments_Tests
-            FOREIGN KEY (TestID) REFERENCES dbo.Tests(TestID),
+            FOREIGN KEY (TestID)
+            REFERENCES dbo.Tests(TestID),
+
         CONSTRAINT FK_TestAppointments_Users
-            FOREIGN KEY (CreatedByUserID) REFERENCES dbo.Users(UserID)
+            FOREIGN KEY (CreatedByUserID)
+            REFERENCES dbo.Users(UserID),
+
+        CONSTRAINT FK_TestAppointments_Applications
+            FOREIGN KEY (RetakeTestApplicationID)
+            REFERENCES dbo.Applications(ApplicationID)
     );
 END
 GO
+
+ALTER TABLE TestAppointments
+ADD RetakeTestApplicationID INT
+
+ALTER TABLE TestAppointments
+ADD 
 
 /* =====================================================================
    2) LOOKUP DATA  (each block runs only if its table is empty)
