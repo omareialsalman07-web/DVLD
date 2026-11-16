@@ -22,8 +22,8 @@ namespace DVLD_Presentation.UserControls
         {
             try
             {
-                LocalLicense localLicense = LocalLicenseService.Find(LocalLicenseID);
-                DVLD_Business.License license = LicenseService.Find(localLicense.LicenseID);
+                LocalLicense localLicense = LocalLicenseService.FindByLocalLicenseID(LocalLicenseID);
+                DVLD_Business.License license = LicenseService.FindByLicenseID(localLicense.LicenseID);
                 LicenseClass licenseClass = LicenseClassService.Find(localLicense.LicenseClassID);
                 Person person = PersonService.Find(DriverService.Find(license.DriverID).PersonID);
 
@@ -32,14 +32,14 @@ namespace DVLD_Presentation.UserControls
                 lbLocalLicenseID.Text = localLicense.LicenseClassID.ToString();
                 lbNationalNo.Text = person.NationalNo;
                 lbGendor.Text = person.Gendor.ToString();
-                lbIssueDate.Text = license.IssueDate.Date.ToString();
+                lbIssueDate.Text = license.IssueDate.ToShortDateString();
                 lbIssueReason.Text = license.IssueTypeID.ToString();
 
-                lbIsActive.Text = localLicense.IsExpired() ? "Yes" : "No";
+                lbIsActive.Text = localLicense.IsActive() ? "No" : "Yes";
                 lbDriverID.Text = license.DriverID.ToString();
-                lbDOB.Text = person.DateOfBirth.Date.ToString();
+                lbDOB.Text = person.DateOfBirth.ToShortDateString();
                 lbIsDetained.Text = "????"; // TODO LATER
-                lbExpirationDate.Text = localLicense.ExpirationDate().Date.ToString();
+                lbExpirationDate.Text = localLicense.ExpirationDate().ToShortDateString();
 
                 PersonImage.Image?.Dispose();
                 // Load into a temporary image, create a cloned Bitmap, and close the file stream immediately

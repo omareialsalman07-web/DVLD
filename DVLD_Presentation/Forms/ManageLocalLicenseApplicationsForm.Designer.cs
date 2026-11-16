@@ -33,17 +33,17 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.cms_ManageApplication = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.btn_refresh = new System.Windows.Forms.Button();
-            this.btn_AddApplication = new System.Windows.Forms.Button();
             this.showApplicationInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cancleApplicationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.sToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.visionStToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.writtenTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.streetTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.issueLicenseFirstTimeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showLiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btn_refresh = new System.Windows.Forms.Button();
+            this.btn_AddApplication = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.cms_ManageApplication.SuspendLayout();
             this.SuspendLayout();
@@ -84,29 +84,6 @@
             this.cms_ManageApplication.Name = "cms_ManageApplication";
             resources.ApplyResources(this.cms_ManageApplication, "cms_ManageApplication");
             // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
-            // 
-            // btn_refresh
-            // 
-            this.btn_refresh.FlatAppearance.BorderSize = 0;
-            resources.ApplyResources(this.btn_refresh, "btn_refresh");
-            this.btn_refresh.Image = global::DVLD_Presentation.Properties.Resources.refresh;
-            this.btn_refresh.Name = "btn_refresh";
-            this.btn_refresh.UseVisualStyleBackColor = true;
-            this.btn_refresh.Click += new System.EventHandler(this.btn_refresh_Click);
-            // 
-            // btn_AddApplication
-            // 
-            this.btn_AddApplication.FlatAppearance.BorderSize = 0;
-            resources.ApplyResources(this.btn_AddApplication, "btn_AddApplication");
-            this.btn_AddApplication.Image = global::DVLD_Presentation.Properties.Resources.plus_small;
-            this.btn_AddApplication.Name = "btn_AddApplication";
-            this.btn_AddApplication.UseVisualStyleBackColor = true;
-            this.btn_AddApplication.Click += new System.EventHandler(this.btn_AddApplication_Click);
-            // 
             // showApplicationInfoToolStripMenuItem
             // 
             this.showApplicationInfoToolStripMenuItem.Image = global::DVLD_Presentation.Properties.Resources.applications;
@@ -120,6 +97,11 @@
             this.cancleApplicationToolStripMenuItem.Name = "cancleApplicationToolStripMenuItem";
             resources.ApplyResources(this.cancleApplicationToolStripMenuItem, "cancleApplicationToolStripMenuItem");
             this.cancleApplicationToolStripMenuItem.Click += new System.EventHandler(this.cancleApplicationToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             // 
             // sToolStripMenuItem
             // 
@@ -165,6 +147,24 @@
             this.showLiToolStripMenuItem.Name = "showLiToolStripMenuItem";
             resources.ApplyResources(this.showLiToolStripMenuItem, "showLiToolStripMenuItem");
             this.showLiToolStripMenuItem.Click += new System.EventHandler(this.showLiToolStripMenuItem_Click);
+            // 
+            // btn_refresh
+            // 
+            this.btn_refresh.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(this.btn_refresh, "btn_refresh");
+            this.btn_refresh.Image = global::DVLD_Presentation.Properties.Resources.refresh;
+            this.btn_refresh.Name = "btn_refresh";
+            this.btn_refresh.UseVisualStyleBackColor = true;
+            this.btn_refresh.Click += new System.EventHandler(this.btn_refresh_Click);
+            // 
+            // btn_AddApplication
+            // 
+            this.btn_AddApplication.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(this.btn_AddApplication, "btn_AddApplication");
+            this.btn_AddApplication.Image = global::DVLD_Presentation.Properties.Resources.plus_small;
+            this.btn_AddApplication.Name = "btn_AddApplication";
+            this.btn_AddApplication.UseVisualStyleBackColor = true;
+            this.btn_AddApplication.Click += new System.EventHandler(this.btn_AddApplication_Click);
             // 
             // ManageLocalLicenseApplicationsForm
             // 

@@ -6,17 +6,29 @@ namespace DVLD_Business
 {
     public static class LocalLicenseService
     {
-        public static LocalLicense Find(int localLicenseID)
+        public static LocalLicense FindByLocalLicenseID(int localLicenseID)
         {
             int licenseID = -1;
             int licenseClassID = -1;
 
-            if (!LocalLicenseData.GetLicense(localLicenseID, ref licenseID, ref licenseClassID))
+            if (!LocalLicenseData.GetLicenseByLocalLicenseID(localLicenseID, ref licenseID, ref licenseClassID))
             {
                 return null;
             }
 
             return new LocalLicense(localLicenseID, licenseID, licenseClassID);
+        }
+        public static LocalLicense FindByLicenseID(int licenseID)
+        {
+            int locallicenseID = -1;
+            int licenseClassID = -1;
+
+            if (!LocalLicenseData.GetLicenseByLicenseID(licenseID, ref locallicenseID, ref licenseClassID))
+            {
+                return null;
+            }
+
+            return new LocalLicense(locallicenseID, licenseID, licenseClassID);
         }
 
         public static int Create(int LocalLicenseApplicationID, enLicenseIssueType issueTypeID, int createdByUserID)

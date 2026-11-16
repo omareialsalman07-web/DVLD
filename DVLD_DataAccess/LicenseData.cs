@@ -28,7 +28,7 @@ namespace DVLD_DataAccess
             command.Parameters.AddWithValue("@IssueTypeID", IssueTypeID);
             command.Parameters.AddWithValue("@IssueDate", IssueDate);
             command.Parameters.AddWithValue("@DriverID", DriverID);
-            command.Parameters.AddWithValue("@ApplicationID", CreatedByUserID);
+            command.Parameters.AddWithValue("@ApplicationID", ApplicationID);
             command.Parameters.AddWithValue("@CreatedByUserID", CreatedByUserID);
 
             try
@@ -52,16 +52,16 @@ namespace DVLD_DataAccess
             return _TestID;
         }
 
-        public static bool GetLicense(int LicenseID, ref int IssueTypeID, ref DateTime IssueDate, 
+        private static bool GetLicenseBy(string column, object val, ref int LicenseID, ref int IssueTypeID, ref DateTime IssueDate, 
             ref int DriverID, ref int ApplicationID, ref bool IsActive, ref int CreatedByUserID)
         {
             bool found = false;
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
 
-            string query = $"SELECT * FROM Licenses WHERE LicenseID = @Val;";
+            string query = $"SELECT * FROM Licenses WHERE {column} = @Val;";
             SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@Val", LicenseID);
+            command.Parameters.AddWithValue("@Val", val);
             try
             {
                 connection.Open();
@@ -69,6 +69,7 @@ namespace DVLD_DataAccess
                 SqlDataReader reader = command.ExecuteReader();
                 if (reader.Read())
                 {
+                    LicenseID = Convert.ToInt32(reader["LicenseID"]);
                     IssueTypeID = Convert.ToInt32(reader["IssueTypeID"]);
                     IssueDate = Convert.ToDateTime(reader["IssueDate"]);
                     DriverID = Convert.ToInt32(reader["DriverID"]);
@@ -91,6 +92,18 @@ namespace DVLD_DataAccess
             }
 
             return found;
+        }
+        public static bool GetLicenseByLicenseID(int LicenseID, ref int IssueTypeID, ref DateTime IssueDate, 
+            ref int DriverID, ref int ApplicationID, ref bool IsActive, ref int CreatedByUserID)
+        {
+            return GetLicenseBy("LicenseID", LicenseID, ref LicenseID, ref IssueTypeID,
+                ref IssueDate, ref DriverID, ref ApplicationID, ref IsActive, ref CreatedByUserID);
+        }
+        public static bool GetLicenseByApplicationID(int ApplicationID, ref int LicenseID, ref int IssueTypeID, ref DateTime IssueDate, 
+            ref int DriverID, ref bool IsActive, ref int CreatedByUserID)
+        {
+            return GetLicenseBy("ApplicationID", ApplicationID, ref LicenseID, ref IssueTypeID,
+                ref IssueDate, ref DriverID, ref ApplicationID, ref IsActive, ref CreatedByUserID);
         }
 
         public static bool isExist(int LicenseID)

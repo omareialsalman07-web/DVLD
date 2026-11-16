@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -143,6 +144,65 @@ namespace DVLD_DataAccess
         public static bool isExistByPersonID(int PersonID)
         {
             return isExistBy("PersonID", PersonID);
+        }
+
+        public static DataTable GetDrivers()
+        {
+            DataTable dt = new DataTable();
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+            string query = @"SELECT * FROM dbo.Drivers;";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            try
+            {
+                connection.Open();
+
+                dt.Load(command.ExecuteReader());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return dt;
+        }
+        public static DataTable GetDriversForDisplay()
+        {
+            DataTable dt = new DataTable();
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+            string query = @"SELECT Drivers.DriverID, 
+                            People.FirstName + ' ' + People.SecondName + ' ' +
+                            ISNULL(People.ThirdName, '') + ' ' + People.LastName as FullName,
+                            Drivers.CreatedDate, Users.UserName
+                            FROM dbo.Drivers
+                            INNER JOIN People ON People.PersonID = Drivers.PersonID
+                            INNER JOIN Users ON Users.UserID = Drivers.CreatedByUserID;";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            try
+            {
+                connection.Open();
+
+                dt.Load(command.ExecuteReader());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return dt;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -52,15 +53,15 @@ namespace DVLD_DataAccess
             return _LocalLicenseID;
         }
 
-        public static bool GetLicense(int LocalLicenseID, ref int LicenseID, ref int LicenseClassID)
+        private static bool GetLicenseBy(string column, object val, ref int LocalLicenseID, ref int LicenseID, ref int LicenseClassID)
         {
             bool found = false;
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
 
-            string query = $"SELECT * FROM LocalLicenses WHERE LocalLicenseID = @Val;";
+            string query = $"SELECT * FROM LocalLicenses WHERE {column} = @Val;";
             SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@Val", LocalLicenseID);
+            command.Parameters.AddWithValue("@Val", val);
             try
             {
                 connection.Open();
@@ -68,6 +69,7 @@ namespace DVLD_DataAccess
                 SqlDataReader reader = command.ExecuteReader();
                 if (reader.Read())
                 {
+                    LocalLicenseID = Convert.ToInt32(reader["LocalLicenseID"]);
                     LicenseID = Convert.ToInt32(reader["LicenseID"]);
                     LicenseClassID = Convert.ToInt32(reader["LicenseClassID"]);
 
@@ -86,6 +88,15 @@ namespace DVLD_DataAccess
             }
 
             return found;
+        }
+        
+        public static bool GetLicenseByLocalLicenseID(int LocalLicenseID, ref int LicenseID, ref int LicenseClassID)
+        {
+            return GetLicenseBy("LocalLicenseID", LocalLicenseID, ref LocalLicenseID, ref LicenseID, ref LicenseClassID);
+        }
+        public static bool GetLicenseByLicenseID(int LicenseID, ref int LocalLicenseID, ref int LicenseClassID)
+        {
+            return GetLicenseBy("LicenseID", LicenseID, ref LocalLicenseID, ref LicenseID, ref LicenseClassID);
         }
 
         public static bool isExist(int LocalLicenseID)

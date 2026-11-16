@@ -151,8 +151,24 @@ namespace DVLD_Presentation.Forms
 
         private void showLiToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form localLicenseCardForm = new LocalLicenceCardForm(3);
-            localLicenseCardForm.ShowDialog();
+            if (_SelectedLLA_ID == -1)
+            {
+                MessageBox.Show("Please selected an application!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                DVLD_Business.Application Application = ApplicationService.Find(LocalLicenseApplicationService.Find(_SelectedLLA_ID).ApplicationID);
+                int LocalLicenseID = LocalLicenseService.FindByLicenseID(LicenseService.FindByApplicationID(Application.ApplicationID).LicenseID).LocalLicenseID;
+
+                Form localLicenseCardForm = new LocalLicenceCardForm(LocalLicenseID);
+                localLicenseCardForm.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void issueLicenseFirstTimeToolStripMenuItem_Click(object sender, EventArgs e)

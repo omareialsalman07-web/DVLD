@@ -11,7 +11,7 @@ namespace DVLD_Business
 
         public DateTime ExpirationDate()
         {
-            License license = LicenseService.Find(LicenseID);
+            License license = LicenseService.FindByLicenseID(LicenseID);
             LicenseClass licenseClass = LicenseClassService.Find(LicenseClassID);
 
             return license.IssueDate.AddYears(licenseClass.ValidityLength);
@@ -20,6 +20,12 @@ namespace DVLD_Business
         public bool IsExpired()
         {
             return DateTime.Today > ExpirationDate();
+        }
+
+        public bool IsActive()
+        {
+            License license = LicenseService.FindByLicenseID(LicenseID);
+            return license.IsActive && !IsExpired();
         }
 
         public LocalLicense(int licenseID, int licenseClassID)
