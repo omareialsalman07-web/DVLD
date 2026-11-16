@@ -18,6 +18,11 @@ namespace DVLD_Business
             bool success = false;
             try
             {
+                LicenseClass licenseClass = LicenseClassService.Find(LicenseClassID);
+                Person person = PersonService.Find(PersonID);
+                if (person.Age() < licenseClass.MinimumAllowedAge)
+                    throw new Exception($"This License Class requires {licenseClass.MinimumAllowedAge} years old, while this person is {person.Age()} years old!");
+
                 int result = LocalLicenseApplicationData.CreateLocalLicenseApplication(LicenseClassID, PersonID, CreatedByUserID);
                 success = result != -1;
             }

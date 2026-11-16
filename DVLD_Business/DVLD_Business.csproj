@@ -47,7 +47,13 @@
     <Compile Include="ApplicationTypeService.cs" />
     <Compile Include="Country.cs" />
     <Compile Include="CountryService.cs" />
+    <Compile Include="Driver.cs" />
+    <Compile Include="DriverService.cs" />
     <Compile Include="DVLDEnums.cs" />
+    <Compile Include="License.cs" />
+    <Compile Include="LicenseService.cs" />
+    <Compile Include="LocalLicense.cs" />
+    <Compile Include="LocalLicenseService.cs" />
     <Compile Include="TestAppointment.cs" />
     <Compile Include="LicenseClassService.cs" />
     <Compile Include="LocalicenseClass.cs" />

@@ -26,4 +26,12 @@
         eCancelled = 1,
         eCompleted = 2
     }
+
+    public enum enLicenseIssueType
+    {
+        eFirstTime = 1,
+        eRenew = 2,
+        eReplacementForDamaged = 3,
+        eReplacementForLost = 4
+    }
 }

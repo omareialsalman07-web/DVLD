@@ -81,15 +81,7 @@ namespace DVLD_Business
                 throw new Exception($"Some thing went wen't wrong while taking the Test by Appointmnet ID {TestAppointmentID}");
             }
 
-            Test test = TestService.Find(testAppointment.TestID);
-            if(test != null)
-            {
-                if (test.TestType == enTestType.ePracticalTest && Result == true)
-                    return LocalLicenseApplicationService.Complete(test.LocalLicenseApplicationID);
-
-                return true;
-            }
-            return false;
+            return true;
         }
         public static bool CancleAppointment(int TestAppointmentID)
         {
