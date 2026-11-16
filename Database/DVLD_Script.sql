@@ -210,6 +210,8 @@ BEGIN
         IssueTypeID     INT               NOT NULL,
         IssueDate       TIME          NOT NULL,
         DriverID        INT               NOT NULL,
+        ApplicationID   INT               NOT NULL,
+        IsActive        BIT               NOT NULL DEFAULT 1,
         CreatedByUserID INT               NOT NULL,
         CONSTRAINT PK_Licenses PRIMARY KEY CLUSTERED (LicenseID),
         CONSTRAINT FK_Licenses_LicenseIssueTypes
@@ -217,7 +219,9 @@ BEGIN
         CONSTRAINT FK_Licenses_Drivers
             FOREIGN KEY (DriverID) REFERENCES dbo.Drivers(DriverID),
         CONSTRAINT FK_Licenses_Users
-            FOREIGN KEY (CreatedByUserID) REFERENCES dbo.Users(UserID)
+            FOREIGN KEY (CreatedByUserID) REFERENCES dbo.Users(UserID),
+        constraint Licenses_Applications_fk 
+            FOREIGN KEY(ApplicationID) REFERENCES dbo.Applications(ApplicationID)
     );
 END
 GO
