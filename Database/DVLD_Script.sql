@@ -188,12 +188,16 @@ BEGIN
     CREATE TABLE dbo.Drivers (
         DriverID        INT IDENTITY(1,1) NOT NULL,
         PersonID        INT               NOT NULL,
+        CreatedDate     Date              NOT NULL,
         CreatedByUserID INT               NOT NULL,
         CONSTRAINT PK_Drivers PRIMARY KEY CLUSTERED (DriverID),
         CONSTRAINT FK_Drivers_People
             FOREIGN KEY (PersonID) REFERENCES dbo.People(PersonID),
         CONSTRAINT FK_Drivers_Users
             FOREIGN KEY (CreatedByUserID) REFERENCES dbo.Users(UserID)
+        
+        CONSTRAINT UQ_Driver_PersonID
+        UNIQUE (PersonID)
     );
 END
 GO
@@ -205,7 +209,6 @@ BEGIN
         LicenseID       INT IDENTITY(1,1) NOT NULL,
         IssueTypeID     INT               NOT NULL,
         IssueDate       TIME          NOT NULL,
-        ExpirationDate  TIME          NOT NULL,
         DriverID        INT               NOT NULL,
         CreatedByUserID INT               NOT NULL,
         CONSTRAINT PK_Licenses PRIMARY KEY CLUSTERED (LicenseID),
