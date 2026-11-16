@@ -9,7 +9,7 @@ namespace DVLD_DataAccess
 {
     public static class LicenseData
     {
-        public static int CreateLicense(int IssueTypeID, DateTime IssueDate, int DriverID, int CreatedByUserID)
+        public static int CreateLicense(int IssueTypeID, DateTime IssueDate, int DriverID, int ApplicationID, int CreatedByUserID)
         {
             int _TestID = -1;
 
@@ -18,15 +18,17 @@ namespace DVLD_DataAccess
                              ([IssueTypeID]
                              ,[IssueDate]
                              ,[DriverID]
+                             ,[ApplicationID]
                              ,[CreatedByUserID])
                             VALUES
-                                  (@IssueTypeID, @IssueDate, @DriverID, @CreatedByUserID);
+                                  (@IssueTypeID, @IssueDate, @DriverID, @ApplicationID, @CreatedByUserID);
                             SELECT SCOPE_IDENTITY();";
 
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@IssueTypeID", IssueTypeID);
             command.Parameters.AddWithValue("@IssueDate", IssueDate);
             command.Parameters.AddWithValue("@DriverID", DriverID);
+            command.Parameters.AddWithValue("@ApplicationID", CreatedByUserID);
             command.Parameters.AddWithValue("@CreatedByUserID", CreatedByUserID);
 
             try
@@ -51,7 +53,7 @@ namespace DVLD_DataAccess
         }
 
         public static bool GetLicense(int LicenseID, ref int IssueTypeID, ref DateTime IssueDate, 
-            ref int DriverID, ref int CreatedByUserID)
+            ref int DriverID, ref int ApplicationID, ref bool IsActive, ref int CreatedByUserID)
         {
             bool found = false;
 
@@ -70,6 +72,8 @@ namespace DVLD_DataAccess
                     IssueTypeID = Convert.ToInt32(reader["IssueTypeID"]);
                     IssueDate = Convert.ToDateTime(reader["IssueDate"]);
                     DriverID = Convert.ToInt32(reader["DriverID"]);
+                    ApplicationID = Convert.ToInt32(reader["ApplicationID"]);
+                    IsActive = Convert.ToBoolean(reader["IsActive"]);
                     CreatedByUserID = Convert.ToInt32(reader["CreatedByUserID"]);
 
                     reader.Close();

@@ -51,7 +51,7 @@ namespace DVLD_Business
             if (driver == null)
                 throw new Exception("Failed to create driver, while creating local license.");
 
-            int licenseID = LicenseService.Create(issueTypeID, driver.DriverID, createdByUserID);
+            int licenseID = LicenseService.Create(issueTypeID, driver.DriverID, localLicenseApplication.ApplicationID, createdByUserID);
 
             if (licenseID == -1)
                 throw new Exception("Failed to create license.");
