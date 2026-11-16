@@ -1,0 +1,49 @@
+﻿using DVLD_Business;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace DVLD_Presentation.Forms
+{
+    public partial class IssueLocalLicenceForm : Form
+    {
+        public delegate void OnIssueLocalLicenceFormFinish();
+        public OnIssueLocalLicenceFormFinish onIssueLocalLicenceFormFinish;
+
+        int _LLApplicationID;
+        public IssueLocalLicenceForm(int LLApplcationID)
+        {
+            InitializeComponent();
+            _LLApplicationID = LLApplcationID;
+        }
+
+        private void IssueLocalLicenceForm_Load(object sender, EventArgs e)
+        {
+            ctrlLocalLicenseApplicationInfo1.LoadLocalLicenseApplication(_LLApplicationID);
+        }
+
+        private void btnIssue_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (LocalLicenseService.Create(_LLApplicationID, enLicenseIssueType.eFirstTime, DVLD_Settings.GetCurrnetUser().ID) == -1)
+                {
+                    MessageBox.Show("Field to create Local License", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            onIssueLocalLicenceFormFinish?.Invoke();
+            this.Close();
+        }
+    }
+}

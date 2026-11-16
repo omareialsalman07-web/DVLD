@@ -73,7 +73,7 @@ namespace DVLD_Presentation.Forms
                     break;
                 case enTestType.ePracticalTest:
                     lbTitle.Text = "Street Test Appointments";
-                    pbFromImage.Image = Resources.road;
+                    pbFromImage.Image = Resources.drivingTest;
                     break;
             }
 

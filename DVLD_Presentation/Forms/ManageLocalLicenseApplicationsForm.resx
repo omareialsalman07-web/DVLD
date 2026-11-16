@@ -184,7 +184,7 @@
     <value>Written Test</value>
   </data>
   <data name="streetTestToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>171, 26</value>
+    <value>224, 26</value>
   </data>
   <data name="streetTestToolStripMenuItem.Text" xml:space="preserve">
     <value>Street Test</value>
@@ -208,7 +208,7 @@
     <value>Show  License</value>
   </data>
   <data name="cms_ManageApplication.Size" type="System.Drawing.Size, System.Drawing">
-    <value>245, 140</value>
+    <value>245, 168</value>
   </data>
   <data name="&gt;&gt;cms_ManageApplication.Name" xml:space="preserve">
     <value>cms_ManageApplication</value>
@@ -240,33 +240,6 @@
   <data name="&gt;&gt;dataGridView1.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="btn_AddApplication.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
-  </data>
-  <data name="btn_AddApplication.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="btn_AddApplication.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1237, 125</value>
-  </data>
-  <data name="btn_AddApplication.Size" type="System.Drawing.Size, System.Drawing">
-    <value>60, 60</value>
-  </data>
-  <data name="btn_AddApplication.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;btn_AddApplication.Name" xml:space="preserve">
-    <value>btn_AddApplication</value>
-  </data>
-  <data name="&gt;&gt;btn_AddApplication.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btn_AddApplication.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;btn_AddApplication.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
   <data name="btn_refresh.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
   </data>
@@ -294,6 +267,33 @@
   <data name="&gt;&gt;btn_refresh.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="btn_AddApplication.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btn_AddApplication.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btn_AddApplication.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1237, 125</value>
+  </data>
+  <data name="btn_AddApplication.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 60</value>
+  </data>
+  <data name="btn_AddApplication.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;btn_AddApplication.Name" xml:space="preserve">
+    <value>btn_AddApplication</value>
+  </data>
+  <data name="&gt;&gt;btn_AddApplication.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn_AddApplication.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;btn_AddApplication.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -303,11 +303,20 @@
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>1321, 710</value>
   </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterScreen</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Manage Local License Applications</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">
+    <value>toolStripSeparator1</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;showApplicationInfoToolStripMenuItem.Name" xml:space="preserve">
     <value>showApplicationInfoToolStripMenuItem</value>
@@ -320,12 +329,6 @@
   </data>
   <data name="&gt;&gt;cancleApplicationToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">
-    <value>toolStripSeparator1</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;sToolStripMenuItem.Name" xml:space="preserve">
     <value>sToolStripMenuItem</value>

@@ -66,7 +66,7 @@ namespace DVLD_Presentation.Forms
             addLocalLicenseForm.ShowDialog();
         }
 
-        private void RefreshForm()
+        private void _RefreshForm()
         {
             _LoadLocalLicenseApplications();
             _UpdateCMP_ManageApplication();
@@ -74,7 +74,7 @@ namespace DVLD_Presentation.Forms
 
         private void btn_refresh_Click(object sender, EventArgs e)
         {
-            RefreshForm();   
+            _RefreshForm();   
         }
 
         private void _UpdateCMP_ManageApplication()
@@ -89,8 +89,18 @@ namespace DVLD_Presentation.Forms
                 &&
                 TestService.IsPassedTest(enTestType.eWrittenTest, _SelectedLLA_ID);
 
-            issueLicenseFirstTimeToolStripMenuItem.Enabled = TestService.IsPassedTest(enTestType.ePracticalTest, _SelectedLLA_ID);
-            showLiToolStripMenuItem.Enabled = false; // FOR now TODO later.!!!!!!!!!
+            sToolStripMenuItem.Enabled = !TestService.IsPassedTest(enTestType.ePracticalTest, _SelectedLLA_ID);
+
+            enApplicationStatus status = ApplicationService.Find(LocalLicenseApplicationService.Find(_SelectedLLA_ID).ApplicationID).Status;
+            if (status == enApplicationStatus.eNew)
+                issueLicenseFirstTimeToolStripMenuItem.Enabled = TestService.IsPassedTest(enTestType.ePracticalTest, _SelectedLLA_ID);
+            else
+                issueLicenseFirstTimeToolStripMenuItem.Enabled = false;
+
+            if (status == enApplicationStatus.eCompleted)
+                showLiToolStripMenuItem.Enabled = true;
+            else
+                showLiToolStripMenuItem.Enabled = false;
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
@@ -120,7 +130,7 @@ namespace DVLD_Presentation.Forms
             }
 
             SechdualeTestForm sechdualeTestForm = new SechdualeTestForm(_SelectedLLA_ID, testType);
-            sechdualeTestForm.onSechdualeTestFormClose += RefreshForm;
+            sechdualeTestForm.onSechdualeTestFormClose += _RefreshForm;
             sechdualeTestForm.ShowDialog();
         }
 
@@ -137,6 +147,25 @@ namespace DVLD_Presentation.Forms
         private void streetTestToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _SechdualeTest(enTestType.ePracticalTest);
+        }
+
+        private void showLiToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form localLicenseCardForm = new LocalLicenceCardForm(3);
+            localLicenseCardForm.ShowDialog();
+        }
+
+        private void issueLicenseFirstTimeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (_SelectedLLA_ID == -1)
+            {
+                MessageBox.Show("Please selected an application!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            IssueLocalLicenceForm issueLocalLicenceForm = new IssueLocalLicenceForm(_SelectedLLA_ID);
+            issueLocalLicenceForm.onIssueLocalLicenceFormFinish += _RefreshForm;
+            issueLocalLicenceForm.ShowDialog();
         }
     }
 }
