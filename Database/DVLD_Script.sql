@@ -210,7 +210,7 @@ BEGIN
         IssueTypeID     INT               NOT NULL,
         IssueDate       TIME          NOT NULL,
         DriverID        INT               NOT NULL,
-        ApplicationID   INT               NOT NULL,
+        ApplicationID   INT               UNIQUE NOT NULL,
         IsActive        BIT               NOT NULL DEFAULT 1,
         CreatedByUserID INT               NOT NULL,
         CONSTRAINT PK_Licenses PRIMARY KEY CLUSTERED (LicenseID),
@@ -231,7 +231,7 @@ IF OBJECT_ID(N'dbo.LocalLicenses', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.LocalLicenses (
         LocalLicenseID INT IDENTITY(1,1) NOT NULL,   -- L.LID
-        LicenseID      INT               NOT NULL,
+        LicenseID      INT               UNIQUE NOT NULL,
         LicenseClassID INT               NOT NULL,
         CONSTRAINT PK_LocalLicenses PRIMARY KEY CLUSTERED (LocalLicenseID),
         CONSTRAINT FK_LocalLicenses_Licenses
