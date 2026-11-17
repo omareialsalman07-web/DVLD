@@ -1,6 +1,9 @@
 ﻿
 using DVLD_DataAccess;
 using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace DVLD_Business
 {
@@ -73,6 +76,54 @@ namespace DVLD_Business
                 ApplicationService.Complete(localLicenseApplication.ApplicationID);
 
             return result;
+        }
+
+        public static bool isExist(int LocalLicenseID)
+        {
+            return LocalLicenseData.isExist(LocalLicenseID);
+        }
+
+        public static List<LocalLicense> GetLocalLicenses()
+        {
+            List<LocalLicense> localLicensesList = new List<LocalLicense>();
+
+            DataTable data = LocalLicenseData.GetLocalLicenses();
+            foreach (DataRow row in data.Rows)
+            {
+                LocalLicense driver = new LocalLicense
+                (
+                    localLicenseID: Convert.ToInt32(row["LocalLicenseID"]),
+                    licenseID: Convert.ToInt32(row["LicenseID"]),
+                    licenseClassID: Convert.ToInt32(row["LicenseClassID"])
+                );
+
+                localLicensesList.Add(driver);
+            }
+
+            return localLicensesList;
+        }
+        public static List<LocalLicense> GetLocalLicensesForDriver(int driverID)
+        {
+            List<LocalLicense> localLicensesList = new List<LocalLicense>();
+
+            DataTable data = LocalLicenseData.GetLocalLicensesForDriver(driverID);
+            foreach (DataRow row in data.Rows)
+            {
+                LocalLicense driver = new LocalLicense
+                (
+                    localLicenseID: Convert.ToInt32(row["LocalLicenseID"]),
+                    licenseID: Convert.ToInt32(row["LicenseID"]),
+                    licenseClassID: Convert.ToInt32(row["LicenseClassID"])
+                );
+
+                localLicensesList.Add(driver);
+            }
+
+            return localLicensesList;
+        }
+        public static DataTable GetLocalLicensesForDriver_ForDisplay(int driverID)
+        {
+            return LocalLicenseData.GetLocalLicensesForDriver_ForDisplay(driverID);
         }
     }
 }

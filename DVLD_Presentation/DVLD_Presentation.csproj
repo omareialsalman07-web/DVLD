@@ -85,6 +85,24 @@
     <Compile Include="Forms\AddEditTestAppointmentForm.Designer.cs">
       <DependentUpon>AddEditTestAppointmentForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\DriverCardFrom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DriverCardFrom.Designer.cs">
+      <DependentUpon>DriverCardFrom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\LicensesHistoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\LicensesHistoryForm.Designer.cs">
+      <DependentUpon>LicensesHistoryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ManageDriversForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ManageDriversForm.Designer.cs">
+      <DependentUpon>ManageDriversForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\LocalLicenceCardForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -180,6 +198,12 @@
     <Compile Include="UserControls\ctrlBasicApplicationInfo.Designer.cs">
       <DependentUpon>ctrlBasicApplicationInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ctrlDriverInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\ctrlDriverInfo.Designer.cs">
+      <DependentUpon>ctrlDriverInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ctrlLocalLicenseApplicationInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -251,6 +275,15 @@
     <EmbeddedResource Include="Forms\AddEditTestAppointmentForm.resx">
       <DependentUpon>AddEditTestAppointmentForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DriverCardFrom.resx">
+      <DependentUpon>DriverCardFrom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\LicensesHistoryForm.resx">
+      <DependentUpon>LicensesHistoryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ManageDriversForm.resx">
+      <DependentUpon>ManageDriversForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\LocalLicenceCardForm.resx">
       <DependentUpon>LocalLicenceCardForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -295,6 +328,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ctrlBasicApplicationInfo.resx">
       <DependentUpon>ctrlBasicApplicationInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\ctrlDriverInfo.resx">
+      <DependentUpon>ctrlDriverInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ctrlLocalLicenseApplicationInfo.resx">
       <DependentUpon>ctrlLocalLicenseApplicationInfo.cs</DependentUpon>
@@ -511,6 +547,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\drivingTest.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\history.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\all.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PersonLicenseHistory 512.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

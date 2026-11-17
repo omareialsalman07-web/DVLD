@@ -1,6 +1,9 @@
 ﻿
 using DVLD_DataAccess;
 using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace DVLD_Business
 {
@@ -41,6 +44,40 @@ namespace DVLD_Business
                     "This person is already registered as a driver.");
 
             return DriverData.CreateDriver(personID, DateTime.Today, createdByUserID);
+        }
+
+        public static int GetTotalAvailableLicenses(int driverID)
+        {
+            return LicenseData.GetTotalAvailableLicensesForDriver(driverID);
+        }
+
+        public static DataTable GetDrivers_ToTable()
+        {
+            return DriverData.GetDrivers();
+        }
+        public static List<Driver> GetDrivers()
+        {
+            List<Driver> driversList = new List<Driver>();
+
+            DataTable data = DriverData.GetDrivers();
+            foreach (DataRow row in data.Rows)
+            {
+                Driver driver = new Driver
+                (
+                    driverID: Convert.ToInt32(row["DriverID"]),
+                    personID: Convert.ToInt32(row["PersonID"]),
+                    createdDate: Convert.ToDateTime(row["CreatedDate"]),
+                    createdByUserID: Convert.ToInt32(row["CreatedByUserID"])
+                );
+
+                driversList.Add(driver);
+            }
+
+            return driversList;
+        }
+        public static DataTable GetDriversForDisplay()
+        {
+            return DriverData.GetDriversForDisplay();
         }
     }
 }

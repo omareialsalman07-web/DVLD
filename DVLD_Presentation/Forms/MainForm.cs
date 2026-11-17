@@ -71,16 +71,29 @@ namespace DVLD_Presentation
 
             usersManagementForm.Show();
         }
+
+        Form ManageApplicationTypesForm;
         private void manageApplicationTypesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form manageApplicationTypesForm = new ManageApplicationTypesForm();
-            manageApplicationTypesForm.Show();
+            if (ManageApplicationTypesForm == null || ManageApplicationTypesForm.IsDisposed)
+            {
+                ManageApplicationTypesForm = new ManageApplicationTypesForm();
+                ManageApplicationTypesForm.MdiParent = this;
+            }
+
+            ManageApplicationTypesForm.Show();
         }
 
+        Form ManageTestTypesForm;
         private void manageTestTypesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form manageTestTypesForm = new ManageTestTypesForm();
-            manageTestTypesForm.Show();
+            if (ManageTestTypesForm == null || ManageTestTypesForm.IsDisposed)
+            {
+                ManageTestTypesForm = new ManageTestTypesForm();
+                ManageTestTypesForm.MdiParent = this;
+            }
+
+            ManageTestTypesForm.Show();
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -94,10 +107,28 @@ namespace DVLD_Presentation
             addLocalLicenseForm.ShowDialog();
         }
 
+        Form ManageLocalLicenseApplicationsForm;
         private void localLicenseApplicationsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form manageLocalLicenseApplicationsForm = new ManageLocalLicenseApplicationsForm();
-            manageLocalLicenseApplicationsForm.ShowDialog();
+            if (ManageLocalLicenseApplicationsForm == null || ManageLocalLicenseApplicationsForm.IsDisposed)
+            {
+                ManageLocalLicenseApplicationsForm = new ManageLocalLicenseApplicationsForm();
+                ManageLocalLicenseApplicationsForm.MdiParent = this;
+            }
+
+            ManageLocalLicenseApplicationsForm.Show();
+        }
+
+        Form DriversForm;
+        private void driversToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (DriversForm == null || DriversForm.IsDisposed)
+            {
+                DriversForm = new ManageDriversForm();
+                DriversForm.MdiParent = this;
+            }
+
+            DriversForm.Show();
         }
     }
 }

@@ -106,8 +106,11 @@ namespace DVLD_Presentation.Forms
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
             if (dataGridView1.SelectedRows.Count <= 0)
+            {
+                _SelectedLLA_ID = -1;
                 return;
-            
+            }
+
             _SelectedLLA_ID = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[0].Value);
             _UpdateCMP_ManageApplication();
         }

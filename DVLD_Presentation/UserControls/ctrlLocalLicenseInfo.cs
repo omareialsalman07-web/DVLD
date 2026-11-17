@@ -29,7 +29,7 @@ namespace DVLD_Presentation.UserControls
 
                 lbName.Text = person.FullName();
                 lbClass.Text = licenseClass.ClassName;
-                lbLocalLicenseID.Text = localLicense.LicenseClassID.ToString();
+                lbLocalLicenseID.Text = localLicense.LocalLicenseID.ToString();
                 lbNationalNo.Text = person.NationalNo;
                 lbGendor.Text = person.Gendor.ToString();
                 lbIssueDate.Text = license.IssueDate.ToShortDateString();

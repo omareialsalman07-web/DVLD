@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -135,6 +137,104 @@ namespace DVLD_DataAccess
             }
 
             return found;
+        }
+
+        public static DataTable GetLocalLicenses()
+        {
+            DataTable dt = new DataTable();
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+            string query = @"SELECT * FROM LocalLicenses;";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            try
+            {
+                connection.Open();
+
+                dt.Load(command.ExecuteReader());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return dt;
+        }
+        public static DataTable GetLocalLicensesForDriver(int driverID)
+        {
+            DataTable dt = new DataTable();
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+            string query = @"SELECT LocalLicenses.LocalLicenseID, LocalLicenses.LicenseID,
+                            LocalLicenses.LicenseClassID FROM LocalLicenses
+                            INNER JOIN Licenses ON Licenses.LicenseID = LocalLicenses.LicenseID
+                            WHERE Licenses.DriverID  = @DriverID;";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@DriverID", driverID);
+
+            try
+            {
+                connection.Open();
+
+                dt.Load(command.ExecuteReader());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return dt;
+        }
+        public static DataTable GetLocalLicensesForDriver_ForDisplay(int driverID)
+        {
+            DataTable dt = new DataTable();
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+            string query = @"SELECT LocalLicenses.LocalLicenseID, Applications.ApplicationID,
+                             LicenseClasses.ClassName, Licenses.IssueDate, DATEADD(YEAR, LicenseClasses.ValidityLength, Licenses.IssueDate)
+                             AS ExpirationDate, 
+                                CAST
+                                (
+                                CASE
+                                	WHEN Licenses.IsActive = 1 AND CAST(DATEADD(YEAR, LicenseClasses.ValidityLength, Licenses.IssueDate) AS DATE) >= CAST(GETDATE() AS DATE) THEN 1
+                                	ELSE 0
+                                END AS BIT
+                                ) AS Active
+                             FROM LocalLicenses
+                             INNER JOIN Licenses ON Licenses.LicenseID = LocalLicenses.LicenseID
+                             INNER JOIN Applications ON Applications.ApplicationID = Licenses.ApplicationID
+                             INNER JOIN LicenseClasses ON LicenseClasses.LicenseClassID = LocalLicenses.LicenseClassID
+                             WHERE Licenses.DriverID  = @DriverID;";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@DriverID", driverID);
+
+            try
+            {
+                connection.Open();
+
+                dt.Load(command.ExecuteReader());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return dt;
         }
     }
 }

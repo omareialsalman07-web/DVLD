@@ -99,7 +99,7 @@
             this.takeTestToolStripMenuItem1,
             this.cancleAppointmentToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(219, 110);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(219, 82);
             // 
             // takeTestToolStripMenuItem
             // 

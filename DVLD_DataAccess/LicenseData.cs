@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -142,6 +143,53 @@ namespace DVLD_DataAccess
             }
 
             return found;
+        }
+
+        public static int GetTotalAvailableLicensesForDriver(int driverID)
+        {
+            int count = 0;
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+            string query = @"SELECT
+                            (
+                            	SELECT 
+                            	(
+                            		SELECT COUNT(*) FROM LocalLicenses
+                            		INNER JOIN Licenses ON Licenses.LicenseID = LocalLicenses.LicenseID
+                            		INNER JOIN LicenseClasses ON LicenseClasses.LicenseClassID = LocalLicenses.LicenseClassID
+                            		WHERE Licenses.DriverID = @DriverID AND Licenses.IsActive = 1 AND 
+                            		CAST(DATEADD(YEAR, LicenseClasses.ValidityLength, Licenses.IssueDate) AS DATE) >= CAST(GETDATE() AS DATE)
+                            	)
+                            	+
+                            	(
+                            		SELECT COUNT(*) FROM InternationalLicenses
+                            		INNER JOIN Licenses ON Licenses.LicenseID = InternationalLicenses.LicenseID
+                            		INNER JOIN LocalLicenses ON LocalLicenses.LocalLicenseID = InternationalLicenses.LocalLicenseID
+                            		INNER JOIN LicenseClasses ON LicenseClasses.LicenseClassID = LocalLicenses.LicenseClassID
+                            		WHERE Licenses.DriverID = @DriverID AND Licenses.IsActive = 1 AND 
+                            		CAST(DATEADD(YEAR, LicenseClasses.ValidityLength, Licenses.IssueDate) AS DATE) >= CAST(GETDATE() AS DATE)
+                            	)
+                            ) AS AvailableLicenses;";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@DriverID", driverID);
+
+            try
+            {
+                connection.Open();
+
+                count = Convert.ToInt32(command.ExecuteScalar());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return count;
         }
     }
 }
