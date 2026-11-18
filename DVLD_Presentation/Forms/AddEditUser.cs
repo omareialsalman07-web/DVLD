@@ -197,6 +197,9 @@ namespace DVLD_Presentation
 
         private void AddEditUser_FormClosed(object sender, FormClosedEventArgs e)
         {
+            if (_User == null)
+                return;
+
             on_Create_Update_UserFinsh?.Invoke(_User.ID);
         }
     }

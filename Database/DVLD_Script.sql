@@ -1,6 +1,6 @@
 /* =====================================================================
    DVLD - Full database script (SQL Server)
-   Safe to run multiple times:
+   Safe to run multiple DATEs:
      - the database is created only if it does not exist
      - every table is created only if it does not exist
      - every lookup table is seeded only if it is empty
@@ -44,7 +44,7 @@ BEGIN
         SecondName           NVARCHAR(20)      NOT NULL,
         ThirdName            NVARCHAR(20)      NULL,
         LastName             NVARCHAR(20)      NOT NULL,
-        DateOfBirth          TIME          NOT NULL,
+        DateOfBirth          DATE              NOT NULL,
         Gendor               TINYINT           NOT NULL
                              CONSTRAINT DF_People_Gendor DEFAULT (0),   -- 0 Male, 1 Female
         [Address]            NVARCHAR(500)     NOT NULL,
@@ -151,8 +151,9 @@ BEGIN
     CREATE TABLE dbo.Applications (
         ApplicationID     INT IDENTITY(1,1) NOT NULL,
         ApplicationTypeID INT               NOT NULL,
-        [Date]            TIME          NOT NULL,
+        [Date]            DATE              NOT NULL,
         [Status]          TINYINT           NOT NULL,   -- 1 New, 2 Cancelled, 3 Completed
+        [PaidFees]        FLOAT             NOT NULL,
         CreatedByUserID   INT               NOT NULL,
         CONSTRAINT PK_Applications PRIMARY KEY CLUSTERED (ApplicationID),
         CONSTRAINT FK_Applications_ApplicationTypes
@@ -187,7 +188,7 @@ IF OBJECT_ID(N'dbo.Drivers', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.Drivers (
         DriverID        INT IDENTITY(1,1) NOT NULL,
-        PersonID        INT               NOT NULL,
+        PersonID        INT               NOT NULL UNIQUE,
         CreatedDate     Date              NOT NULL,
         CreatedByUserID INT               NOT NULL,
         CONSTRAINT PK_Drivers PRIMARY KEY CLUSTERED (DriverID),
@@ -195,9 +196,6 @@ BEGIN
             FOREIGN KEY (PersonID) REFERENCES dbo.People(PersonID),
         CONSTRAINT FK_Drivers_Users
             FOREIGN KEY (CreatedByUserID) REFERENCES dbo.Users(UserID)
-        
-        CONSTRAINT UQ_Driver_PersonID
-        UNIQUE (PersonID)
     );
 END
 GO
@@ -208,7 +206,7 @@ BEGIN
     CREATE TABLE dbo.Licenses (
         LicenseID       INT IDENTITY(1,1) NOT NULL,
         IssueTypeID     INT               NOT NULL,
-        IssueDate       TIME          NOT NULL,
+        IssueDate       DATE          NOT NULL,
         DriverID        INT               NOT NULL,
         ApplicationID   INT               UNIQUE NOT NULL,
         IsActive        BIT               NOT NULL DEFAULT 1,
@@ -247,8 +245,8 @@ IF OBJECT_ID(N'dbo.InternationalLicenses', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.InternationalLicenses (
         InternationalLicenseID INT IDENTITY(1,1) NOT NULL,   -- I.LID
-        LicenseID              INT               NOT NULL,
-        LocalLicenseID         INT               NOT NULL,   -- L.LID
+        LicenseID              INT               UNIQUE NOT NULL,
+        LocalLicenseID         INT               UNIQUE NOT NULL,   -- L.LID
         CONSTRAINT PK_InternationalLicenses PRIMARY KEY CLUSTERED (InternationalLicenseID),
         CONSTRAINT FK_InternationalLicenses_Licenses
             FOREIGN KEY (LicenseID) REFERENCES dbo.Licenses(LicenseID),
@@ -282,8 +280,8 @@ BEGIN
         DFL_ID           INT IDENTITY(1,1) NOT NULL,
         LicenseID        INT               NOT NULL,
         IsReleased       BIT               NOT NULL,
-        DetainedDate     TIME          NOT NULL,
-        ReleasedDate     TIME          NULL,
+        DetainedDate     DATE          NOT NULL,
+        ReleasedDate     DATE          NULL,
         CreatedByUserID  INT               NOT NULL,
         ReleasedByUserID INT               NULL,
         CONSTRAINT PK_DetainedFreedLicenses PRIMARY KEY CLUSTERED (DFL_ID),
@@ -328,7 +326,7 @@ BEGIN
     CREATE TABLE dbo.TestAppointments (
         TestAppointmentID INT IDENTITY(1,1) NOT NULL,
         TestID INT NOT NULL,
-        [Date] TIME NOT NULL,
+        [Date] DATE NOT NULL,
         IsCancelled BIT NOT NULL,
         IsTaked BIT NOT NULL,
         PaidFees FLOAT NOT NULL,
@@ -352,12 +350,6 @@ BEGIN
     );
 END
 GO
-
-ALTER TABLE TestAppointments
-ADD RetakeTestApplicationID INT
-
-ALTER TABLE TestAppointments
-ADD 
 
 /* =====================================================================
    2) LOOKUP DATA  (each block runs only if its table is empty)
@@ -427,7 +419,7 @@ BEGIN
     SET IDENTITY_INSERT dbo.LicenseIssueTypes ON;
     INSERT INTO dbo.LicenseIssueTypes (IssueTypeID, IssueType)
     VALUES
-        (1, N'First Time'),
+        (1, N'First DATE'),
         (2, N'Renew'),
         (3, N'Replacement for Damaged'),
         (4, N'Replacement for Lost');

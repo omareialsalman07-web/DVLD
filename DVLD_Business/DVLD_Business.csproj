@@ -50,6 +50,8 @@
     <Compile Include="Driver.cs" />
     <Compile Include="DriverService.cs" />
     <Compile Include="DVLDEnums.cs" />
+    <Compile Include="InternationalLicense.cs" />
+    <Compile Include="InternationalLicenseService.cs" />
     <Compile Include="License.cs" />
     <Compile Include="LicenseService.cs" />
     <Compile Include="LocalLicense.cs" />

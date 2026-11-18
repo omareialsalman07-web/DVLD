@@ -173,9 +173,10 @@ namespace DVLD_Presentation.UserControls
                 if (LocalLicenseApplicationService.HasTakenTestAppointment(_Test.LocalLicenseApplicationID, _Test.TestType))
                 {
                     RetakeTestApplicationID = ApplicationService.Create(
-                        (int)enApplicationType.eRetakeTest,
+                        enApplicationType.eRetakeTest,
                         dateTimePicker1.Value,
                         (int)enApplicationStatus.eNew,
+                        ApplicationTypeService.Find((int)enApplicationType.eRetakeTest).Fees,
                         DVLD_Settings.GetCurrnetUser().ID);
                 }
             }

@@ -12,21 +12,22 @@ namespace DVLD_DataAccess
 {
     public static class ApplicationData
     {
-        public static int CreateApplication(int ApplicationType, DateTime Date, int Status, int CreateByUserID)
+        public static int CreateApplication(int ApplicationType, DateTime Date, int Status, float PaidFees, int CreateByUserID)
         {
             int _ID = 0;
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
             string query = @"INSERT INTO [dbo].[Applications]
-                            ([ApplicationTypeID], [Date], [Status], [CreatedByUserID])
+                            ([ApplicationTypeID], [Date], [Status], [PaidFees], [CreatedByUserID])
                             VALUES
-                            (@ApplicationTypeID, @Date, @Status, @CreatedByUserID)
+                            (@ApplicationTypeID, @Date, @Status, @PaidFees, @CreatedByUserID)
                             SELECT SCOPE_IDENTITY();";
 
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@ApplicationTypeID", ApplicationType);
             command.Parameters.AddWithValue("@Date", Date);
             command.Parameters.AddWithValue("@Status", Status);
+            command.Parameters.AddWithValue("@PaidFees", PaidFees);
             command.Parameters.AddWithValue("@CreatedByUserID", CreateByUserID);
 
             try
@@ -52,7 +53,7 @@ namespace DVLD_DataAccess
         }
 
         public static bool GetApplicationInfoByID(int ApplicationID, ref int ApplicationTypeID,
-                                                  ref DateTime Date, ref byte Status, ref int CreatedByUserID)
+                                                  ref DateTime Date, ref byte Status, ref float PaidFees, ref int CreatedByUserID)
         {
             bool isFound = false;
 
@@ -76,6 +77,7 @@ namespace DVLD_DataAccess
                             ApplicationTypeID = (int)reader["ApplicationTypeID"];
                             Date = (DateTime)reader["Date"];
                             Status = (byte)reader["Status"];
+                            PaidFees = Convert.ToSingle(reader["PaidFees"]);
                             CreatedByUserID = (int)reader["CreatedByUserID"];
 
                             isFound = true;
@@ -195,21 +197,11 @@ namespace DVLD_DataAccess
 
         public static bool CompleteApplication(int ApplicationID)
         {
-            if (GetApplicationStatus(ApplicationID) == 1)
-                throw new Exception("Can't Complete a canceled Application!");
-            else if (GetApplicationStatus(ApplicationID) == 2)
-                throw new Exception("This Application already completed!");
-
             return _UpdateApplicationStatus(ApplicationID, 2);
         }
 
         public static bool CancelApplication(int ApplicationID)
         {
-            if (GetApplicationStatus(ApplicationID) == 2)
-                throw new Exception("Can't cancle a completed Application!");
-            else if (GetApplicationStatus(ApplicationID) == 1)
-                throw new Exception("This Application already canceled!");
-
             return _UpdateApplicationStatus(ApplicationID, 1);
         }
         public static bool DeleteApplication(int ApplicationID)
@@ -250,6 +242,94 @@ namespace DVLD_DataAccess
             }
 
             return success;
+        }
+
+        public static DataTable GetApplications()
+        {
+            DataTable dt = new DataTable();
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+            string query = @"SELECT * FROM Applications;";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            try
+            {
+                connection.Open();
+
+                dt.Load(command.ExecuteReader());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return dt;
+        }
+        public static DataTable GetApplicationsByApplicationTypeID(int ApplicationTypeID)
+        {
+            DataTable dt = new DataTable();
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+            string query = @"SELECT * FROM Applications
+                            WHERE Applications.ApplicationTypeID = @ID;";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@ID", ApplicationTypeID);
+
+            try
+            {
+                connection.Open();
+
+                dt.Load(command.ExecuteReader());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return dt;
+        }
+        public static DataTable GetNewIntlLicenseApps()
+        {
+            DataTable dt = new DataTable();
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+            string query = @"SELECT InternationalLicenses.InternationalLicenseID, Applications.ApplicationID,
+                             Licenses.DriverID, InternationalLicenses.LocalLicenseID, Licenses.IssueDate,
+                             CAST(DATEADD(YEAR, 1, Licenses.IssueDate) AS DATE) AS ExpirationDate, Licenses.IsActive
+                             FROM Applications
+                             INNER JOIN Licenses ON Licenses.ApplicationID = Applications.ApplicationID
+                             INNER JOIN InternationalLicenses ON 
+                             InternationalLicenses.LicenseID = Licenses.LicenseID
+                             WHERE Applications.ApplicationTypeID = 6;";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            try
+            {
+                connection.Open();
+
+                dt.Load(command.ExecuteReader());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return dt;
         }
     }
 }

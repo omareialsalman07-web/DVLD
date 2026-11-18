@@ -1,5 +1,8 @@
-﻿using System;
-using DVLD_DataAccess;
+﻿using DVLD_DataAccess;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace DVLD_Business
 {
@@ -12,16 +15,18 @@ namespace DVLD_Business
             int ApplicationTypeID = -1;
             DateTime Date = DateTime.Now;
             byte Status = 0;
+            float PaidFees = -1.0f;
             int CreatedByUserID = -1;
 
             if (ApplicationData.GetApplicationInfoByID(ID, ref ApplicationTypeID,
-                ref Date, ref Status, ref CreatedByUserID))
+                ref Date, ref Status, ref PaidFees, ref CreatedByUserID))
             {
                 application = new Application(
                     ID,
-                    ApplicationTypeID,
+                    (enApplicationType)ApplicationTypeID,
                     Date,
                     (enApplicationStatus)Status,
+                    PaidFees,
                     CreatedByUserID
                 );
             }
@@ -29,13 +34,14 @@ namespace DVLD_Business
             return application;
         }
 
-        public static int Create(int ApplicationTypeID, DateTime Date,
-            enApplicationStatus Status, int CreatedByUserID)
+        public static int Create(enApplicationType ApplicationType, DateTime Date,
+            enApplicationStatus Status, float PaidFees, int CreatedByUserID)
         {
             return ApplicationData.CreateApplication(
-                ApplicationTypeID,
+                (int)ApplicationType,
                 Date,
                 (int)Status,
+                PaidFees,
                 CreatedByUserID
             );
         }
@@ -75,6 +81,38 @@ namespace DVLD_Business
         public static bool Delete(int ApplicationID)
         {
             return ApplicationData.DeleteApplication(ApplicationID);
+        }
+
+        public static List<Application> GetApplications()
+        {
+            List<Application> applicationsList = new List<Application>();
+
+            DataTable data = ApplicationData.GetApplications();
+
+            foreach (DataRow row in data.Rows)
+            {
+                Application application = new Application
+                (
+                    applicationID: Convert.ToInt32(row["ApplicationID"]),
+                    date: Convert.ToDateTime(row["ApplicationDate"]),
+                    applicationType: (enApplicationType)Convert.ToInt32(row["Date"]),
+                    status: (enApplicationStatus)Convert.ToInt32(row["Status"]),
+                    paidFees: Convert.ToSingle(row["PaidFees"]),
+                    createdByUserID: Convert.ToInt32(row["CreatedByUserID"])
+                );
+
+                applicationsList.Add(application);
+            }
+
+            return applicationsList;
+        }
+        public static DataTable GetApplicationsByApplicationTypeID(enApplicationType applicationType)
+        {
+            return ApplicationData.GetApplicationsByApplicationTypeID((int)applicationType);
+        }
+        public static DataTable GetNewIntlLicenseApps()
+        {
+            return ApplicationData.GetNewIntlLicenseApps();
         }
     }
 }

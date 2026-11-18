@@ -64,7 +64,7 @@ namespace DVLD_Business
             }
 
             if (driver == null)
-                throw new Exception("Failed to create driver, while creating local license.");
+                throw new Exception("Failed to create localLicense, while creating local license.");
 
             int licenseID = LicenseService.Create(issueTypeID, driver.DriverID, localLicenseApplication.ApplicationID, createdByUserID);
 
@@ -90,14 +90,14 @@ namespace DVLD_Business
             DataTable data = LocalLicenseData.GetLocalLicenses();
             foreach (DataRow row in data.Rows)
             {
-                LocalLicense driver = new LocalLicense
+                LocalLicense localLicense = new LocalLicense
                 (
                     localLicenseID: Convert.ToInt32(row["LocalLicenseID"]),
                     licenseID: Convert.ToInt32(row["LicenseID"]),
                     licenseClassID: Convert.ToInt32(row["LicenseClassID"])
                 );
 
-                localLicensesList.Add(driver);
+                localLicensesList.Add(localLicense);
             }
 
             return localLicensesList;

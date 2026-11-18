@@ -51,7 +51,7 @@ namespace DVLD_Presentation.Forms
                 return;
             }
 
-            _SelectedDriverID = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[0].Value);
+            _SelectedDriverID = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["DriverID"].Value);
         }
 
         private void showLicenseHistoryToolStripMenuItem_Click(object sender, EventArgs e)

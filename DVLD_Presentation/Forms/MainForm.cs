@@ -130,5 +130,23 @@ namespace DVLD_Presentation
 
             DriversForm.Show();
         }
+
+        private void internationalLicnseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form form = new IssueInternationalLicenseForm();
+            form.ShowDialog();
+        }
+
+        Form manageIntlLicensesForm;
+        private void internationalApplicationsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (manageIntlLicensesForm == null || manageIntlLicensesForm.IsDisposed)
+            {
+                manageIntlLicensesForm = new ManageIntlLicensesForm();
+                manageIntlLicensesForm.MdiParent = this;
+            }
+
+            manageIntlLicensesForm.Show();
+        }
     }
 }

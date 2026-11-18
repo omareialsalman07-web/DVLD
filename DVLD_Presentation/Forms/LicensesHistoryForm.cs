@@ -27,6 +27,7 @@ namespace DVLD_Presentation.Forms
             try
             {
                 dataGridView_Local.DataSource = LocalLicenseService.GetLocalLicensesForDriver_ForDisplay(_DriverID);
+                dataGridView_International.DataSource = InternationalLicenseService.GetInternationalLicensesForDriver_ForDisplay(_DriverID);
             }
             catch (Exception ex)
             {

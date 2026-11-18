@@ -31,10 +31,27 @@ namespace DVLD_Presentation.UserControls
 
                 lb_ID.Text = application.ApplicationID.ToString();
                 lbStatus.Text = application.Status.ToString();
-                lbFees.Text = ApplicationTypeService.Find(application.ApplicationTypeID).Fees.ToString();
-                lbType.Text = ApplicationTypeService.Find(application.ApplicationTypeID).Title.ToString();
+                lbFees.Text = ApplicationTypeService.Find((int)application.Type).Fees.ToString();
+                lbType.Text = ApplicationTypeService.Find((int)application.Type).Title.ToString();
                 lbDate.Text = application.Date.ToString();
                 lbCreatedBy.Text = UserService.Find(application.CreatedByUserID).UserName;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+        public void LoadLockupApplication(enApplicationType applicationType)
+        {
+            try
+            {
+                lb_ID.Text = "N/A";
+                lbStatus.Text = "New";
+                lbFees.Text = ApplicationTypeService.Find((int)applicationType).Fees.ToString();
+                lbType.Text = ApplicationTypeService.Find((int)applicationType).Title.ToString();
+                lbDate.Text = DateTime.Today.ToShortDateString();
+                lbCreatedBy.Text = DVLD_Settings.GetCurrnetUser().UserName;
             }
             catch(Exception ex)
             {

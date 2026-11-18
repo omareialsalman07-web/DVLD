@@ -46,6 +46,7 @@
     <Compile Include="CountryData.cs" />
     <Compile Include="DataAccessSettings.cs" />
     <Compile Include="DriverData.cs" />
+    <Compile Include="InternationalLicenseData.cs" />
     <Compile Include="LicenseClassData.cs" />
     <Compile Include="LicenseData.cs" />
     <Compile Include="LocalLicenseApplicationData.cs" />

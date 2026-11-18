@@ -91,6 +91,12 @@
     <Compile Include="Forms\DriverCardFrom.Designer.cs">
       <DependentUpon>DriverCardFrom.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\IssueInternationalLicenseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\IssueInternationalLicenseForm.Designer.cs">
+      <DependentUpon>IssueInternationalLicenseForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\LicensesHistoryForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -120,6 +126,12 @@
     </Compile>
     <Compile Include="Forms\ManageApplicationTypesForm.Designer.cs">
       <DependentUpon>ManageApplicationTypesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ManageIntlLicensesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ManageIntlLicensesForm.Designer.cs">
+      <DependentUpon>ManageIntlLicensesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ManageLocalLicenseApplicationsForm.cs">
       <SubType>Form</SubType>
@@ -216,6 +228,12 @@
     <Compile Include="UserControls\ctrlLocalLicenseInfo.Designer.cs">
       <DependentUpon>ctrlLocalLicenseInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ctrlLocalLicenseSelector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\ctrlLocalLicenseSelector.Designer.cs">
+      <DependentUpon>ctrlLocalLicenseSelector.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ctrlPersonCard.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -278,6 +296,9 @@
     <EmbeddedResource Include="Forms\DriverCardFrom.resx">
       <DependentUpon>DriverCardFrom.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\IssueInternationalLicenseForm.resx">
+      <DependentUpon>IssueInternationalLicenseForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\LicensesHistoryForm.resx">
       <DependentUpon>LicensesHistoryForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -295,6 +316,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ManageApplicationTypesForm.resx">
       <DependentUpon>ManageApplicationTypesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ManageIntlLicensesForm.resx">
+      <DependentUpon>ManageIntlLicensesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ManageLocalLicenseApplicationsForm.resx">
       <DependentUpon>ManageLocalLicenseApplicationsForm.cs</DependentUpon>
@@ -337,6 +361,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ctrlLocalLicenseInfo.resx">
       <DependentUpon>ctrlLocalLicenseInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\ctrlLocalLicenseSelector.resx">
+      <DependentUpon>ctrlLocalLicenseSelector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ctrlPersonCard.resx">
       <DependentUpon>ctrlPersonCard.cs</DependentUpon>
@@ -556,6 +583,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\PersonLicenseHistory 512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\globe_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\globe_50.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -49,7 +49,7 @@ namespace DVLD_DataAccess
 
             return success;
         }
-        public static int CreateLocalLicenseApplication(int LicenseClassID, int PersonID, int CreatedByUserID)
+        public static int CreateLocalLicenseApplication(int LicenseClassID, int PersonID, float PaidFees, int CreatedByUserID)
         {
             if (!_CanCreateLocalLicenceApplication(LicenseClassID, PersonID))
             {
@@ -57,7 +57,7 @@ namespace DVLD_DataAccess
             }
 
             int _LocalLicenseID = 0;
-            int _ApplicationID = ApplicationData.CreateApplication(1, DateTime.Today, 0, CreatedByUserID);
+            int _ApplicationID = ApplicationData.CreateApplication(1, DateTime.Today, 0, PaidFees, CreatedByUserID);
             if (_ApplicationID == -1)
                 return -1;
 

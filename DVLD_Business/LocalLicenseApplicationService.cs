@@ -23,7 +23,7 @@ namespace DVLD_Business
                 if (person.Age() < licenseClass.MinimumAllowedAge)
                     throw new Exception($"This License Class requires {licenseClass.MinimumAllowedAge} years old, while this person is {person.Age()} years old!");
 
-                int result = LocalLicenseApplicationData.CreateLocalLicenseApplication(LicenseClassID, PersonID, CreatedByUserID);
+                int result = LocalLicenseApplicationData.CreateLocalLicenseApplication(LicenseClassID, PersonID, ApplicationTypeService.Find((int)enApplicationType.eNewLocalDrivingLicense).Fees, CreatedByUserID);
                 success = result != -1;
             }
             catch(Exception ex)

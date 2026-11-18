@@ -5,32 +5,31 @@ namespace DVLD_Business
     public class Application
     {
         public int ApplicationID { get; }
-        public int ApplicationTypeID { get; }
+        public enApplicationType Type { get; }
         public DateTime Date { get; }
         public enApplicationStatus Status { get; }
+        public float PaidFees { get; set; }
         public int CreatedByUserID { get; }
 
-        public Application(int applicationTypeID, DateTime date,
-                           enApplicationStatus status, int createdByUserID)
+        public Application(enApplicationType applicationType, DateTime date,
+                           enApplicationStatus status, float paidFees, int createdByUserID)
         {
-            if (applicationTypeID <= 0)
-                throw new ArgumentOutOfRangeException(nameof(applicationTypeID));
-
             if (!Enum.IsDefined(typeof(enApplicationStatus), status))
                 throw new ArgumentException("A valid application status is required.", nameof(status));
 
             if (createdByUserID <= 0)
                 throw new ArgumentOutOfRangeException(nameof(createdByUserID));
 
-            ApplicationTypeID = applicationTypeID;
+            Type = applicationType;
             Date = date;
             Status = status;
+            PaidFees = paidFees;
             CreatedByUserID = createdByUserID;
         }
 
-        public Application(int applicationID, int applicationTypeID,
-                           DateTime date, enApplicationStatus status, int createdByUserID)
-            : this(applicationTypeID, date, status, createdByUserID)
+        public Application(int applicationID, enApplicationType applicationType,
+                           DateTime date, enApplicationStatus status, float paidFees, int createdByUserID)
+            : this(applicationType, date, status, paidFees, createdByUserID)
         {
             if (applicationID <= 0)
                 throw new ArgumentOutOfRangeException(nameof(applicationID));

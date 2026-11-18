@@ -42,7 +42,7 @@ namespace DVLD_Presentation.Forms
             cbLicenseClasses.SelectedIndex = 2;
 
             lb_ApplicationDate.Text = DateTime.Today.ToShortDateString();
-            lb_Fees.Text = ApplicationTypeService.Find((int)TestType.enApplicationType.eNewInternationalLicense).Fees.ToString();
+            lb_Fees.Text = ApplicationTypeService.Find((int)TestType.enApplicationType.eNewLocalDrivingLicense).Fees.ToString();
             lb_CreatedBy.Text = DVLD_Settings.GetCurrnetUser().UserName;
         }
 
@@ -81,6 +81,11 @@ namespace DVLD_Presentation.Forms
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void cbLicenseClasses_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -30,24 +30,24 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tp_Person = new System.Windows.Forms.TabPage();
+            this.ctrlPersonSelecter1 = new DVLD_Presentation.UserControls.ctrlPersonSelecter();
             this.tp_Application = new System.Windows.Forms.TabPage();
+            this.btn_Save = new System.Windows.Forms.Button();
+            this.cbLicenseClasses = new System.Windows.Forms.ComboBox();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.lb_CreatedBy = new System.Windows.Forms.Label();
+            this.lb_Fees = new System.Windows.Forms.Label();
+            this.lb_ApplicationDate = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.lb_ApplicationDate = new System.Windows.Forms.Label();
-            this.lb_Fees = new System.Windows.Forms.Label();
-            this.lb_CreatedBy = new System.Windows.Forms.Label();
             this.btn_Back = new System.Windows.Forms.Button();
             this.btnNext = new System.Windows.Forms.Button();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.cbLicenseClasses = new System.Windows.Forms.ComboBox();
-            this.btn_Save = new System.Windows.Forms.Button();
-            this.ctrlPersonSelecter1 = new DVLD_Presentation.UserControls.ctrlPersonSelecter();
             this.tabControl1.SuspendLayout();
             this.tp_Person.SuspendLayout();
             this.tp_Application.SuspendLayout();
@@ -78,6 +78,13 @@
             this.tp_Person.Text = "Person";
             this.tp_Person.UseVisualStyleBackColor = true;
             // 
+            // ctrlPersonSelecter1
+            // 
+            this.ctrlPersonSelecter1.Location = new System.Drawing.Point(0, 6);
+            this.ctrlPersonSelecter1.Name = "ctrlPersonSelecter1";
+            this.ctrlPersonSelecter1.Size = new System.Drawing.Size(1130, 430);
+            this.ctrlPersonSelecter1.TabIndex = 1;
+            // 
             // tp_Application
             // 
             this.tp_Application.Controls.Add(this.btn_Save);
@@ -100,6 +107,100 @@
             this.tp_Application.TabIndex = 1;
             this.tp_Application.Text = "Application";
             this.tp_Application.UseVisualStyleBackColor = true;
+            // 
+            // btn_Save
+            // 
+            this.btn_Save.Image = global::DVLD_Presentation.Properties.Resources.save;
+            this.btn_Save.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btn_Save.Location = new System.Drawing.Point(992, 412);
+            this.btn_Save.Name = "btn_Save";
+            this.btn_Save.Padding = new System.Windows.Forms.Padding(20, 0, 20, 0);
+            this.btn_Save.Size = new System.Drawing.Size(125, 46);
+            this.btn_Save.TabIndex = 4;
+            this.btn_Save.Text = "Save";
+            this.btn_Save.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_Save.UseVisualStyleBackColor = true;
+            this.btn_Save.Click += new System.EventHandler(this.btn_Save_Click);
+            // 
+            // cbLicenseClasses
+            // 
+            this.cbLicenseClasses.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbLicenseClasses.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbLicenseClasses.FormattingEnabled = true;
+            this.cbLicenseClasses.Location = new System.Drawing.Point(537, 208);
+            this.cbLicenseClasses.Name = "cbLicenseClasses";
+            this.cbLicenseClasses.Size = new System.Drawing.Size(267, 28);
+            this.cbLicenseClasses.TabIndex = 14;
+            this.cbLicenseClasses.SelectedIndexChanged += new System.EventHandler(this.cbLicenseClasses_SelectedIndexChanged);
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Image = global::DVLD_Presentation.Properties.Resources.name;
+            this.pictureBox5.Location = new System.Drawing.Point(460, 330);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(34, 28);
+            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox5.TabIndex = 13;
+            this.pictureBox5.TabStop = false;
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = global::DVLD_Presentation.Properties.Resources.charge;
+            this.pictureBox4.Location = new System.Drawing.Point(460, 268);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(34, 28);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox4.TabIndex = 12;
+            this.pictureBox4.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::DVLD_Presentation.Properties.Resources.driver_license;
+            this.pictureBox3.Location = new System.Drawing.Point(460, 205);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(34, 28);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 11;
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::DVLD_Presentation.Properties.Resources.age;
+            this.pictureBox2.Location = new System.Drawing.Point(460, 144);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(34, 28);
+            this.pictureBox2.TabIndex = 10;
+            this.pictureBox2.TabStop = false;
+            // 
+            // lb_CreatedBy
+            // 
+            this.lb_CreatedBy.AutoSize = true;
+            this.lb_CreatedBy.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_CreatedBy.Location = new System.Drawing.Point(532, 329);
+            this.lb_CreatedBy.Name = "lb_CreatedBy";
+            this.lb_CreatedBy.Size = new System.Drawing.Size(65, 29);
+            this.lb_CreatedBy.TabIndex = 8;
+            this.lb_CreatedBy.Text = "????";
+            // 
+            // lb_Fees
+            // 
+            this.lb_Fees.AutoSize = true;
+            this.lb_Fees.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_Fees.Location = new System.Drawing.Point(532, 267);
+            this.lb_Fees.Name = "lb_Fees";
+            this.lb_Fees.Size = new System.Drawing.Size(65, 29);
+            this.lb_Fees.TabIndex = 7;
+            this.lb_Fees.Text = "????";
+            // 
+            // lb_ApplicationDate
+            // 
+            this.lb_ApplicationDate.AutoSize = true;
+            this.lb_ApplicationDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_ApplicationDate.Location = new System.Drawing.Point(532, 143);
+            this.lb_ApplicationDate.Name = "lb_ApplicationDate";
+            this.lb_ApplicationDate.Size = new System.Drawing.Size(65, 29);
+            this.lb_ApplicationDate.TabIndex = 6;
+            this.lb_ApplicationDate.Text = "????";
             // 
             // label6
             // 
@@ -152,36 +253,6 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "New Local License Application";
             // 
-            // lb_ApplicationDate
-            // 
-            this.lb_ApplicationDate.AutoSize = true;
-            this.lb_ApplicationDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_ApplicationDate.Location = new System.Drawing.Point(532, 143);
-            this.lb_ApplicationDate.Name = "lb_ApplicationDate";
-            this.lb_ApplicationDate.Size = new System.Drawing.Size(65, 29);
-            this.lb_ApplicationDate.TabIndex = 6;
-            this.lb_ApplicationDate.Text = "????";
-            // 
-            // lb_Fees
-            // 
-            this.lb_Fees.AutoSize = true;
-            this.lb_Fees.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_Fees.Location = new System.Drawing.Point(532, 267);
-            this.lb_Fees.Name = "lb_Fees";
-            this.lb_Fees.Size = new System.Drawing.Size(65, 29);
-            this.lb_Fees.TabIndex = 7;
-            this.lb_Fees.Text = "????";
-            // 
-            // lb_CreatedBy
-            // 
-            this.lb_CreatedBy.AutoSize = true;
-            this.lb_CreatedBy.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_CreatedBy.Location = new System.Drawing.Point(532, 329);
-            this.lb_CreatedBy.Name = "lb_CreatedBy";
-            this.lb_CreatedBy.Size = new System.Drawing.Size(65, 29);
-            this.lb_CreatedBy.TabIndex = 8;
-            this.lb_CreatedBy.Text = "????";
-            // 
             // btn_Back
             // 
             this.btn_Back.Image = global::DVLD_Presentation.Properties.Resources.back_button;
@@ -209,76 +280,6 @@
             this.btnNext.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnNext.UseVisualStyleBackColor = true;
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
-            // 
-            // pictureBox5
-            // 
-            this.pictureBox5.Image = global::DVLD_Presentation.Properties.Resources.name;
-            this.pictureBox5.Location = new System.Drawing.Point(460, 330);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(34, 28);
-            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox5.TabIndex = 13;
-            this.pictureBox5.TabStop = false;
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Image = global::DVLD_Presentation.Properties.Resources.charge;
-            this.pictureBox4.Location = new System.Drawing.Point(460, 268);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(34, 28);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox4.TabIndex = 12;
-            this.pictureBox4.TabStop = false;
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = global::DVLD_Presentation.Properties.Resources.driver_license;
-            this.pictureBox3.Location = new System.Drawing.Point(460, 205);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(34, 28);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 11;
-            this.pictureBox3.TabStop = false;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = global::DVLD_Presentation.Properties.Resources.age;
-            this.pictureBox2.Location = new System.Drawing.Point(460, 144);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(34, 28);
-            this.pictureBox2.TabIndex = 10;
-            this.pictureBox2.TabStop = false;
-            // 
-            // cbLicenseClasses
-            // 
-            this.cbLicenseClasses.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbLicenseClasses.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbLicenseClasses.FormattingEnabled = true;
-            this.cbLicenseClasses.Location = new System.Drawing.Point(537, 208);
-            this.cbLicenseClasses.Name = "cbLicenseClasses";
-            this.cbLicenseClasses.Size = new System.Drawing.Size(267, 28);
-            this.cbLicenseClasses.TabIndex = 14;
-            // 
-            // btn_Save
-            // 
-            this.btn_Save.Image = global::DVLD_Presentation.Properties.Resources.save;
-            this.btn_Save.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btn_Save.Location = new System.Drawing.Point(992, 412);
-            this.btn_Save.Name = "btn_Save";
-            this.btn_Save.Padding = new System.Windows.Forms.Padding(20, 0, 20, 0);
-            this.btn_Save.Size = new System.Drawing.Size(125, 46);
-            this.btn_Save.TabIndex = 4;
-            this.btn_Save.Text = "Save";
-            this.btn_Save.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_Save.UseVisualStyleBackColor = true;
-            this.btn_Save.Click += new System.EventHandler(this.btn_Save_Click);
-            // 
-            // ctrlPersonSelecter1
-            // 
-            this.ctrlPersonSelecter1.Location = new System.Drawing.Point(0, 6);
-            this.ctrlPersonSelecter1.Name = "ctrlPersonSelecter1";
-            this.ctrlPersonSelecter1.Size = new System.Drawing.Size(1130, 430);
-            this.ctrlPersonSelecter1.TabIndex = 1;
             // 
             // AddLocalLicenseApplicationForm
             // 

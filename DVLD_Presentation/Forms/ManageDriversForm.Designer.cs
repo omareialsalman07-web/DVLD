@@ -78,7 +78,7 @@
             this.showDriverInfoToolStripMenuItem,
             this.showLicenseHistoryToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(228, 84);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(228, 56);
             // 
             // showDriverInfoToolStripMenuItem
             // 
