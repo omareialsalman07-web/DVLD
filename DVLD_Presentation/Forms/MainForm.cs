@@ -148,5 +148,17 @@ namespace DVLD_Presentation
 
             manageIntlLicensesForm.Show();
         }
+
+        private void replacementForLostToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form form = new RenewLicenseForm();
+            form.ShowDialog();
+        }
+
+        private void replacmentForDamageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form form = new ReplacementForLostorDamagedLicenseForm();
+            form.ShowDialog();
+        }
     }
 }

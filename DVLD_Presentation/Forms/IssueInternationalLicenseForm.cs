@@ -39,6 +39,8 @@ namespace DVLD_Presentation.Forms
             ctrlLicenseSelector1.onSelectLicense += _OnSelectLocalLicese;
 
             lknl_ShowLicenseInfo.Enabled = false;
+
+            ctrlLicenseSelector1.SetOnlyLocalSelect();
         }
 
         private void btnIssue_Click(object sender, EventArgs e)
@@ -63,10 +65,9 @@ namespace DVLD_Presentation.Forms
                 MessageBox.Show($"Successfully Created International License with ID [{IL_ID}]!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 InternationalLicense internationalLicense = InternationalLicenseService.FindByInternationalID(IL_ID);
-                DVLD_Business.License license = LicenseService.FindByLicenseID(internationalLicense.LicenseID);
-                ctrlBasicApplicationInfo1.LoadApplication(license.ApplicationID);
+                ctrlBasicApplicationInfo1.LoadApplication(internationalLicense.ApplicationID);
 
-                _CreatedForDriverID = license.DriverID;
+                _CreatedForDriverID = internationalLicense.DriverID;
                 btnIssue.Enabled = false;
                 _IssueInternationLicense = true;
                 lknl_ShowLicenseInfo.Enabled = true;

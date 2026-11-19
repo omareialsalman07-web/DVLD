@@ -43,7 +43,7 @@ namespace DVLD_Presentation.UserControls
                 return;
             }
 
-            if (!localLicense.IsActive())
+            if (!localLicense.IsActive)
             {
                 MessageBox.Show($"The {_SelectedLiceseType} License with _ID [{_ID}] should be active!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 ctrlLocalLicenseInfo1.Enabled = false;
@@ -70,18 +70,18 @@ namespace DVLD_Presentation.UserControls
                 return;
             }
 
-            if (!internationalLicense.IsActive())
+            if (!internationalLicense.IsActive)
             {
                 MessageBox.Show($"The {_SelectedLiceseType} License with _ID [{_ID}] should be active!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                ctrlLocalLicenseInfo1.Enabled = false;
+                ctrlInternationalLicenseInfo1.Enabled = false;
                 onSelectLicense?.Invoke(false);
                 _SelectedLicenseID = -1;
                 return;
             }
 
-            ctrlLocalLicenseInfo1.Enabled = true;
+            ctrlInternationalLicenseInfo1.Enabled = true;
             onSelectLicense?.Invoke(true);
-            ctrlLocalLicenseInfo1.LoadLocalLicense(_ID);
+            ctrlInternationalLicenseInfo1.LoadInternaitonalLicense(_ID);
             _SelectedLicenseID = _ID;
         }
 
@@ -91,8 +91,6 @@ namespace DVLD_Presentation.UserControls
             {
                 if (string.IsNullOrWhiteSpace(txb_LicenseID.Text))
                     return;
-
-                _SelectedLiceseType = rb_Local.Checked? enSelectedLiceseType.Local : enSelectedLiceseType.International;
 
                 if(_SelectedLiceseType == enSelectedLiceseType.Local)
                 {
@@ -112,13 +110,33 @@ namespace DVLD_Presentation.UserControls
         private void ctrlLocalLicenseSelector_Load(object sender, EventArgs e)
         {
             rb_Local.Checked = true;
-            _SelectedLiceseType = enSelectedLiceseType.Local;
         }
 
         public void GetSelectedLicese(ref int LicenseID, ref enSelectedLiceseType LicenseType)
         {
             LicenseID = _SelectedLicenseID;
             LicenseType = _SelectedLiceseType;
+        }
+
+        public void SetOnlyLocalSelect()
+        {
+            rb_International.Enabled = false;
+        }
+
+        private void rb_Local_CheckedChanged(object sender, EventArgs e)
+        {
+            if(rb_International.Checked)
+            {
+                _SelectedLiceseType = enSelectedLiceseType.International;
+                ctrlInternationalLicenseInfo1.Visible = true;
+                ctrlLocalLicenseInfo1.Visible = false;
+            }
+            else
+            {
+                _SelectedLiceseType = enSelectedLiceseType.Local;
+                ctrlLocalLicenseInfo1.Visible = true;
+                ctrlInternationalLicenseInfo1.Visible = false;
+            }
         }
     }
 }

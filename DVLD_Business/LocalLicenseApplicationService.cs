@@ -65,7 +65,7 @@ namespace DVLD_Business
                 (
                     LocalLicenseApplicationID: Convert.ToInt32(row["LocalLicenseApplicationID"]),
                     ApplicationID: Convert.ToInt32(row["ApplicationID"]),
-                    LicenseClassID: Convert.ToInt32(row["LicenseClassID"]),
+                    LicenseClassID: Convert.ToInt32(row["GetLicenseClassID"]),
                     PersonID: Convert.ToInt32(row["PersonID"])
                 );
 

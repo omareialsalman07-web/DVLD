@@ -240,7 +240,7 @@ public class InternationalLicenseData
                                 ) AS Active
                              FROM InternationalLicenses
                              INNER JOIN LocalLicenses ON LocalLicenses.LocalLicenseID = InternationalLicenses.LocalLicenseID
-                             INNER JOIN Licenses ON Licenses.LicenseID = LocalLicenses.LicenseID
+                             INNER JOIN Licenses ON Licenses.LicenseID = InternationalLicenses.LicenseID
                              INNER JOIN Applications ON Applications.ApplicationID = Licenses.ApplicationID
                              WHERE Licenses.DriverID  = @DriverID;";
 

@@ -1,23 +1,39 @@
 ﻿
 using System;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace DVLD_Business
 {
-    public class License
+    public abstract class License
     {
         public int LicenseID { get; }
-        public enLicenseIssueType IssueTypeID { get; set; }
-        public DateTime IssueDate { get; set; }
-        public int DriverID { get; set; }
-        public int ApplicationID { get; set; }
-        public bool IsActive { get; set; }
-        public int CreatedByUserID { get; set; }
 
-        public License(enLicenseIssueType issueTypeID, DateTime issueDate, 
-            int driverID, int applicationID, bool isActive, int createdByUserID)
+        public enLicenseIssueType IssueType { get; }
+
+        public DateTime IssueDate { get; }
+        public int DriverID { get; }
+        public int ApplicationID { get; }
+        public bool IsActive { get; }
+        public int CreatedByUserID { get; }
+
+        public abstract DateTime ExpirationDate();
+        public bool IsExpired()
         {
-            IssueTypeID = issueTypeID;
+            return DateTime.Today > ExpirationDate();
+        }
+        public bool IsValid()
+        {
+            return IsActive && !IsExpired();
+        }
+
+        protected License(
+            enLicenseIssueType issueTypeID,
+            DateTime issueDate,
+            int driverID,
+            int applicationID,
+            bool isActive,
+            int createdByUserID)
+        {
+            IssueType = issueTypeID;
             IssueDate = issueDate;
             DriverID = driverID;
             ApplicationID = applicationID;
@@ -25,9 +41,16 @@ namespace DVLD_Business
             CreatedByUserID = createdByUserID;
         }
 
-        public License(int licenseID, enLicenseIssueType issueTypeID,
-            DateTime issueDate, int driverID, int applicationID, bool isActive, int createdByUserID)
-            : this(issueTypeID, issueDate, driverID, applicationID, isActive, createdByUserID)
+        protected License(
+            int licenseID,
+            enLicenseIssueType issueTypeID,
+            DateTime issueDate,
+            int driverID,
+            int applicationID,
+            bool isActive,
+            int createdByUserID)
+            : this(issueTypeID, issueDate, driverID,
+                   applicationID, isActive, createdByUserID)
         {
             LicenseID = licenseID;
         }

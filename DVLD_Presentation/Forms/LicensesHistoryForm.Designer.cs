@@ -28,22 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tp_InternationalLicenses = new System.Windows.Forms.TabPage();
-            this.dataGridView_International = new System.Windows.Forms.DataGridView();
             this.tp_LocalLicenses = new System.Windows.Forms.TabPage();
             this.dataGridView_Local = new System.Windows.Forms.DataGridView();
+            this.tp_InternationalLicenses = new System.Windows.Forms.TabPage();
+            this.dataGridView_International = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.showLicenseInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ctrlDriverInfo1 = new DVLD_Presentation.UserControls.ctrlDriverInfo();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
-            this.tp_InternationalLicenses.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_International)).BeginInit();
             this.tp_LocalLicenses.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Local)).BeginInit();
+            this.tp_InternationalLicenses.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_International)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.contextMenuStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -77,36 +81,6 @@
             this.tabControl1.Size = new System.Drawing.Size(1121, 228);
             this.tabControl1.TabIndex = 0;
             // 
-            // tp_InternationalLicenses
-            // 
-            this.tp_InternationalLicenses.Controls.Add(this.dataGridView_International);
-            this.tp_InternationalLicenses.Location = new System.Drawing.Point(4, 25);
-            this.tp_InternationalLicenses.Name = "tp_InternationalLicenses";
-            this.tp_InternationalLicenses.Padding = new System.Windows.Forms.Padding(3);
-            this.tp_InternationalLicenses.Size = new System.Drawing.Size(1113, 199);
-            this.tp_InternationalLicenses.TabIndex = 1;
-            this.tp_InternationalLicenses.Text = "International";
-            this.tp_InternationalLicenses.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView_International
-            // 
-            this.dataGridView_International.AllowUserToAddRows = false;
-            this.dataGridView_International.AllowUserToDeleteRows = false;
-            this.dataGridView_International.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView_International.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dataGridView_International.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.dataGridView_International.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_International.GridColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.dataGridView_International.Location = new System.Drawing.Point(6, 6);
-            this.dataGridView_International.MultiSelect = false;
-            this.dataGridView_International.Name = "dataGridView_International";
-            this.dataGridView_International.ReadOnly = true;
-            this.dataGridView_International.RowHeadersWidth = 51;
-            this.dataGridView_International.RowTemplate.Height = 24;
-            this.dataGridView_International.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_International.Size = new System.Drawing.Size(1101, 187);
-            this.dataGridView_International.TabIndex = 4;
-            // 
             // tp_LocalLicenses
             // 
             this.tp_LocalLicenses.Controls.Add(this.dataGridView_Local);
@@ -126,6 +100,7 @@
             this.dataGridView_Local.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridView_Local.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dataGridView_Local.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_Local.ContextMenuStrip = this.contextMenuStrip2;
             this.dataGridView_Local.GridColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dataGridView_Local.Location = new System.Drawing.Point(6, 6);
             this.dataGridView_Local.MultiSelect = false;
@@ -137,6 +112,37 @@
             this.dataGridView_Local.Size = new System.Drawing.Size(1101, 187);
             this.dataGridView_Local.TabIndex = 3;
             // 
+            // tp_InternationalLicenses
+            // 
+            this.tp_InternationalLicenses.Controls.Add(this.dataGridView_International);
+            this.tp_InternationalLicenses.Location = new System.Drawing.Point(4, 25);
+            this.tp_InternationalLicenses.Name = "tp_InternationalLicenses";
+            this.tp_InternationalLicenses.Padding = new System.Windows.Forms.Padding(3);
+            this.tp_InternationalLicenses.Size = new System.Drawing.Size(1113, 199);
+            this.tp_InternationalLicenses.TabIndex = 1;
+            this.tp_InternationalLicenses.Text = "International";
+            this.tp_InternationalLicenses.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView_International
+            // 
+            this.dataGridView_International.AllowUserToAddRows = false;
+            this.dataGridView_International.AllowUserToDeleteRows = false;
+            this.dataGridView_International.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView_International.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridView_International.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.dataGridView_International.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_International.ContextMenuStrip = this.contextMenuStrip2;
+            this.dataGridView_International.GridColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.dataGridView_International.Location = new System.Drawing.Point(6, 6);
+            this.dataGridView_International.MultiSelect = false;
+            this.dataGridView_International.Name = "dataGridView_International";
+            this.dataGridView_International.ReadOnly = true;
+            this.dataGridView_International.RowHeadersWidth = 51;
+            this.dataGridView_International.RowTemplate.Height = 24;
+            this.dataGridView_International.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView_International.Size = new System.Drawing.Size(1101, 187);
+            this.dataGridView_International.TabIndex = 4;
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.tabControl1);
@@ -146,6 +152,22 @@
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Driver Licenses";
+            // 
+            // contextMenuStrip2
+            // 
+            this.contextMenuStrip2.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showLicenseInfoToolStripMenuItem});
+            this.contextMenuStrip2.Name = "contextMenuStrip2";
+            this.contextMenuStrip2.Size = new System.Drawing.Size(201, 30);
+            // 
+            // showLicenseInfoToolStripMenuItem
+            // 
+            this.showLicenseInfoToolStripMenuItem.Image = global::DVLD_Presentation.Properties.Resources.driver_license;
+            this.showLicenseInfoToolStripMenuItem.Name = "showLicenseInfoToolStripMenuItem";
+            this.showLicenseInfoToolStripMenuItem.Size = new System.Drawing.Size(200, 26);
+            this.showLicenseInfoToolStripMenuItem.Text = "Show License Info";
+            this.showLicenseInfoToolStripMenuItem.Click += new System.EventHandler(this.showLicenseInfoToolStripMenuItem_Click);
             // 
             // ctrlDriverInfo1
             // 
@@ -170,11 +192,12 @@
             this.Load += new System.EventHandler(this.LicensesHistoryForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabControl1.ResumeLayout(false);
-            this.tp_InternationalLicenses.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_International)).EndInit();
             this.tp_LocalLicenses.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Local)).EndInit();
+            this.tp_InternationalLicenses.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_International)).EndInit();
             this.groupBox1.ResumeLayout(false);
+            this.contextMenuStrip2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -190,5 +213,7 @@
         private System.Windows.Forms.DataGridView dataGridView_International;
         private System.Windows.Forms.GroupBox groupBox1;
         private UserControls.ctrlDriverInfo ctrlDriverInfo1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
+        private System.Windows.Forms.ToolStripMenuItem showLicenseInfoToolStripMenuItem;
     }
 }

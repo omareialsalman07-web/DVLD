@@ -24,7 +24,7 @@ namespace DVLD_Presentation.UserControls
             {
                 LocalLicense localLicense = LocalLicenseService.FindByLocalLicenseID(LocalLicenseID);
                 DVLD_Business.License license = LicenseService.FindByLicenseID(localLicense.LicenseID);
-                LicenseClass licenseClass = LicenseClassService.Find(localLicense.LicenseClassID);
+                LicenseClass licenseClass = LicenseClassService.Find(localLicense.GetLicenseClassID());
                 Person person = PersonService.Find(DriverService.Find(license.DriverID).PersonID);
 
                 lbName.Text = person.FullName();
@@ -33,9 +33,9 @@ namespace DVLD_Presentation.UserControls
                 lbNationalNo.Text = person.NationalNo;
                 lbGendor.Text = person.Gendor.ToString();
                 lbIssueDate.Text = license.IssueDate.ToShortDateString();
-                lbIssueReason.Text = license.IssueTypeID.ToString();
+                lbIssueReason.Text = license.IssueType.ToString();
 
-                lbIsActive.Text = localLicense.IsActive() ? "No" : "Yes";
+                lbIsActive.Text = localLicense.IsActive? "Yes" : "No";
                 lbDriverID.Text = license.DriverID.ToString();
                 lbDOB.Text = person.DateOfBirth.ToShortDateString();
                 lbIsDetained.Text = "????"; // TODO LATER
@@ -52,6 +52,11 @@ namespace DVLD_Presentation.UserControls
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -1,190 +1,316 @@
-﻿using DVLD_DataAccess;
+﻿
+using DVLD_DataAccess;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DVLD_Business
 {
     public static class InternationalLicenseService
     {
-        public static InternationalLicense FindByInternationalID(int InternationalLicenseID)
+        private const int RequiredLicenseClassID = 3;
+
+        public static InternationalLicense FindByInternationalID(int internationalLicenseID)
         {
             int licenseID = -1;
-            int locallicenseID = -1;
-
-            if (!InternationalLicenseData.GetByInternationalID(InternationalLicenseID, ref licenseID, ref locallicenseID))
-            {
-                return null;
-            }
-
-            return new InternationalLicense(InternationalLicenseID, locallicenseID, licenseID);
-        }
-        public static InternationalLicense FindByLicenseID(int licenseID)
-        {
-            int InternationallicenseID = -1;
             int localLicenseID = -1;
 
-            if (!InternationalLicenseData.GetByLicenseID(licenseID, ref InternationallicenseID, ref localLicenseID))
+            if (!InternationalLicenseData.GetByInternationalID(
+                internationalLicenseID,
+                ref licenseID,
+                ref localLicenseID))
             {
                 return null;
             }
 
-            return new InternationalLicense(InternationallicenseID, localLicenseID, licenseID);
+            return LicenseService.FindByLicenseID(licenseID)
+                as InternationalLicense;
         }
-        public static InternationalLicense FindByLocalLicenseID(int localLicenseID)
+
+
+        public static InternationalLicense FindByLicenseID(int licenseID)
         {
-            int InternationallicenseID = -1;
+            return LicenseService.FindByLicenseID(licenseID)
+                as InternationalLicense;
+        }
+
+
+        public static InternationalLicense FindByLocalLicenseID(
+            int localLicenseID)
+        {
+            int internationalLicenseID = -1;
             int licenseID = -1;
 
-            if (!InternationalLicenseData.GetByLocalLicenseID(localLicenseID, ref InternationallicenseID, ref licenseID))
+            if (!InternationalLicenseData.GetByLocalLicenseID(
+                localLicenseID,
+                ref internationalLicenseID,
+                ref licenseID))
             {
                 return null;
             }
 
-            return new InternationalLicense(InternationallicenseID, localLicenseID, licenseID);
+            return LicenseService.FindByLicenseID(licenseID)
+                as InternationalLicense;
         }
 
-        public static int CreateFirstTime(int LocalLicenseID, int CreatedByUserID)
+
+        public static int CreateFirstTime(int localLicenseID, int createdByUserID)
         {
-            LocalLicense localLicense = LocalLicenseService.FindByLocalLicenseID(LocalLicenseID);
+            LocalLicense localLicense =
+                LocalLicenseService.FindByLocalLicenseID(localLicenseID);
+
             if (localLicense == null)
-                throw new Exception($"Can't find Local License with ID [{LocalLicenseID}].");
+                throw new InvalidOperationException(
+                    $"Local license [{localLicenseID}] does not exist.");
 
-            if (localLicense.LicenseClassID != 3)
-                throw new Exception($@"Can't create International License with License Class [{LicenseClassService.Find(localLicense.LicenseClassID).ClassName}].
-                                       The only allowed Class is {LicenseClassService.Find(3).ClassName}");
+            // Validate the local license class.
+            if (localLicense.GetLicenseClassID() != RequiredLicenseClassID)
+            {
+                LicenseClass requiredClass =
+                    LicenseClassService.Find(RequiredLicenseClassID);
 
-            if (IsExistByLocalLicenseID(localLicense.LocalLicenseID))
-                throw new Exception($"This driver already has International License with ID [{FindByLocalLicenseID(localLicense.LocalLicenseID).InternationalLicenseID}].");
+                string requiredClassName =
+                    requiredClass?.ClassName ?? "Class 3";
 
-            int _ApplicationID = ApplicationData.CreateApplication((int)enApplicationType.eNewInternationalLicense, DateTime.Today,
-                (int)enApplicationStatus.eNew, ApplicationTypeService.Find((int)enApplicationType.eNewInternationalLicense).Fees, CreatedByUserID);
-            if(_ApplicationID == -1)
-                throw new Exception($"Failed to CreateFirstTime Application with type ['{enApplicationType.eNewInternationalLicense}'].");
+                throw new InvalidOperationException(
+                    $"International licenses can only be issued to holders of {requiredClassName}.");
+            }
 
-            Application application = ApplicationService.Find(_ApplicationID);
+            // Validate the local license status.
+            if (!localLicense.IsValid())
+                throw new InvalidOperationException(
+                    "The local license is not active.");
 
-            if (application.Status == enApplicationStatus.eCancelled)
-                throw new Exception($"Failed to Issue International License in canceled Application with ID [{application.ApplicationID}].");
+            if (localLicense.IsExpired())
+                throw new InvalidOperationException(
+                    "The local license has expired.");
 
-            if (application.Status == enApplicationStatus.eCompleted)
-                throw new Exception($"Failed to Issue International License in completed Application with ID [{application.ApplicationID}].");
+            // Check whether an international license already exists.
+            if (IsExistByLocalLicenseID(localLicenseID))
+            {
+                InternationalLicense existingLicense =
+                    FindByLocalLicenseID(localLicenseID);
 
-            if(application.Type != enApplicationType.eNewInternationalLicense)
-                throw new Exception($"Can't create International License with Application Type [{application.Type.ToString()}].");
+                throw new InvalidOperationException(
+                    $"This local license already has an international license [{existingLicense.InternationalLicenseID}].");
+            }
 
-            int driverID = LicenseService.FindByLicenseID(localLicense.LicenseID).DriverID;
-            int licenseID = LicenseService.Create(enLicenseIssueType.eFirstTime, driverID, _ApplicationID, CreatedByUserID);
+            // Create the application.
+            int applicationTypeID =
+                (int)enApplicationType.eNewInternationalLicense;
+
+            ApplicationType applicationType =
+                ApplicationTypeService.Find(applicationTypeID);
+
+            if (applicationType == null)
+                throw new InvalidOperationException(
+                    "International license application type does not exist.");
+
+            int applicationID = ApplicationData.CreateApplication(
+                applicationTypeID,
+                DateTime.Today,
+                (int)enApplicationStatus.eNew,
+                applicationType.Fees,
+                createdByUserID);
+
+            if (applicationID == -1)
+                throw new InvalidOperationException(
+                    "Failed to create international license application.");
+
+            // Create the common license record.
+            int licenseID = LicenseService.Create(
+                enLicenseIssueType.eFirstTime,
+                localLicense.DriverID,
+                applicationID,
+                createdByUserID);
+
             if (licenseID == -1)
-                throw new Exception("Failed to create license.");
+                throw new InvalidOperationException(
+                    "Failed to create license.");
 
-            int result = InternationalLicenseData.Create(licenseID, localLicense.LocalLicenseID);
-            if (result != -1)
-                ApplicationService.Complete(_ApplicationID);
+            // Create the international license record.
+            int internationalLicenseID =
+                InternationalLicenseData.Create(
+                    licenseID,
+                    localLicense.LocalLicenseID);
 
-            return result;
+            if (internationalLicenseID == -1)
+                throw new InvalidOperationException(
+                    "Failed to create international license.");
+
+            if (!ApplicationService.Complete(applicationID))
+                throw new InvalidOperationException(
+                    "The international license was created, but the application could not be completed.");
+
+            return internationalLicenseID;
         }
-
-        private static int _Recreate(int OldInternationlLicenseID, int createdByUserID, enLicenseIssueType issueType)
+        private static int Recreate(int oldInternationalLicenseID,
+            int createdByUserID, enLicenseIssueType issueType)
         {
+            InternationalLicense oldLicense =
+                FindByInternationalID(oldInternationalLicenseID);
 
-            InternationalLicense oldInternationalLicense = InternationalLicenseService.FindByInternationalID(OldInternationlLicenseID);
-            if (oldInternationalLicense == null)
-                throw new Exception($"Can't find International License ['{enApplicationType.eNewInternationalLicense}'].");
+            if (oldLicense == null)
+                throw new InvalidOperationException(
+                    $"International license [{oldInternationalLicenseID}] does not exist.");
 
-            if (oldInternationalLicense.ExpirationDate() > DateTime.Today && issueType == enLicenseIssueType.eRenew)
-                throw new Exception($"This License has not expired yet! It will be expired at {oldInternationalLicense.ExpirationDate().ToShortDateString()}.");
+            if (issueType == enLicenseIssueType.eRenew &&
+                !oldLicense.IsExpired())
+            {
+                throw new InvalidOperationException(
+                    $"This license has not expired yet. Expiration date: {oldLicense.ExpirationDate():d}");
+            }
 
-            if (!oldInternationalLicense.IsActive())
-                throw new Exception($"The International license with ID [{OldInternationlLicenseID}] is not active!.");
+            if (!oldLicense.IsActive)
+                throw new InvalidOperationException(
+                    $"International license [{oldInternationalLicenseID}] is not active.");
 
+            int applicationTypeID =
+                (int)enApplicationType.eRenewDrivingLicense;
 
-            int _ApplicationID = ApplicationData.CreateApplication((int)enApplicationType.eRenewDrivingLicense, DateTime.Today,
-                 (int)enApplicationStatus.eNew, ApplicationTypeService.Find((int)enApplicationType.eRenewDrivingLicense).Fees, createdByUserID);
-            if (_ApplicationID == -1)
-                throw new Exception($"Failed to CreateFirstTime Application with type ['{enApplicationType.eRenewDrivingLicense}'].");
+            ApplicationType applicationType =
+                ApplicationTypeService.Find(applicationTypeID);
 
-            License oldLicense = LicenseService.FindByLicenseID(oldInternationalLicense.LicenseID);
-            if (!LicenseService.DeactivateLicense(oldLicense.LicenseID))
-                throw new Exception($"Some thing went wrong while deactivating the old license.");
+            if (applicationType == null)
+                throw new InvalidOperationException(
+                    "Renewal application type does not exist.");
 
-            int newLicenseID = LicenseService.Create(issueType, oldLicense.DriverID, _ApplicationID, createdByUserID);
+            int applicationID = ApplicationData.CreateApplication(
+                applicationTypeID,
+                DateTime.Today,
+                (int)enApplicationStatus.eNew,
+                applicationType.Fees,
+                createdByUserID);
+
+            if (applicationID == -1)
+                throw new InvalidOperationException(
+                    "Failed to create renewal application.");
+
+            // Create the new common license.
+            int newLicenseID = LicenseService.Create(
+                issueType,
+                oldLicense.DriverID,
+                applicationID,
+                createdByUserID);
+
             if (newLicenseID == -1)
-                throw new Exception($"Some thing went wrong while creating the new license!");
+                throw new InvalidOperationException("Failed to create replacement license.");
 
-            int result = InternationalLicenseData.Create(newLicenseID, oldInternationalLicense.LocalLicenseID);
-            if (result != -1)
-                ApplicationService.Complete(_ApplicationID);
+            // Keep the association with the same local license.
+            int result = InternationalLicenseData.Create(
+                newLicenseID,
+                oldLicense.GetLocalLicenseID());
+
+            if (result == -1)
+                throw new InvalidOperationException(
+                    "Failed to create the new international license.");
+
+            // Deactivate the previous license.
+            if (!LicenseService.DeactivateLicense(oldLicense.LicenseID))
+                throw new InvalidOperationException(
+                    "Failed to deactivate the previous international license.");
+
+            if (!ApplicationService.Complete(applicationID))
+                throw new InvalidOperationException(
+                    "The new international license was created, but the application could not be completed.");
 
             return result;
         }
 
-        public static int Renew(int OldInternationlLicenseID, int createdByUserID)
+
+        public static int Renew(int oldInternationalLicenseID, int createdByUserID)
         {
-            return _Recreate(OldInternationlLicenseID, createdByUserID, enLicenseIssueType.eRenew);
-        }
-        public static int ReplacementForDamage(int OldInternationlLicenseID, int createdByUserID)
-        {
-            return _Recreate(OldInternationlLicenseID, createdByUserID, enLicenseIssueType.eReplacementForDamaged);
-        }
-        public static int ReplacementForLost(int OldInternationlLicenseID, int createdByUserID)
-        {
-            return _Recreate(OldInternationlLicenseID, createdByUserID, enLicenseIssueType.eReplacementForLost);
+            return Recreate(oldInternationalLicenseID, createdByUserID,
+                enLicenseIssueType.eRenew);
         }
 
-        public static bool IsExistByLocalLicenseID(int LocallLicenseID)
+
+        public static int ReplacementForDamage(int oldInternationalLicenseID, int createdByUserID)
         {
-            return InternationalLicenseData.IsExistByLocalLicenseID(LocallLicenseID);
+            return Recreate(
+                oldInternationalLicenseID,
+                createdByUserID,
+                enLicenseIssueType.eReplacementForDamaged);
         }
-        public static bool IsExistByInternationalID(int InternationalLicenseID)
+
+
+        public static int ReplacementForLost(int oldInternationalLicenseID, int createdByUserID)
         {
-            return InternationalLicenseData.IsExistByInternationalID(InternationalLicenseID);
+            return Recreate(oldInternationalLicenseID, createdByUserID,
+                enLicenseIssueType.eReplacementForLost);
         }
+
+
+        public static bool IsExistByLocalLicenseID(int localLicenseID)
+        {
+            return InternationalLicenseData.IsExistByLocalLicenseID(
+                localLicenseID);
+        }
+
+
+        public static bool IsExistByInternationalID(
+            int internationalLicenseID)
+        {
+            return InternationalLicenseData.IsExistByInternationalID(
+                internationalLicenseID);
+        }
+
 
         public static List<InternationalLicense> GetInternationalLicenses()
         {
-            List<InternationalLicense> InternationalLicensesList = new List<InternationalLicense>();
+            List<InternationalLicense> licenses =
+                new List<InternationalLicense>();
 
-            DataTable data = InternationalLicenseData.GetInternationalLicenses();
+            DataTable data =
+                InternationalLicenseData.GetInternationalLicenses();
+
             foreach (DataRow row in data.Rows)
             {
-                InternationalLicense driver = new InternationalLicense
-                (
-                    internationalLicenseID: Convert.ToInt32(row["InternationalLicenseID"]),
-                    localLicenseID: Convert.ToInt32(row["LicenseClassID"]),
-                    licenseID: Convert.ToInt32(row["LicenseID"])
-                );
+                int internationalLicenseID =
+                    Convert.ToInt32(row["InternationalLicenseID"]);
 
-                InternationalLicensesList.Add(driver);
+                InternationalLicense license =
+                    FindByInternationalID(internationalLicenseID);
+
+                if (license != null)
+                    licenses.Add(license);
             }
 
-            return InternationalLicensesList;
+            return licenses;
         }
-        public static List<InternationalLicense> GetInternationalLicensesForDriver(int driverID)
-        {
-            List<InternationalLicense> internationalLicensesList = new List<InternationalLicense>();
 
-            DataTable data = InternationalLicenseData.GetInternationalLicensesForDriver(driverID);
+
+        public static List<InternationalLicense> GetInternationalLicensesForDriver(
+            int driverID)
+        {
+            List<InternationalLicense> licenses =
+                new List<InternationalLicense>();
+
+            DataTable data =
+                InternationalLicenseData.GetInternationalLicensesForDriver(
+                    driverID);
+
             foreach (DataRow row in data.Rows)
             {
-                InternationalLicense internationalLicense = new InternationalLicense
-                (
-                    internationalLicenseID: Convert.ToInt32(row["InternationalLicense"]),
-                    localLicenseID: Convert.ToInt32(row["InternationalLicenseID"]),
-                    licenseID: Convert.ToInt32(row["LicenseID"])
-                );
+                int internationalLicenseID =
+                    Convert.ToInt32(row["InternationalLicenseID"]);
 
-                internationalLicensesList.Add(internationalLicense);
+                InternationalLicense license =
+                    FindByInternationalID(internationalLicenseID);
+
+                if (license != null)
+                    licenses.Add(license);
             }
 
-            return internationalLicensesList;
+            return licenses;
         }
-        public static DataTable GetInternationalLicensesForDriver_ForDisplay(int driverID)
+
+
+        public static DataTable GetInternationalLicensesForDriver_ForDisplay(
+            int driverID)
         {
-            return InternationalLicenseData.GetInternationalLicensesForDriver_ForDisplay(driverID);
+            return InternationalLicenseData
+                .GetInternationalLicensesForDriver_ForDisplay(driverID);
         }
     }
 }

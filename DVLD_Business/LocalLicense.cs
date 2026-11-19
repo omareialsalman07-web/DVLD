@@ -1,43 +1,59 @@
-﻿using System;
-using System.ComponentModel;
+﻿
+using System;
 
 namespace DVLD_Business
 {
-    public class LocalLicense
+    public class LocalLicense : License
     {
         public int LocalLicenseID { get; }
-        public int LicenseID { get; set; }
-        public int LicenseClassID { get; set; }
 
-        public DateTime ExpirationDate()
+        public LicenseClass LicenseClass { get; }
+
+        public int GetLicenseClassID()
         {
-            License license = LicenseService.FindByLicenseID(LicenseID);
-            LicenseClass licenseClass = LicenseClassService.Find(LicenseClassID);
-
-            return license.IssueDate.AddYears(licenseClass.ValidityLength);
+            return LicenseClass.LicenseClassID;
         }
 
-        public bool IsExpired()
+        public override DateTime ExpirationDate ()
         {
-            return DateTime.Today > ExpirationDate();
+            return IssueDate.AddYears(LicenseClass.ValidityLength);
         }
 
-        public bool IsActive()
+
+        public LocalLicense(
+            enLicenseIssueType issueTypeID,
+            DateTime issueDate,
+            int driverID,
+            int applicationID,
+            bool isActive,
+            int createdByUserID,
+            LicenseClass licenseClass)
+            : base(issueTypeID, issueDate, driverID,
+                   applicationID, isActive, createdByUserID)
         {
-            License license = LicenseService.FindByLicenseID(LicenseID);
-            return license.IsActive && !IsExpired();
+            LicenseClass = licenseClass ??
+                throw new ArgumentNullException(nameof(licenseClass));
         }
 
-        public LocalLicense(int licenseID, int licenseClassID)
-        {
-            LicenseID = licenseID;
-            LicenseClassID = licenseClassID;
-        }
 
-        public LocalLicense(int localLicenseID, int licenseID, int licenseClassID)
-            : this(licenseID, licenseClassID)
+        public LocalLicense(
+            int localLicenseID,
+            int licenseID,
+            enLicenseIssueType issueTypeID,
+            DateTime issueDate,
+            int driverID,
+            int applicationID,
+            bool isActive,
+            int createdByUserID,
+            LicenseClass licenseClass)
+            : base(licenseID, issueTypeID, issueDate,
+                   driverID, applicationID, isActive,
+                   createdByUserID)
         {
             LocalLicenseID = localLicenseID;
+
+            LicenseClass = licenseClass ??
+                throw new ArgumentNullException(nameof(licenseClass));
         }
     }
 }

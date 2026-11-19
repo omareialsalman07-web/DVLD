@@ -1,45 +1,57 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using System;
 
 namespace DVLD_Business
 {
-    public class InternationalLicense
+    public class InternationalLicense : License
     {
-        public int InternationalLicenseID { get; set; }
-        public int LocalLicenseID { get; }
-        public int LicenseID { get; set; }
+        public int InternationalLicenseID { get; }
 
-        public DateTime ExpirationDate()
+        public LocalLicense LocalLicense { get; }
+
+        public int GetLocalLicenseID()
         {
-            License license = LicenseService.FindByLicenseID(LicenseID);
-
-            return license.IssueDate.AddYears(1);
+            return LocalLicense.LocalLicenseID;
+        }
+        public override DateTime ExpirationDate()
+        {
+            return IssueDate.AddYears(1);
         }
 
-        public bool IsExpired()
+        public InternationalLicense(
+            enLicenseIssueType issueTypeID,
+            DateTime issueDate,
+            int driverID,
+            int applicationID,
+            bool isActive,
+            int createdByUserID,
+            LocalLicense localLicense)
+            : base(issueTypeID, issueDate, driverID,
+                   applicationID, isActive, createdByUserID)
         {
-            return DateTime.Today > ExpirationDate();
+            LocalLicense = localLicense ??
+                throw new ArgumentNullException(nameof(localLicense));
         }
 
-        public bool IsActive()
-        {
-            License license = LicenseService.FindByLicenseID(LicenseID);
-            return license.IsActive && !IsExpired();
-        }
 
-        public InternationalLicense(int localLicenseID, int licenseID)
-        {
-            LocalLicenseID = localLicenseID;
-            LicenseID = licenseID;
-        }
-
-        public InternationalLicense(int internationalLicenseID ,int localLicenseID, int licenseID)
-            : this(licenseID, licenseID)
+        public InternationalLicense(
+            int internationalLicenseID,
+            int licenseID,
+            enLicenseIssueType issueTypeID,
+            DateTime issueDate,
+            int driverID,
+            int applicationID,
+            bool isActive,
+            int createdByUserID,
+            LocalLicense localLicense)
+            : base(licenseID, issueTypeID, issueDate,
+                   driverID, applicationID, isActive,
+                   createdByUserID)
         {
             InternationalLicenseID = internationalLicenseID;
+
+            LocalLicense = localLicense ??
+                throw new ArgumentNullException(nameof(localLicense));
         }
     }
 }

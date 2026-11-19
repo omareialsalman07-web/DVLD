@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Runtime.InteropServices;
+﻿
 using DVLD_DataAccess;
 using System;
+using System.Collections.Generic;
+using System.Data;
 
 namespace DVLD_Business
 {
@@ -14,159 +13,266 @@ namespace DVLD_Business
             int licenseID = -1;
             int licenseClassID = -1;
 
-            if (!LocalLicenseData.GetLicenseByLocalLicenseID(localLicenseID, ref licenseID, ref licenseClassID))
+            if (!LocalLicenseData.GetLicenseByLocalLicenseID(
+                localLicenseID,
+                ref licenseID,
+                ref licenseClassID))
             {
                 return null;
             }
 
-            return new LocalLicense(localLicenseID, licenseID, licenseClassID);
+            return LicenseService.FindByLicenseID(licenseID) as LocalLicense;
         }
+
         public static LocalLicense FindByLicenseID(int licenseID)
         {
-            int locallicenseID = -1;
-            int licenseClassID = -1;
-
-            if (!LocalLicenseData.GetLicenseByLicenseID(licenseID, ref locallicenseID, ref licenseClassID))
-            {
-                return null;
-            }
-
-            return new LocalLicense(locallicenseID, licenseID, licenseClassID);
+            return LicenseService.FindByLicenseID(licenseID) as LocalLicense;
         }
 
-        public static int CreateFirstTime(int LocalLicenseApplicationID, int createdByUserID)
+
+        public static int CreateFirstTime(int localLicenseApplicationID, int createdByUserID)
         {
-            LocalLicenseApplication localLicenseApplication = LocalLicenseApplicationService.Find(LocalLicenseApplicationID);
-            if (localLicenseApplication == null)
-                throw new Exception($"Failed to find Local License Application with ID [{LocalLicenseApplicationID}].");
+            LocalLicenseApplication application =
+                LocalLicenseApplicationService.Find(localLicenseApplicationID);
 
-            if(ApplicationService.Find(localLicenseApplication.ApplicationID).Status == enApplicationStatus.eCancelled)
-                throw new Exception($"Failed to Issue Local License in canceled Application with ID [{localLicenseApplication.ApplicationID}].");
-            
-            if(ApplicationService.Find(localLicenseApplication.ApplicationID).Status == enApplicationStatus.eCompleted)
-                throw new Exception($"Failed to Issue Local License in completed Application with ID [{localLicenseApplication.ApplicationID}].");
+            if (application == null)
+                throw new InvalidOperationException(
+                    $"Local license application [{localLicenseApplicationID}] does not exist.");
 
-            int totalPassedTests = LocalLicenseApplicationService.GetTotalPassedTests(LocalLicenseApplicationID);
+            Application baseApplication =
+                ApplicationService.Find(application.ApplicationID);
+
+            if (baseApplication == null)
+                throw new InvalidOperationException(
+                    "The associated application does not exist.");
+
+            if (baseApplication.Status == enApplicationStatus.eCancelled)
+                throw new InvalidOperationException(
+                    $"Cannot issue a local license for cancelled application [{application.ApplicationID}].");
+
+            if (baseApplication.Status == enApplicationStatus.eCompleted)
+                throw new InvalidOperationException(
+                    $"Application [{application.ApplicationID}] is already completed.");
+
+            int totalPassedTests =
+                LocalLicenseApplicationService.GetTotalPassedTests(
+                    localLicenseApplicationID);
+
             if (totalPassedTests < 3)
-                throw new Exception($"Failed to Issue Local License to Application with ID [{localLicenseApplication.ApplicationID}]. Because the applicant did not finished all the tests he only paassed {totalPassedTests} Tests");
+                throw new InvalidOperationException(
+                    $"The applicant has only passed {totalPassedTests} out of 3 required tests.");
 
-
-            Driver driver = DriverService.FindByPersonID(localLicenseApplication.PersonID);
+            // Find or create the driver.
+            Driver driver =
+                DriverService.FindByPersonID(application.PersonID);
 
             if (driver == null)
             {
                 int driverID = DriverService.Create(
-                    localLicenseApplication.PersonID,
-                    createdByUserID
-                );
+                    application.PersonID,
+                    createdByUserID);
+
+                if (driverID == -1)
+                    throw new InvalidOperationException(
+                        "Failed to create driver.");
 
                 driver = DriverService.Find(driverID);
             }
 
             if (driver == null)
-                throw new Exception("Failed to create localLicense, while creating local license.");
+                throw new InvalidOperationException(
+                    "Failed to retrieve the newly created driver.");
 
-            int licenseID = LicenseService.Create(enLicenseIssueType.eFirstTime, driver.DriverID, localLicenseApplication.ApplicationID, createdByUserID);
+            // Create the common license record.
+            int licenseID = LicenseService.Create(
+                enLicenseIssueType.eFirstTime,
+                driver.DriverID,
+                application.ApplicationID,
+                createdByUserID);
 
             if (licenseID == -1)
-                throw new Exception("Failed to create license.");
+                throw new InvalidOperationException(
+                    "Failed to create license.");
 
-            int result = LocalLicenseData.CreateLocalLicense(licenseID, localLicenseApplication.LicenseClassID);
-            if (result != -1)
-                ApplicationService.Complete(localLicenseApplication.ApplicationID);
+            // Create the local license record.
+            int localLicenseID = LocalLicenseData.CreateLocalLicense(
+                licenseID,
+                application.LicenseClassID);
 
-            return result;
+            if (localLicenseID == -1)
+                throw new InvalidOperationException(
+                    "Failed to create local license.");
+
+            if (!ApplicationService.Complete(application.ApplicationID))
+                throw new InvalidOperationException(
+                    "The license was created, but the application could not be completed.");
+
+            return localLicenseID;
         }
 
-        private static int _Recreate(int OldLocalLicenseID, int createdByUserID, enLicenseIssueType issueType)
+
+        private static int _Recreate(
+            int oldLocalLicenseID,
+            int createdByUserID,
+            enLicenseIssueType issueType)
         {
-            LocalLicense oldLocalLicense = LocalLicenseService.FindByLocalLicenseID(OldLocalLicenseID);
-            if (oldLocalLicense == null)
-                throw new Exception($"Can't find Local License ['{enApplicationType.eNewInternationalLicense}'].");
+            LocalLicense oldLicense =
+                FindByLocalLicenseID(oldLocalLicenseID);
 
-            if (oldLocalLicense.ExpirationDate() > DateTime.Today && issueType == enLicenseIssueType.eRenew)
-                throw new Exception($"This License has not expired yet! It will be expired at {oldLocalLicense.ExpirationDate().ToShortDateString()}.");
+            if (oldLicense == null)
+                throw new InvalidOperationException(
+                    $"Local license [{oldLocalLicenseID}] does not exist.");
 
-            if (!oldLocalLicense.IsActive())
-                throw new Exception($"The local license with ID [{OldLocalLicenseID}] is not active!.");
+            // A renewal is only allowed after expiration.
+            if (issueType == enLicenseIssueType.eRenew &&
+                !oldLicense.IsExpired())
+            {
+                throw new InvalidOperationException(
+                    $"This license has not expired yet. Expiration date: {oldLicense.ExpirationDate():d}");
+            }
 
+            if (!oldLicense.IsActive)
+                throw new InvalidOperationException(
+                    $"Local license [{oldLocalLicenseID}] is not active.");
 
-            int _ApplicationID = ApplicationData.CreateApplication((int)enApplicationType.eRenewDrivingLicense, DateTime.Today,
-                 (int)enApplicationStatus.eNew, ApplicationTypeService.Find((int)enApplicationType.eRenewDrivingLicense).Fees, createdByUserID);
-            if (_ApplicationID == -1)
-                throw new Exception($"Failed to CreateFirstTime Application with type ['{enApplicationType.eRenewDrivingLicense}'].");
+            int applicationTypeID =
+                (int)enApplicationType.eRenewDrivingLicense;
 
-            License oldLicense = LicenseService.FindByLicenseID(oldLocalLicense.LicenseID);
-            if (!LicenseService.DeactivateLicense(oldLicense.LicenseID))
-                throw new Exception($"Some thing went wrong while deactivating the old license.");
+            ApplicationType applicationType =
+                ApplicationTypeService.Find(applicationTypeID);
 
-            int newLicenseID = LicenseService.Create(issueType, oldLicense.DriverID, _ApplicationID, createdByUserID);
+            if (applicationType == null)
+                throw new InvalidOperationException(
+                    "Renewal application type does not exist.");
+
+            int applicationID = ApplicationData.CreateApplication(
+                applicationTypeID,
+                DateTime.Today,
+                (int)enApplicationStatus.eNew,
+                applicationType.Fees,
+                createdByUserID);
+
+            if (applicationID == -1)
+                throw new InvalidOperationException(
+                    "Failed to create renewal application.");
+
+            // Create the new common license.
+            int newLicenseID = LicenseService.Create(
+                issueType,
+                oldLicense.DriverID,
+                applicationID,
+                createdByUserID);
+
             if (newLicenseID == -1)
-                throw new Exception($"Some thing went wrong while creating the new license!");
+                throw new InvalidOperationException(
+                    "Failed to create replacement license.");
 
-            int result = LocalLicenseData.CreateLocalLicense(newLicenseID, oldLocalLicense.LicenseClassID);
-            if (result != -1)
-                ApplicationService.Complete(_ApplicationID);
+            // Create the new local license.
+            int result = LocalLicenseData.CreateLocalLicense(
+                newLicenseID,
+                oldLicense.GetLicenseClassID());
+
+            if (result == -1)
+                throw new InvalidOperationException(
+                    "Failed to create the new local license record.");
+
+            // Deactivate the old license only after successful creation.
+            if (!LicenseService.DeactivateLicense(oldLicense.LicenseID))
+                throw new InvalidOperationException(
+                    "Failed to deactivate the previous license.");
+
+            if (!ApplicationService.Complete(applicationID))
+                throw new InvalidOperationException(
+                    "The new license was created, but the application could not be completed.");
 
             return result;
         }
 
-        public static int Renew(int OldLocalLicenseID, int createdByUserID)
+
+        public static int Renew(
+            int oldLocalLicenseID,
+            int createdByUserID)
         {
-            return _Recreate(OldLocalLicenseID, createdByUserID, enLicenseIssueType.eRenew);
-        }
-        public static int ReplacementForLost(int OldLocalLicenseID, int createdByUserID)
-        {
-            return _Recreate(OldLocalLicenseID, createdByUserID, enLicenseIssueType.eReplacementForDamaged);
-        }
-        public static int ReplacementForDamage(int OldLocalLicenseID, int createdByUserID)
-        {
-            return _Recreate(OldLocalLicenseID, createdByUserID, enLicenseIssueType.eReplacementForDamaged);
+            return _Recreate(
+                oldLocalLicenseID,
+                createdByUserID,
+                enLicenseIssueType.eRenew);
         }
 
-        public static bool isExist(int LocalLicenseID)
+
+        public static int ReplacementForLost(
+            int oldLocalLicenseID,
+            int createdByUserID)
         {
-            return LocalLicenseData.isExist(LocalLicenseID);
+            return _Recreate(
+                oldLocalLicenseID,
+                createdByUserID,
+                enLicenseIssueType.eReplacementForLost);
         }
+
+
+        public static int ReplacementForDamage(
+            int oldLocalLicenseID,
+            int createdByUserID)
+        {
+            return _Recreate(
+                oldLocalLicenseID,
+                createdByUserID,
+                enLicenseIssueType.eReplacementForDamaged);
+        }
+
+
+        public static bool IsExist(int localLicenseID)
+        {
+            return LocalLicenseData.isExist(localLicenseID);
+        }
+
 
         public static List<LocalLicense> GetLocalLicenses()
         {
-            List<LocalLicense> localLicensesList = new List<LocalLicense>();
+            List<LocalLicense> licenses = new List<LocalLicense>();
 
             DataTable data = LocalLicenseData.GetLocalLicenses();
+
             foreach (DataRow row in data.Rows)
             {
-                LocalLicense localLicense = new LocalLicense
-                (
-                    localLicenseID: Convert.ToInt32(row["OldLocalLicenseID"]),
-                    licenseID: Convert.ToInt32(row["LicenseID"]),
-                    licenseClassID: Convert.ToInt32(row["LicenseClassID"])
-                );
+                int localLicenseID =
+                    Convert.ToInt32(row["OldLocalLicenseID"]);
 
-                localLicensesList.Add(localLicense);
+                LocalLicense license =
+                    FindByLocalLicenseID(localLicenseID);
+
+                if (license != null)
+                    licenses.Add(license);
             }
 
-            return localLicensesList;
+            return licenses;
         }
+
+
         public static List<LocalLicense> GetLocalLicensesForDriver(int driverID)
         {
-            List<LocalLicense> localLicensesList = new List<LocalLicense>();
+            List<LocalLicense> licenses = new List<LocalLicense>();
 
-            DataTable data = LocalLicenseData.GetLocalLicensesForDriver(driverID);
+            DataTable data =
+                LocalLicenseData.GetLocalLicensesForDriver(driverID);
+
             foreach (DataRow row in data.Rows)
             {
-                LocalLicense driver = new LocalLicense
-                (
-                    localLicenseID: Convert.ToInt32(row["OldLocalLicenseID"]),
-                    licenseID: Convert.ToInt32(row["LicenseID"]),
-                    licenseClassID: Convert.ToInt32(row["LicenseClassID"])
-                );
+                int localLicenseID =
+                    Convert.ToInt32(row["OldLocalLicenseID"]);
 
-                localLicensesList.Add(driver);
+                LocalLicense license =
+                    FindByLocalLicenseID(localLicenseID);
+
+                if (license != null)
+                    licenses.Add(license);
             }
 
-            return localLicensesList;
+            return licenses;
         }
+
+
         public static DataTable GetLocalLicensesForDriver_ForDisplay(int driverID)
         {
             return LocalLicenseData.GetLocalLicensesForDriver_ForDisplay(driverID);

@@ -1,8 +1,6 @@
-﻿using DVLD_DataAccess;
+﻿
+using DVLD_DataAccess;
 using System;
-using System.Data.SqlClient;
-using System.Runtime.Remoting.Messaging;
-using System.Threading;
 
 namespace DVLD_Business
 {
@@ -17,13 +15,81 @@ namespace DVLD_Business
             bool isActive = false;
             int createdByUserID = -1;
 
-            if (!LicenseData.GetLicenseByLicenseID(licenseID, ref issueTypeID, ref issueDate, ref driverID, ref applicationID, ref isActive, ref createdByUserID))
+            if (!LicenseData.GetLicenseByLicenseID(
+                licenseID,
+                ref issueTypeID,
+                ref issueDate,
+                ref driverID,
+                ref applicationID,
+                ref isActive,
+                ref createdByUserID))
             {
                 return null;
             }
 
-            return new License(licenseID, (enLicenseIssueType)issueTypeID,issueDate, driverID, applicationID, isActive, createdByUserID);
+            // Check whether it is a Local License.
+            int localLicenseID = -1;
+            int licenseClassID = -1;
+
+            if (LocalLicenseData.GetLicenseByLicenseID(
+                licenseID,
+                ref localLicenseID,
+                ref licenseClassID))
+            {
+                LicenseClass licenseClass =
+                    LicenseClassService.Find(licenseClassID);
+
+                if (licenseClass == null)
+                    throw new InvalidOperationException(
+                        "The license class associated with this license was not found.");
+
+                return new LocalLicense(
+                    localLicenseID,
+                    licenseID,
+                    (enLicenseIssueType)issueTypeID,
+                    issueDate,
+                    driverID,
+                    applicationID,
+                    isActive,
+                    createdByUserID,
+                    licenseClass
+                );
+            }
+
+            // Check whether it is an International License.
+            int internationalLicenseID = -1;
+            int associatedLocalLicenseID = -1;
+
+            if (InternationalLicenseData.GetByLicenseID(
+                licenseID,
+                ref internationalLicenseID,
+                ref associatedLocalLicenseID))
+            {
+                LocalLicense localLicense =
+                    LocalLicenseService.FindByLocalLicenseID(
+                        associatedLocalLicenseID);
+
+                if (localLicense == null)
+                    throw new InvalidOperationException(
+                        "The local license associated with this international license was not found.");
+
+                return new InternationalLicense(
+                    internationalLicenseID,
+                    licenseID,
+                    (enLicenseIssueType)issueTypeID,
+                    issueDate,
+                    driverID,
+                    applicationID,
+                    isActive,
+                    createdByUserID,
+                    localLicense
+                );
+            }
+
+            return null;
         }
+
+
         public static License FindByApplicationID(int applicationID)
         {
             int licenseID = -1;
@@ -33,30 +99,56 @@ namespace DVLD_Business
             bool isActive = false;
             int createdByUserID = -1;
 
-            if (!LicenseData.GetLicenseByApplicationID(applicationID, ref licenseID, ref issueTypeID, ref issueDate, ref driverID, ref isActive, ref createdByUserID))
+            if (!LicenseData.GetLicenseByApplicationID(
+                applicationID,
+                ref licenseID,
+                ref issueTypeID,
+                ref issueDate,
+                ref driverID,
+                ref isActive,
+                ref createdByUserID))
             {
                 return null;
             }
 
-            return new License(licenseID, (enLicenseIssueType)issueTypeID,issueDate, driverID, applicationID, isActive, createdByUserID);
+            return FindByLicenseID(licenseID);
         }
 
-        public static int Create(enLicenseIssueType issueType, int driverID, int applicationID, int createdByUserID)
+
+        public static int Create(enLicenseIssueType issueType, int driverID,
+            int applicationID, int createdByUserID)
         {
             if (DriverService.Find(driverID) == null)
-                throw new InvalidOperationException("Driver does not exist.");
+                throw new InvalidOperationException(
+                    "Driver does not exist.");
 
-            return LicenseData.CreateLicense((int)issueType, DateTime.Today, driverID, applicationID, createdByUserID);
+            if (ApplicationService.Find(applicationID) == null)
+                throw new InvalidOperationException(
+                    "Application does not exist.");
+
+            return LicenseData.CreateLicense((int)issueType, DateTime.Today, driverID,
+                applicationID, createdByUserID);
         }
 
-        public static bool DeactivateLicense(int LicenseID)
+
+        public static bool DeactivateLicense(int licenseID)
         {
-            return LicenseData.DeactivateLicense(LicenseID);
+            License license = FindByLicenseID(licenseID);
+
+            if (license == null)
+                throw new InvalidOperationException(
+                    "License does not exist.");
+
+            if (!license.IsActive)
+                return false;
+
+            return LicenseData.DeactivateLicense(licenseID);
         }
 
-        public static bool isExist(int LicenseID)
+
+        public static bool IsExist(int licenseID)
         {
-            return LicenseData.isExist(LicenseID);
+            return LicenseData.isExist(licenseID);
         }
     }
 }

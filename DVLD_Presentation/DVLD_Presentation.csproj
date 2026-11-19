@@ -91,6 +91,12 @@
     <Compile Include="Forms\DriverCardFrom.Designer.cs">
       <DependentUpon>DriverCardFrom.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\IntLicenseCardForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\IntLicenseCardForm.Designer.cs">
+      <DependentUpon>IntLicenseCardForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\IssueInternationalLicenseForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -144,6 +150,18 @@
     </Compile>
     <Compile Include="Forms\ManageTestTypesForm.Designer.cs">
       <DependentUpon>ManageTestTypesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RenewLicenseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RenewLicenseForm.Designer.cs">
+      <DependentUpon>RenewLicenseForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ReplacementForLostorDamagedLicenseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ReplacementForLostorDamagedLicenseForm.Designer.cs">
+      <DependentUpon>ReplacementForLostorDamagedLicenseForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\SechdualeTestForm.cs">
       <SubType>Form</SubType>
@@ -272,6 +290,12 @@
     <Compile Include="UserControls\ctrlTestAppointmentInfo.Designer.cs">
       <DependentUpon>ctrlTestAppointmentInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ctrlInternationalLicenseInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\ctrlInternationalLicenseInfo.Designer.cs">
+      <DependentUpon>ctrlInternationalLicenseInfo.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Forms\AddEditUser.resx">
       <DependentUpon>AddEditUser.cs</DependentUpon>
     </EmbeddedResource>
@@ -295,6 +319,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DriverCardFrom.resx">
       <DependentUpon>DriverCardFrom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\IntLicenseCardForm.resx">
+      <DependentUpon>IntLicenseCardForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\IssueInternationalLicenseForm.resx">
       <DependentUpon>IssueInternationalLicenseForm.cs</DependentUpon>
@@ -331,6 +358,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PersonCardForm.resx">
       <DependentUpon>PersonCardForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RenewLicenseForm.resx">
+      <DependentUpon>RenewLicenseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ReplacementForLostorDamagedLicenseForm.resx">
+      <DependentUpon>ReplacementForLostorDamagedLicenseForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SechdualeTestForm.resx">
       <DependentUpon>SechdualeTestForm.cs</DependentUpon>
@@ -384,6 +417,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ctrlTestAppointmentInfo.resx">
       <DependentUpon>ctrlTestAppointmentInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\ctrlInternationalLicenseInfo.resx">
+      <DependentUpon>ctrlInternationalLicenseInfo.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -589,6 +625,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\globe_50.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Question 32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Calendar 32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Renew Driving License 32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Release Detained License 64.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

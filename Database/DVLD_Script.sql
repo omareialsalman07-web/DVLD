@@ -246,28 +246,11 @@ BEGIN
     CREATE TABLE dbo.InternationalLicenses (
         InternationalLicenseID INT IDENTITY(1,1) NOT NULL,   -- I.LID
         LicenseID              INT               UNIQUE NOT NULL,
-        LocalLicenseID         INT               UNIQUE NOT NULL,   -- L.LID
+        LocalLicenseID         INT               NOT NULL,   -- L.LID
         CONSTRAINT PK_InternationalLicenses PRIMARY KEY CLUSTERED (InternationalLicenseID),
         CONSTRAINT FK_InternationalLicenses_Licenses
             FOREIGN KEY (LicenseID) REFERENCES dbo.Licenses(LicenseID),
         CONSTRAINT FK_InternationalLicenses_LocalLicenses
-            FOREIGN KEY (LocalLicenseID) REFERENCES dbo.LocalLicenses(LocalLicenseID)
-    );
-END
-GO
-
-/* ---------- InternationalLicenseApplications ---------- */
-IF OBJECT_ID(N'dbo.InternationalLicenseApplications', N'U') IS NULL
-BEGIN
-    CREATE TABLE dbo.InternationalLicenseApplications (
-        InternationalLicenseApplicationID INT IDENTITY(1,1) NOT NULL,   -- I.LAID
-        ApplicationID                     INT               NOT NULL,
-        LocalLicenseID                    INT               NOT NULL,   -- L.LID
-        CONSTRAINT PK_InternationalLicenseApplications
-            PRIMARY KEY CLUSTERED (InternationalLicenseApplicationID),
-        CONSTRAINT FK_InternationalLicenseApplications_Applications
-            FOREIGN KEY (ApplicationID) REFERENCES dbo.Applications(ApplicationID),
-        CONSTRAINT FK_InternationalLicenseApplications_LocalLicenses
             FOREIGN KEY (LocalLicenseID) REFERENCES dbo.LocalLicenses(LocalLicenseID)
     );
 END

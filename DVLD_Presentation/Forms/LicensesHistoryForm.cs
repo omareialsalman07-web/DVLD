@@ -34,5 +34,33 @@ namespace DVLD_Presentation.Forms
                 MessageBox.Show("Error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void showLicenseInfoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form form;
+            if (tabControl1.SelectedIndex == 0) // Local
+            {
+                if (dataGridView_Local.SelectedRows.Count <= 0)
+                {
+                    MessageBox.Show("Please select a license!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                int ID = (int)dataGridView_Local.SelectedRows[0].Cells[0].Value;
+                form = new LocalLicenceCardForm(ID);
+            }
+            else
+            {
+                if (dataGridView_International.SelectedRows.Count <= 0)
+                {
+                    MessageBox.Show("Please select a license!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                int ID = (int)dataGridView_International.SelectedRows[0].Cells[0].Value;
+                form = new IntLicenseCardForm(ID);
+            }
+            form.ShowDialog();
+        }
     }
 }
