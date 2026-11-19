@@ -228,11 +228,11 @@
     <Compile Include="UserControls\ctrlLocalLicenseInfo.Designer.cs">
       <DependentUpon>ctrlLocalLicenseInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ctrlLocalLicenseSelector.cs">
+    <Compile Include="UserControls\ctrlLicenseSelector.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\ctrlLocalLicenseSelector.Designer.cs">
-      <DependentUpon>ctrlLocalLicenseSelector.cs</DependentUpon>
+    <Compile Include="UserControls\ctrlLicenseSelector.Designer.cs">
+      <DependentUpon>ctrlLicenseSelector.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ctrlPersonCard.cs">
       <SubType>UserControl</SubType>
@@ -362,8 +362,8 @@
     <EmbeddedResource Include="UserControls\ctrlLocalLicenseInfo.resx">
       <DependentUpon>ctrlLocalLicenseInfo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\ctrlLocalLicenseSelector.resx">
-      <DependentUpon>ctrlLocalLicenseSelector.cs</DependentUpon>
+    <EmbeddedResource Include="UserControls\ctrlLicenseSelector.resx">
+      <DependentUpon>ctrlLicenseSelector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ctrlPersonCard.resx">
       <DependentUpon>ctrlPersonCard.cs</DependentUpon>

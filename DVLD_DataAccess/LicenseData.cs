@@ -145,6 +145,39 @@ namespace DVLD_DataAccess
             return found;
         }
 
+        public static bool DeactivateLicense(int LicenseID)
+        {
+            bool success = false;
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+            string query = @"UPDATE [dbo].[Licenses]
+                             SET 
+                                 [IsActive] = 0
+                             WHERE Licenses.LicenseID = @ID;";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@ID", LicenseID);
+
+            try
+            {
+                connection.Open();
+                int result = command.ExecuteNonQuery();
+                success = (result > 0);
+
+            }
+            catch (Exception ex)
+            {
+                success = false;
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return success;
+        }
+
         public static int GetTotalAvailableLicensesForDriver(int driverID)
         {
             int count = 0;

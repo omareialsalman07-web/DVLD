@@ -1,9 +1,9 @@
-﻿
-using DVLD_DataAccess;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Runtime.InteropServices;
+using DVLD_DataAccess;
+using System;
 
 namespace DVLD_Business
 {
@@ -34,7 +34,7 @@ namespace DVLD_Business
             return new LocalLicense(locallicenseID, licenseID, licenseClassID);
         }
 
-        public static int Create(int LocalLicenseApplicationID, enLicenseIssueType issueTypeID, int createdByUserID)
+        public static int CreateFirstTime(int LocalLicenseApplicationID, int createdByUserID)
         {
             LocalLicenseApplication localLicenseApplication = LocalLicenseApplicationService.Find(LocalLicenseApplicationID);
             if (localLicenseApplication == null)
@@ -66,7 +66,7 @@ namespace DVLD_Business
             if (driver == null)
                 throw new Exception("Failed to create localLicense, while creating local license.");
 
-            int licenseID = LicenseService.Create(issueTypeID, driver.DriverID, localLicenseApplication.ApplicationID, createdByUserID);
+            int licenseID = LicenseService.Create(enLicenseIssueType.eFirstTime, driver.DriverID, localLicenseApplication.ApplicationID, createdByUserID);
 
             if (licenseID == -1)
                 throw new Exception("Failed to create license.");
@@ -76,6 +76,52 @@ namespace DVLD_Business
                 ApplicationService.Complete(localLicenseApplication.ApplicationID);
 
             return result;
+        }
+
+        private static int _Recreate(int OldLocalLicenseID, int createdByUserID, enLicenseIssueType issueType)
+        {
+            LocalLicense oldLocalLicense = LocalLicenseService.FindByLocalLicenseID(OldLocalLicenseID);
+            if (oldLocalLicense == null)
+                throw new Exception($"Can't find Local License ['{enApplicationType.eNewInternationalLicense}'].");
+
+            if (oldLocalLicense.ExpirationDate() > DateTime.Today && issueType == enLicenseIssueType.eRenew)
+                throw new Exception($"This License has not expired yet! It will be expired at {oldLocalLicense.ExpirationDate().ToShortDateString()}.");
+
+            if (!oldLocalLicense.IsActive())
+                throw new Exception($"The local license with ID [{OldLocalLicenseID}] is not active!.");
+
+
+            int _ApplicationID = ApplicationData.CreateApplication((int)enApplicationType.eRenewDrivingLicense, DateTime.Today,
+                 (int)enApplicationStatus.eNew, ApplicationTypeService.Find((int)enApplicationType.eRenewDrivingLicense).Fees, createdByUserID);
+            if (_ApplicationID == -1)
+                throw new Exception($"Failed to CreateFirstTime Application with type ['{enApplicationType.eRenewDrivingLicense}'].");
+
+            License oldLicense = LicenseService.FindByLicenseID(oldLocalLicense.LicenseID);
+            if (!LicenseService.DeactivateLicense(oldLicense.LicenseID))
+                throw new Exception($"Some thing went wrong while deactivating the old license.");
+
+            int newLicenseID = LicenseService.Create(issueType, oldLicense.DriverID, _ApplicationID, createdByUserID);
+            if (newLicenseID == -1)
+                throw new Exception($"Some thing went wrong while creating the new license!");
+
+            int result = LocalLicenseData.CreateLocalLicense(newLicenseID, oldLocalLicense.LicenseClassID);
+            if (result != -1)
+                ApplicationService.Complete(_ApplicationID);
+
+            return result;
+        }
+
+        public static int Renew(int OldLocalLicenseID, int createdByUserID)
+        {
+            return _Recreate(OldLocalLicenseID, createdByUserID, enLicenseIssueType.eRenew);
+        }
+        public static int ReplacementForLost(int OldLocalLicenseID, int createdByUserID)
+        {
+            return _Recreate(OldLocalLicenseID, createdByUserID, enLicenseIssueType.eReplacementForDamaged);
+        }
+        public static int ReplacementForDamage(int OldLocalLicenseID, int createdByUserID)
+        {
+            return _Recreate(OldLocalLicenseID, createdByUserID, enLicenseIssueType.eReplacementForDamaged);
         }
 
         public static bool isExist(int LocalLicenseID)
@@ -92,7 +138,7 @@ namespace DVLD_Business
             {
                 LocalLicense localLicense = new LocalLicense
                 (
-                    localLicenseID: Convert.ToInt32(row["LocalLicenseID"]),
+                    localLicenseID: Convert.ToInt32(row["OldLocalLicenseID"]),
                     licenseID: Convert.ToInt32(row["LicenseID"]),
                     licenseClassID: Convert.ToInt32(row["LicenseClassID"])
                 );
@@ -111,7 +157,7 @@ namespace DVLD_Business
             {
                 LocalLicense driver = new LocalLicense
                 (
-                    localLicenseID: Convert.ToInt32(row["LocalLicenseID"]),
+                    localLicenseID: Convert.ToInt32(row["OldLocalLicenseID"]),
                     licenseID: Convert.ToInt32(row["LicenseID"]),
                     licenseClassID: Convert.ToInt32(row["LicenseClassID"])
                 );

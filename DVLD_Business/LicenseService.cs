@@ -1,6 +1,7 @@
 ﻿using DVLD_DataAccess;
 using System;
 using System.Data.SqlClient;
+using System.Runtime.Remoting.Messaging;
 using System.Threading;
 
 namespace DVLD_Business
@@ -46,6 +47,11 @@ namespace DVLD_Business
                 throw new InvalidOperationException("Driver does not exist.");
 
             return LicenseData.CreateLicense((int)issueType, DateTime.Today, driverID, applicationID, createdByUserID);
+        }
+
+        public static bool DeactivateLicense(int LicenseID)
+        {
+            return LicenseData.DeactivateLicense(LicenseID);
         }
 
         public static bool isExist(int LicenseID)

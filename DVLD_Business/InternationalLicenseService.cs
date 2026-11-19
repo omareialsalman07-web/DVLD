@@ -47,7 +47,7 @@ namespace DVLD_Business
             return new InternationalLicense(InternationallicenseID, localLicenseID, licenseID);
         }
 
-        public static int Create(int LocalLicenseID, int CreatedByUserID)
+        public static int CreateFirstTime(int LocalLicenseID, int CreatedByUserID)
         {
             LocalLicense localLicense = LocalLicenseService.FindByLocalLicenseID(LocalLicenseID);
             if (localLicense == null)
@@ -63,7 +63,7 @@ namespace DVLD_Business
             int _ApplicationID = ApplicationData.CreateApplication((int)enApplicationType.eNewInternationalLicense, DateTime.Today,
                 (int)enApplicationStatus.eNew, ApplicationTypeService.Find((int)enApplicationType.eNewInternationalLicense).Fees, CreatedByUserID);
             if(_ApplicationID == -1)
-                throw new Exception($"Failed to Create Application with type ['{enApplicationType.eNewInternationalLicense}'].");
+                throw new Exception($"Failed to CreateFirstTime Application with type ['{enApplicationType.eNewInternationalLicense}'].");
 
             Application application = ApplicationService.Find(_ApplicationID);
 
@@ -86,6 +86,53 @@ namespace DVLD_Business
                 ApplicationService.Complete(_ApplicationID);
 
             return result;
+        }
+
+        private static int _Recreate(int OldInternationlLicenseID, int createdByUserID, enLicenseIssueType issueType)
+        {
+
+            InternationalLicense oldInternationalLicense = InternationalLicenseService.FindByInternationalID(OldInternationlLicenseID);
+            if (oldInternationalLicense == null)
+                throw new Exception($"Can't find International License ['{enApplicationType.eNewInternationalLicense}'].");
+
+            if (oldInternationalLicense.ExpirationDate() > DateTime.Today && issueType == enLicenseIssueType.eRenew)
+                throw new Exception($"This License has not expired yet! It will be expired at {oldInternationalLicense.ExpirationDate().ToShortDateString()}.");
+
+            if (!oldInternationalLicense.IsActive())
+                throw new Exception($"The International license with ID [{OldInternationlLicenseID}] is not active!.");
+
+
+            int _ApplicationID = ApplicationData.CreateApplication((int)enApplicationType.eRenewDrivingLicense, DateTime.Today,
+                 (int)enApplicationStatus.eNew, ApplicationTypeService.Find((int)enApplicationType.eRenewDrivingLicense).Fees, createdByUserID);
+            if (_ApplicationID == -1)
+                throw new Exception($"Failed to CreateFirstTime Application with type ['{enApplicationType.eRenewDrivingLicense}'].");
+
+            License oldLicense = LicenseService.FindByLicenseID(oldInternationalLicense.LicenseID);
+            if (!LicenseService.DeactivateLicense(oldLicense.LicenseID))
+                throw new Exception($"Some thing went wrong while deactivating the old license.");
+
+            int newLicenseID = LicenseService.Create(issueType, oldLicense.DriverID, _ApplicationID, createdByUserID);
+            if (newLicenseID == -1)
+                throw new Exception($"Some thing went wrong while creating the new license!");
+
+            int result = InternationalLicenseData.Create(newLicenseID, oldInternationalLicense.LocalLicenseID);
+            if (result != -1)
+                ApplicationService.Complete(_ApplicationID);
+
+            return result;
+        }
+
+        public static int Renew(int OldInternationlLicenseID, int createdByUserID)
+        {
+            return _Recreate(OldInternationlLicenseID, createdByUserID, enLicenseIssueType.eRenew);
+        }
+        public static int ReplacementForDamage(int OldInternationlLicenseID, int createdByUserID)
+        {
+            return _Recreate(OldInternationlLicenseID, createdByUserID, enLicenseIssueType.eReplacementForDamaged);
+        }
+        public static int ReplacementForLost(int OldInternationlLicenseID, int createdByUserID)
+        {
+            return _Recreate(OldInternationlLicenseID, createdByUserID, enLicenseIssueType.eReplacementForLost);
         }
 
         public static bool IsExistByLocalLicenseID(int LocallLicenseID)

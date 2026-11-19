@@ -1,4 +1,5 @@
 ﻿using DVLD_Business;
+using DVLD_Presentation.UserControls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -35,7 +36,7 @@ namespace DVLD_Presentation.Forms
         private void IssueInternationalLicenseForm_Load(object sender, EventArgs e)
         {
             ctrlBasicApplicationInfo1.LoadLockupApplication(DVLD_Business.enApplicationType.eNewInternationalLicense);
-            ctrlLocalLicenseSelector1.onSelectLicense += _OnSelectLocalLicese;
+            ctrlLicenseSelector1.onSelectLicense += _OnSelectLocalLicese;
 
             lknl_ShowLicenseInfo.Enabled = false;
         }
@@ -44,16 +45,18 @@ namespace DVLD_Presentation.Forms
         {
             try
             {
-                if (ctrlLocalLicenseSelector1.SelectedLocalLicenseID == -1)
+                int selectedLicenseID = -1; ctrlLicenseSelector.enSelectedLiceseType selectedLiceseType = ctrlLicenseSelector.enSelectedLiceseType.eNone;
+                ctrlLicenseSelector1.GetSelectedLicese(ref selectedLicenseID, ref selectedLiceseType);
+                if (selectedLicenseID == -1 || selectedLiceseType == ctrlLicenseSelector.enSelectedLiceseType.International)
                 {
                     MessageBox.Show($"Please select a valid Local License!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                int IL_ID = InternationalLicenseService.Create(ctrlLocalLicenseSelector1.SelectedLocalLicenseID, DVLD_Settings.GetCurrnetUser().ID);
+                int IL_ID = InternationalLicenseService.CreateFirstTime(selectedLicenseID, DVLD_Settings.GetCurrnetUser().ID);
                 if (IL_ID == -1)
                 {
-                    MessageBox.Show($"Faild To Create International License from the local license id [{ctrlLocalLicenseSelector1.SelectedLocalLicenseID}]!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show($"Faild To CreateFirstTime International License from the local license id [{selectedLicenseID}]!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -68,7 +71,7 @@ namespace DVLD_Presentation.Forms
                 _IssueInternationLicense = true;
                 lknl_ShowLicenseInfo.Enabled = true;
 
-                ctrlLocalLicenseSelector1.Enabled = false;
+                ctrlLicenseSelector1.Enabled = false;
             }
             catch (Exception ex)
             {

@@ -29,8 +29,7 @@
         private void InitializeComponent()
         {
             this.ctrlBasicApplicationInfo1 = new DVLD_Presentation.UserControls.ctrlBasicApplicationInfo();
-            this.ctrlLocalLicenseSelector1 = new DVLD_Presentation.UserControls.ctrlLocalLicenseSelector();
-            this.button1 = new System.Windows.Forms.Button();
+            this.ctrlLicenseSelector1 = new DVLD_Presentation.UserControls.ctrlLicenseSelector();
             this.btnIssue = new System.Windows.Forms.Button();
             this.lknl_ShowLicenseInfo = new System.Windows.Forms.LinkLabel();
             this.lknl_ShowLicenseHistory = new System.Windows.Forms.LinkLabel();
@@ -43,21 +42,12 @@
             this.ctrlBasicApplicationInfo1.Size = new System.Drawing.Size(1008, 294);
             this.ctrlBasicApplicationInfo1.TabIndex = 0;
             // 
-            // ctrlLocalLicenseSelector1
+            // ctrlLicenseSelector1
             // 
-            this.ctrlLocalLicenseSelector1.Location = new System.Drawing.Point(50, 12);
-            this.ctrlLocalLicenseSelector1.Name = "ctrlLocalLicenseSelector1";
-            this.ctrlLocalLicenseSelector1.Size = new System.Drawing.Size(944, 461);
-            this.ctrlLocalLicenseSelector1.TabIndex = 1;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(0, 0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.ctrlLicenseSelector1.Location = new System.Drawing.Point(50, 12);
+            this.ctrlLicenseSelector1.Name = "ctrlLicenseSelector1";
+            this.ctrlLicenseSelector1.Size = new System.Drawing.Size(944, 461);
+            this.ctrlLicenseSelector1.TabIndex = 1;
             // 
             // btnIssue
             // 
@@ -107,8 +97,7 @@
             this.Controls.Add(this.lknl_ShowLicenseHistory);
             this.Controls.Add(this.lknl_ShowLicenseInfo);
             this.Controls.Add(this.btnIssue);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.ctrlLocalLicenseSelector1);
+            this.Controls.Add(this.ctrlLicenseSelector1);
             this.Controls.Add(this.ctrlBasicApplicationInfo1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "IssueInternationalLicenseForm";
@@ -123,8 +112,7 @@
         #endregion
 
         private UserControls.ctrlBasicApplicationInfo ctrlBasicApplicationInfo1;
-        private UserControls.ctrlLocalLicenseSelector ctrlLocalLicenseSelector1;
-        private System.Windows.Forms.Button button1;
+        private UserControls.ctrlLicenseSelector ctrlLicenseSelector1;
         private System.Windows.Forms.Button btnIssue;
         private System.Windows.Forms.LinkLabel lknl_ShowLicenseInfo;
         private System.Windows.Forms.LinkLabel lknl_ShowLicenseHistory;

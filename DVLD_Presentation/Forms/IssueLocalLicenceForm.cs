@@ -32,7 +32,7 @@ namespace DVLD_Presentation.Forms
         {
             try
             {
-                int LL_ID = LocalLicenseService.Create(_LLApplicationID, enLicenseIssueType.eFirstTime, DVLD_Settings.GetCurrnetUser().ID);
+                int LL_ID = LocalLicenseService.CreateFirstTime(_LLApplicationID, DVLD_Settings.GetCurrnetUser().ID);
                 if (LL_ID != -1)
                 {
                     MessageBox.Show($"Successfully created Local License with ID [{LL_ID}]", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
