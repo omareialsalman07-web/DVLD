@@ -14,26 +14,37 @@ namespace DVLD_Presentation.Forms
         public OnAddEditTestAppointmentFormFinish onAddEditTestAppointmentFormFinish;
 
         private enMode _Mode;
-        private int _TestID;
+        private int _LocalLicenseApplicationID;
         private int _TestAppointmentID;
+        private enTestType _TestType;
 
-        public AddEditTestAppointmentForm(int TestID, enMode Mode, int TestAppointmentID = -1)
+        public AddEditTestAppointmentForm(int LocalLicenseApplicationID, enTestType TestType, enMode Mode, int TestAppointmentID = -1)
         {
             InitializeComponent();
 
-            _TestID = TestID;
+            _LocalLicenseApplicationID = LocalLicenseApplicationID;
             _Mode = Mode;
             _TestAppointmentID = TestAppointmentID;
+            _TestType = TestType;
         }
 
         private void AddEditTestAppointmentForm_Load(object sender, EventArgs e)
         {
-            ctrlTestAppointmentInfo.enMode mode = (_Mode == enMode.eAddNew) ? ctrlTestAppointmentInfo.enMode.eAddNew
-                : ctrlTestAppointmentInfo.enMode.eEdit;
-            ctrlTestAppointmentInfo1.LoadTestAppointmentInfo(_TestID, mode, _TestAppointmentID);
+            _SetupForm();
         }
 
-        bool bSaved = false;
+        private void _SetupForm()
+        {
+            ctrlTestAppointmentInfo.enMode mode = (_Mode == enMode.eAddNew) ? ctrlTestAppointmentInfo.enMode.eAddNew
+               : ctrlTestAppointmentInfo.enMode.eEdit;
+
+            if (_Mode == enMode.eAddNew)
+                ctrlTestAppointmentInfo1.LoadInitialTestAppointmentInfo(_TestType, _LocalLicenseApplicationID, mode);
+            else
+                ctrlTestAppointmentInfo1.LoadTestAppointmentInfo(_TestAppointmentID, mode);
+        }
+
+
         private void btnSave_Click(object sender, EventArgs e)
         {
             try
@@ -48,23 +59,19 @@ namespace DVLD_Presentation.Forms
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             onAddEditTestAppointmentFormFinish?.Invoke();
-            bSaved = true;
+
+            
             this.Close();
         }
 
         private void AddNewAppointment()
         {
-            Test _Test = TestService.Find(ctrlTestAppointmentInfo1.GetCurrentTestID());
-
-            if (TestAppointmentService.ScheduleAppointment(
-                _Test.TestID,
-                ctrlTestAppointmentInfo1.GetSelectedDateTime(),
-                ctrlTestAppointmentInfo1.TotalFees,
-                DVLD_Settings.GetCurrnetUser().ID,
-                ctrlTestAppointmentInfo1.RetakeTestApplicationID) == -1)
+            if (TestAppointmentService.ScheduleAppointment(_LocalLicenseApplicationID, _TestType,
+                ctrlTestAppointmentInfo1.GetSelectedDateTime(), ctrlTestAppointmentInfo1.TotalFees, 
+                DVLD_Settings.GetCurrnetUser().ID) == -1)
             {
                 ShowErrorMessage(
-                    $"Failed to schedule an appointment for Test ID {_Test.TestID}.");
+                    $"Failed to schedule an appointment for Local license applicaiton {_LocalLicenseApplicationID}.");
 
                 return;
             }
@@ -104,20 +111,8 @@ namespace DVLD_Presentation.Forms
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
         }
-
-        private void AddEditTestAppointmentForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            if (_Mode != enMode.eAddNew || bSaved != false)
-                return;
-
-            int RetakeTestApplicationID = ctrlTestAppointmentInfo1.RetakeTestApplicationID;
-            if (ctrlTestAppointmentInfo1.RetakeTestApplicationID != -1)
-                ApplicationService.Delete(RetakeTestApplicationID);
-        }
-
         private void btnCancle_Click(object sender, EventArgs e)
         {
-            bSaved = false;
             this.Close();
         }
     }

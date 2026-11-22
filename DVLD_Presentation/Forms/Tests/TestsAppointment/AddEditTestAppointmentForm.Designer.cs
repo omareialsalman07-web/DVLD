@@ -82,7 +82,6 @@
             this.Name = "AddEditTestAppointmentForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "CreateFirstTime Test Appointment";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AddEditTestAppointmentForm_FormClosed);
             this.Load += new System.EventHandler(this.AddEditTestAppointmentForm_Load);
             this.ResumeLayout(false);
 

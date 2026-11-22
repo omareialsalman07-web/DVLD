@@ -26,6 +26,15 @@ namespace DVLD_Presentation.Forms
         private void IssueLocalLicenceForm_Load(object sender, EventArgs e)
         {
             ctrlLocalLicenseApplicationInfo1.LoadLocalLicenseApplication(_LLApplicationID);
+
+            try
+            {
+                lb_ClassFees.Text = LicenseClassService.Find(LocalLicenseApplicationService.Find(_LLApplicationID).LicenseClassID).ClassFees.ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnIssue_Click(object sender, EventArgs e)

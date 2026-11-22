@@ -18,7 +18,6 @@ namespace DVLD_Presentation.Forms
         public OnSechdualeTestFormClose onSechdualeTestFormClose;
 
         private int _LocalLicenseApplicationID;
-        private Test _Test;
         private int _SelectedAppointment_ID = -1;
         enTestType _TestType;
         public SechdualeTestForm(int LocalLicenseApplication, enTestType TestType)
@@ -26,29 +25,14 @@ namespace DVLD_Presentation.Forms
             InitializeComponent();
             _LocalLicenseApplicationID = LocalLicenseApplication;
             _TestType = TestType;
-            _GetCurrentTest();
-        }
 
-        private void _GetCurrentTest()
-        {
-            _Test = LocalLicenseApplicationService.GetCurrnetTest(_LocalLicenseApplicationID);
-
-            if(_Test == null) // there is no test created yet
-            {
-                int _testID = TestService.CreateTest(_TestType, _LocalLicenseApplicationID, DVLD_Settings.GetCurrnetUser().ID);
-                if (_testID != -1)
-                    _Test = LocalLicenseApplicationService.GetCurrnetTest(_LocalLicenseApplicationID);
-                else
-                    MessageBox.Show("Some thing went wrong while creating {} test!",
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
 
         private void _LoadAppointments()
         {
             try
             {
-                dataGridView1.DataSource = TestAppointmentService.GetAppointmentsForDisplay(_Test.LocalLicenseApplicationID, _Test.TestType);
+                dataGridView1.DataSource = TestAppointmentService.GetAppointmentsForDisplay(_LocalLicenseApplicationID, _TestType);
             }
             catch (Exception ex)
             {
@@ -84,13 +68,13 @@ namespace DVLD_Presentation.Forms
         {
             try
             {
-                if(!TestAppointmentService.CanCreateAppointment(_Test.TestID))
+                if(!TestAppointmentService.CanCreateAppointment(_LocalLicenseApplicationID))
                 {
                     MessageBox.Show("Can't Crete an appointment!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                AddEditTestAppointmentForm addEditAppointmentForm = new AddEditTestAppointmentForm(_Test.TestID, AddEditTestAppointmentForm.enMode.eAddNew);
+                AddEditTestAppointmentForm addEditAppointmentForm = new AddEditTestAppointmentForm(_LocalLicenseApplicationID, _TestType, AddEditTestAppointmentForm.enMode.eAddNew);
                 addEditAppointmentForm.onAddEditTestAppointmentFormFinish += _LoadAppointments;
                 addEditAppointmentForm.ShowDialog();
             }
@@ -103,7 +87,7 @@ namespace DVLD_Presentation.Forms
         private void _Refresh()
         {
             _LoadAppointments();
-            lbTrails.Text = LocalLicenseApplicationService.GetTotalTestTrials(_Test.LocalLicenseApplicationID, _Test.TestType).ToString();
+            lbTrails.Text = LocalLicenseApplicationService.GetTotalTestTrials(_LocalLicenseApplicationID, _TestType).ToString();
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
@@ -156,7 +140,7 @@ namespace DVLD_Presentation.Forms
                 return;
             }
 
-            AddEditTestAppointmentForm addEditAppointmentForm = new AddEditTestAppointmentForm(_Test.TestID, AddEditTestAppointmentForm.enMode.eEdit, _SelectedAppointment_ID);
+            AddEditTestAppointmentForm addEditAppointmentForm = new AddEditTestAppointmentForm(_LocalLicenseApplicationID, _TestType, AddEditTestAppointmentForm.enMode.eEdit, _SelectedAppointment_ID);
             addEditAppointmentForm.onAddEditTestAppointmentFormFinish += _LoadAppointments;
             addEditAppointmentForm.ShowDialog();
         }

@@ -3,21 +3,71 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Runtime.InteropServices;
 
 namespace DVLD_Business
 {
     public class TestAppointmentService
     {
-        public static bool CanCreateAppointment(int TestID)
+        public static bool CanCreateAppointment(int LocalLicenseApplicationID)
         {
-            return TestAppointmentData.CanCreateAppointment(TestID);
+            LocalLicenseApplication localLicenseApplication;
+            if ((localLicenseApplication = LocalLicenseApplicationService.Find(LocalLicenseApplicationID)) == null)
+                throw new Exception($"Can't find local license applicaion with ID [{LocalLicenseApplicationID}]");
+
+            Test test;
+            if ((test = LocalLicenseApplicationService.GetCurrnetTest(localLicenseApplication.LocalLicenseApplicationID)) == null)
+                return true;
+
+            return TestAppointmentData.CanCreateAppointment(test.TestID);
         }
-        public static int ScheduleAppointment(int testID, DateTime date, float paidFees, int createdByUserID, int retakeTestApplicationID = -1)
+
+        private static int _GetRetakeTestApplicationIDForAppointment(int LocalLicenseApplicationID, enTestType testType, DateTime date, int createdByUserID)
+        {
+            int _RetakeTestApplicationID = -1;
+            if (LocalLicenseApplicationService.HasTakenTestAppointment(LocalLicenseApplicationID, testType))
+            {
+                _RetakeTestApplicationID = ApplicationService.Create(
+                    enApplicationType.eRetakeTest,
+                    date,
+                    (int)enApplicationStatus.eNew,
+                    ApplicationTypeService.Find((int)enApplicationType.eRetakeTest).Fees,
+                    createdByUserID);
+            }
+            
+            return _RetakeTestApplicationID;
+        }
+
+        private static int _GetCurrentTestIDForAppointment(int LocalLicenseApplicationID, enTestType testType, int createdByUserID)
+        {
+            Test _Test = LocalLicenseApplicationService.GetCurrnetTest(LocalLicenseApplicationID);
+            if (_Test == null) // There is no test currently created for this local license application and test type.
+            {
+                int _testID = TestService.CreateTest(testType, LocalLicenseApplicationID,
+                    createdByUserID);
+
+                if (_testID != -1)
+                    _Test = LocalLicenseApplicationService.GetCurrnetTest(LocalLicenseApplicationID);
+                else
+                    throw new InvalidOperationException($"Some thing went wrong while creating test on Local Driving License Application ID [{LocalLicenseApplicationID}]!");
+            }
+
+            return _Test.TestID;
+        }
+
+        public static int ScheduleAppointment(int LocalLicenseApplicationID, enTestType testType, DateTime date, float paidFees, int createdByUserID)
         {
             if (date.Date < DateTime.Today)
                 throw new InvalidOperationException("The appointment date cannot be in the past.");
 
-            var appointment = new TestAppointment(testID, date, false, false, paidFees, createdByUserID, retakeTestApplicationID);
+            LocalLicenseApplication localLicenseApplication = LocalLicenseApplicationService.Find(LocalLicenseApplicationID);
+            if(localLicenseApplication == null)
+                throw new InvalidOperationException($"Could't find local driving license application with ID [{LocalLicenseApplicationID}]");
+
+            int _TestID = _GetCurrentTestIDForAppointment(localLicenseApplication.LocalLicenseApplicationID, testType, createdByUserID);
+            int _RetakeTestApplicationID = _GetRetakeTestApplicationIDForAppointment(localLicenseApplication.LocalLicenseApplicationID, testType, date, createdByUserID);
+
+            TestAppointment appointment = new TestAppointment(_TestID, date, false, false, paidFees, createdByUserID, _RetakeTestApplicationID);
 
             int id = TestAppointmentData.CreateAppointment(appointment.TestID, appointment.Date,
                                                            appointment.PaidFees, appointment.CreatedByUserID, appointment.RetakeTestApplicationID);

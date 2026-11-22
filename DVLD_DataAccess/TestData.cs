@@ -30,8 +30,8 @@ namespace DVLD_DataAccess
                                 (
                                     SELECT R = 'Y' FROM Tests
                                     WHERE Tests.TestTypeID = @TestTypeID and 
-                                    Tests.LocalLicenseApplicationID = @LocalLicenseApplicationID and 
-                                    Tests.Result = 1
+                                    Tests.LocalLicenseApplicationID = @LocalLicenseApplicationID
+                                    AND (Tests.Result = 1 OR Tests.Result IS NULL)
                                 )
                                 THEN 0
                                 ELSE 1

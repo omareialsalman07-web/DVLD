@@ -8,6 +8,11 @@ namespace DVLD_Business
 {
     public class TestService
     {
+        public static bool CanCreateTest(enTestType testType, int LLA_ID)
+        {
+            return TestData.CanCreateTest((int)testType, LLA_ID);
+        }
+
         public static int CreateTest(enTestType testType, int localLicenseApplicationID,
             int createdByUserID)
         {
@@ -23,7 +28,7 @@ namespace DVLD_Business
             if (!TestData.CanCreateTest((int)testType, localLicenseApplicationID))
             {
                 throw new InvalidOperationException(
-                    $"The {testType} has already been passed for this application.");
+                    $"The {testType} has already been passed or untaken for this application.");
             }
 
             var test = new Test(testType, prerequisite, false, null,
@@ -63,11 +68,6 @@ namespace DVLD_Business
                 case enTestType.ePracticalTest: return enTestType.eWrittenTest;
                 default: return enTestType.eNone;
             }
-        }
-
-        public static bool CanCreateTest(enTestType testType, int LLA_ID)
-        {
-            return TestData.CanCreateTest((int)testType, LLA_ID);
         }
 
         public static bool IsPassedTest(enTestType TestType, int LLA_ID)

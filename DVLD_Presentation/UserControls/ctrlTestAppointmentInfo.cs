@@ -17,32 +17,32 @@ namespace DVLD_Presentation.UserControls
     {
         public enum enMode { eShow, eAddNew, eEdit };
         enMode _Mode;
-
-        private Test _Test;
         private int _TestAppointmentID;
-        int _TestID;
+        private int _LocalLicenseApplicationID;
         public float TotalFees { get; private set; }
-
-        public int RetakeTestApplicationID { get; private set; }
+        private Test _Test;
 
         public ctrlTestAppointmentInfo()
         {
             InitializeComponent();
-            RetakeTestApplicationID = -1;
+            _LocalLicenseApplicationID = -1;
+            _Test = null;
         }
-        public void LoadTestAppointmentInfo(int TestID, enMode Mode, int TestAppointmentID = -1)
+        public void LoadTestAppointmentInfo(int TestAppointmentID, enMode mode)
         {
             dateTimePicker1.MinDate = DateTime.Today;
 
             try
             {
-                _TestID = TestID;
-                _LoadTest();
+                _Mode = mode;
                 _TestAppointmentID = TestAppointmentID;
-                _Mode = Mode;
-
-                if (!IsTestValid())
+                TestAppointment testAppointment = TestAppointmentService.Find(_TestAppointmentID);
+                if (testAppointment == null)
+                {
+                    ShowErrorMessage($"Couldn't find Test Appointment.\n\n{_TestAppointmentID}");
                     return;
+                }
+                _Test = TestService.Find(testAppointment.TestID);
 
                 InitializeFormTitle();
                 LoadTestInformation();
@@ -56,20 +56,24 @@ namespace DVLD_Presentation.UserControls
             }
         }
 
-        private void _LoadTest() 
-        {
-            _Test = TestService.Find(_TestID);
-            if (_Test.Result == false) // failed 
-                _Test = TestService.Find(TestService.CreateTest(_Test.TestType, _Test.LocalLicenseApplicationID, DVLD_Settings.GetCurrnetUser().ID));
-        }
 
-        private bool IsTestValid()
+        public void LoadInitialTestAppointmentInfo(enTestType TestType, int LocalLicenseApplicationID, enMode Mode)
         {
-            if (_Test != null)
-                return true;
+            try
+            {
+                _TestAppointmentID = -1;
+                _Mode = Mode;
+                _Test = new Test(-1, TestType, TestType, null, "", LocalLicenseApplicationID, DVLD_Settings.GetCurrnetUser().ID); // temp test for show
 
-            ShowErrorMessage($"Test with ID {_TestID} was not found.");
-            return false;
+                InitializeFormTitle();
+                LoadTestInformation();
+                LoadRetakeTestInformation();
+                UpdateTotalFees();
+            }
+            catch (Exception ex)
+            {
+                ShowErrorMessage($"An error occurred while loading the test appointment information.\n\n{ex.Message}");
+            }
         }
 
         private void InitializeFormTitle()
@@ -107,10 +111,9 @@ namespace DVLD_Presentation.UserControls
 
         private void LoadTestInformation()
         {
-            lbLocalLicenseID.Text =
-                _Test.LocalLicenseApplicationID.ToString();
+            lbLocalLicenseID.Text = _Test.LocalLicenseApplicationID.ToString();
 
-            lbTestID.Text = _Test.TestID.ToString();
+            lbTestID.Text = (_Test.TestID == -1)? "N/A" : _Test.TestID.ToString();
             switch(_Mode)
             {
                 case enMode.eShow:
@@ -133,34 +136,24 @@ namespace DVLD_Presentation.UserControls
         private void LoadLicenseClassInformation()
         {
             int localLicenseID = _Test.LocalLicenseApplicationID;
-
-            int licenseClassID =
-                LocalLicenseApplicationService.Find(localLicenseID).LicenseClassID;
-
-            lbClass.Text =
-                LicenseClassService.Find(licenseClassID).ClassName;
+            int licenseClassID = LocalLicenseApplicationService.Find(localLicenseID).LicenseClassID;
+            lbClass.Text = LicenseClassService.Find(licenseClassID).ClassName;
         }
 
         private void LoadPersonInformation()
         {
             int localLicenseID = _Test.LocalLicenseApplicationID;
-
-            int personID =
-                LocalLicenseApplicationService.Find(localLicenseID).PersonID;
-
+            int personID = LocalLicenseApplicationService.Find(localLicenseID).PersonID;
             Person person = PersonService.Find(personID);
 
-            lbPersonName.Text =
-                person.FirstName + " " + person.LastName;
+            lbPersonName.Text = person.FirstName + " " + person.LastName;
         }
 
         private void LoadTestStatistics()
         {
-            lbTrails.Text =
-                LocalLicenseApplicationService.GetTotalTestTrials(_Test.LocalLicenseApplicationID, _Test.TestType).ToString();
+            lbTrails.Text = LocalLicenseApplicationService.GetTotalTestTrials(_Test.LocalLicenseApplicationID, _Test.TestType).ToString();
 
-            float testFees =
-                TestTypeService.Find((int)_Test.TestType).Fees;
+            float testFees = TestTypeService.Find((int)_Test.TestType).Fees;
 
             lbFees.Text = testFees.ToString();
 
@@ -168,40 +161,35 @@ namespace DVLD_Presentation.UserControls
         }
         private void LoadRetakeTestInformation()
         {
+            float retakeFees = ApplicationTypeService.Find((int)enApplicationType.eRetakeTest).Fees;
+
             if (_Mode == enMode.eAddNew)
             {
                 if (LocalLicenseApplicationService.HasTakenTestAppointment(_Test.LocalLicenseApplicationID, _Test.TestType))
                 {
-                    RetakeTestApplicationID = ApplicationService.Create(
-                        enApplicationType.eRetakeTest,
-                        dateTimePicker1.Value,
-                        (int)enApplicationStatus.eNew,
-                        ApplicationTypeService.Find((int)enApplicationType.eRetakeTest).Fees,
-                        DVLD_Settings.GetCurrnetUser().ID);
+                    lb_RetakeTestAppID.Text = "N/A";
+                    lbRetakeFees.Text = retakeFees.ToString();
+                }
+                else
+                {
+                    groupBoxReTakeTest.Enabled = false;
+                    retakeFees = 0;
                 }
             }
             else
             {
-                RetakeTestApplicationID = TestAppointmentService.Find(_TestAppointmentID).RetakeTestApplicationID;
+                int _RetakeTestApplicationID = TestAppointmentService.Find(_TestAppointmentID).RetakeTestApplicationID;
+                if (_RetakeTestApplicationID != -1)
+                {
+                    lb_RetakeTestAppID.Text = _RetakeTestApplicationID.ToString();
+                    lbRetakeFees.Text = retakeFees.ToString();
+                }
+                else
+                {
+                    groupBoxReTakeTest.Enabled = false;
+                    retakeFees = 0;
+                }
             }
-
-            float retakeFees = 0;
-            if (RetakeTestApplicationID != -1)
-            {
-                retakeFees =
-                    ApplicationTypeService.Find(
-                        (int)enApplicationType.eRetakeTest).Fees;
-
-                lb_RetakeTestAppID.Text =
-                    RetakeTestApplicationID.ToString();
-
-                lbRetakeFees.Text = retakeFees.ToString();
-            }
-            else
-            {
-                groupBoxReTakeTest.Enabled = false;
-            }
-
             TotalFees += retakeFees;
         }
 

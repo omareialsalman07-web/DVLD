@@ -30,6 +30,10 @@
         {
             this.ctrlLocalLicenseApplicationInfo1 = new DVLD_Presentation.UserControls.ctrlLocalLicenseApplicationInfo();
             this.btnIssue = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lb_ClassFees = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // ctrlLocalLicenseApplicationInfo1
@@ -56,12 +60,45 @@
             this.btnIssue.UseVisualStyleBackColor = true;
             this.btnIssue.Click += new System.EventHandler(this.btnIssue_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(36, 425);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(128, 25);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Class Fees:";
+            // 
+            // lb_ClassFees
+            // 
+            this.lb_ClassFees.AutoSize = true;
+            this.lb_ClassFees.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_ClassFees.Location = new System.Drawing.Point(203, 425);
+            this.lb_ClassFees.Name = "lb_ClassFees";
+            this.lb_ClassFees.Size = new System.Drawing.Size(60, 25);
+            this.lb_ClassFees.TabIndex = 3;
+            this.lb_ClassFees.Text = "????";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::DVLD_Presentation.Properties.Resources.charge;
+            this.pictureBox1.Location = new System.Drawing.Point(170, 426);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(26, 24);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 4;
+            this.pictureBox1.TabStop = false;
+            // 
             // IssueLocalLicenceForm
             // 
             this.AcceptButton = this.btnIssue;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1037, 580);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.lb_ClassFees);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnIssue);
             this.Controls.Add(this.ctrlLocalLicenseApplicationInfo1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -69,7 +106,9 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Issue Local Licence Form";
             this.Load += new System.EventHandler(this.IssueLocalLicenceForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -77,5 +116,8 @@
 
         private UserControls.ctrlLocalLicenseApplicationInfo ctrlLocalLicenseApplicationInfo1;
         private System.Windows.Forms.Button btnIssue;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lb_ClassFees;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

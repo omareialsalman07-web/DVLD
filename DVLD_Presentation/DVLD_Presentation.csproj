@@ -48,155 +48,155 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\AddEditUser.cs">
+    <Compile Include="Forms\User\AddEditUser.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AddEditUser.Designer.cs">
+    <Compile Include="Forms\User\AddEditUser.Designer.cs">
       <DependentUpon>AddEditUser.cs</DependentUpon>
     </Compile>
     <Compile Include="DVLD_Settings.cs" />
-    <Compile Include="Forms\AddEditPersonForm.cs">
+    <Compile Include="Forms\Person\AddEditPersonForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AddEditPersonForm.Designer.cs">
+    <Compile Include="Forms\Person\AddEditPersonForm.Designer.cs">
       <DependentUpon>AddEditPersonForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\AddLocalLicenseApplicationForm.cs">
+    <Compile Include="Forms\Applications\AddLocalLicenseApplicationForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AddLocalLicenseApplicationForm.Designer.cs">
+    <Compile Include="Forms\Applications\AddLocalLicenseApplicationForm.Designer.cs">
       <DependentUpon>AddLocalLicenseApplicationForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ApplicationTypesEditorForm.cs">
+    <Compile Include="Forms\Applications\ApplicationTypesEditorForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ApplicationTypesEditorForm.Designer.cs">
+    <Compile Include="Forms\Applications\ApplicationTypesEditorForm.Designer.cs">
       <DependentUpon>ApplicationTypesEditorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ChangePasswordForm.cs">
+    <Compile Include="Forms\User\ChangePasswordForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ChangePasswordForm.Designer.cs">
+    <Compile Include="Forms\User\ChangePasswordForm.Designer.cs">
       <DependentUpon>ChangePasswordForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\AddEditTestAppointmentForm.cs">
+    <Compile Include="Forms\Tests\TestsAppointment\AddEditTestAppointmentForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AddEditTestAppointmentForm.Designer.cs">
+    <Compile Include="Forms\Tests\TestsAppointment\AddEditTestAppointmentForm.Designer.cs">
       <DependentUpon>AddEditTestAppointmentForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\DetainedReleasedForm.cs">
+    <Compile Include="Forms\License\DetainedReleasedForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DetainedReleasedForm.Designer.cs">
+    <Compile Include="Forms\License\DetainedReleasedForm.Designer.cs">
       <DependentUpon>DetainedReleasedForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\DriverCardFrom.cs">
+    <Compile Include="Forms\Driver\DriverCardFrom.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DriverCardFrom.Designer.cs">
+    <Compile Include="Forms\Driver\DriverCardFrom.Designer.cs">
       <DependentUpon>DriverCardFrom.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\IntLicenseCardForm.cs">
+    <Compile Include="Forms\License\IntLicenseCardForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\IntLicenseCardForm.Designer.cs">
+    <Compile Include="Forms\License\IntLicenseCardForm.Designer.cs">
       <DependentUpon>IntLicenseCardForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\IssueInternationalLicenseForm.cs">
+    <Compile Include="Forms\License\IssueInternationalLicenseForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\IssueInternationalLicenseForm.Designer.cs">
+    <Compile Include="Forms\License\IssueInternationalLicenseForm.Designer.cs">
       <DependentUpon>IssueInternationalLicenseForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\LicensesHistoryForm.cs">
+    <Compile Include="Forms\License\LicensesHistoryForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\LicensesHistoryForm.Designer.cs">
+    <Compile Include="Forms\License\LicensesHistoryForm.Designer.cs">
       <DependentUpon>LicensesHistoryForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ManageDetainedLiceses.cs">
+    <Compile Include="Forms\License\ManageDetainedLiceses.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ManageDetainedLiceses.Designer.cs">
+    <Compile Include="Forms\License\ManageDetainedLiceses.Designer.cs">
       <DependentUpon>ManageDetainedLiceses.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ManageDriversForm.cs">
+    <Compile Include="Forms\Driver\ManageDriversForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ManageDriversForm.Designer.cs">
+    <Compile Include="Forms\Driver\ManageDriversForm.Designer.cs">
       <DependentUpon>ManageDriversForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\LocalLicenceCardForm.cs">
+    <Compile Include="Forms\License\LocalLicenceCardForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\LocalLicenceCardForm.Designer.cs">
+    <Compile Include="Forms\License\LocalLicenceCardForm.Designer.cs">
       <DependentUpon>LocalLicenceCardForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\LocalLicenseApplicationCardForm.cs">
+    <Compile Include="Forms\Applications\LocalLicenseApplicationCardForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\LocalLicenseApplicationCardForm.Designer.cs">
+    <Compile Include="Forms\Applications\LocalLicenseApplicationCardForm.Designer.cs">
       <DependentUpon>LocalLicenseApplicationCardForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ManageApplicationTypesForm.cs">
+    <Compile Include="Forms\Applications\ManageApplicationTypesForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ManageApplicationTypesForm.Designer.cs">
+    <Compile Include="Forms\Applications\ManageApplicationTypesForm.Designer.cs">
       <DependentUpon>ManageApplicationTypesForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ManageIntlLicensesForm.cs">
+    <Compile Include="Forms\License\ManageIntlLicensesForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ManageIntlLicensesForm.Designer.cs">
+    <Compile Include="Forms\License\ManageIntlLicensesForm.Designer.cs">
       <DependentUpon>ManageIntlLicensesForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ManageLocalLicenseApplicationsForm.cs">
+    <Compile Include="Forms\Applications\ManageLocalLicenseApplicationsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ManageLocalLicenseApplicationsForm.Designer.cs">
+    <Compile Include="Forms\Applications\ManageLocalLicenseApplicationsForm.Designer.cs">
       <DependentUpon>ManageLocalLicenseApplicationsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ManageTestTypesForm.cs">
+    <Compile Include="Forms\Tests\ManageTestTypesForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ManageTestTypesForm.Designer.cs">
+    <Compile Include="Forms\Tests\ManageTestTypesForm.Designer.cs">
       <DependentUpon>ManageTestTypesForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\RenewLicenseForm.cs">
+    <Compile Include="Forms\License\RenewLicenseForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\RenewLicenseForm.Designer.cs">
+    <Compile Include="Forms\License\RenewLicenseForm.Designer.cs">
       <DependentUpon>RenewLicenseForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ReplacementForLostorDamagedLicenseForm.cs">
+    <Compile Include="Forms\License\ReplacementForLostorDamagedLicenseForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ReplacementForLostorDamagedLicenseForm.Designer.cs">
+    <Compile Include="Forms\License\ReplacementForLostorDamagedLicenseForm.Designer.cs">
       <DependentUpon>ReplacementForLostorDamagedLicenseForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\SechdualeTestForm.cs">
+    <Compile Include="Forms\Tests\SechdualeTestForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\SechdualeTestForm.Designer.cs">
+    <Compile Include="Forms\Tests\SechdualeTestForm.Designer.cs">
       <DependentUpon>SechdualeTestForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\TakeTestAppointmentForm.cs">
+    <Compile Include="Forms\Tests\TestsAppointment\TakeTestAppointmentForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\TakeTestAppointmentForm.Designer.cs">
+    <Compile Include="Forms\Tests\TestsAppointment\TakeTestAppointmentForm.Designer.cs">
       <DependentUpon>TakeTestAppointmentForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\TestTypesEditorForm.cs">
+    <Compile Include="Forms\Tests\TestTypesEditorForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\TestTypesEditorForm.Designer.cs">
+    <Compile Include="Forms\Tests\TestTypesEditorForm.Designer.cs">
       <DependentUpon>TestTypesEditorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\UserCardForm.cs">
+    <Compile Include="Forms\User\UserCardForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\UserCardForm.Designer.cs">
+    <Compile Include="Forms\User\UserCardForm.Designer.cs">
       <DependentUpon>UserCardForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\LoginForm.cs">
@@ -205,28 +205,28 @@
     <Compile Include="Forms\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\PeopleManagementForm.cs">
+    <Compile Include="Forms\Person\PeopleManagementForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\PeopleManagementForm.Designer.cs">
+    <Compile Include="Forms\Person\PeopleManagementForm.Designer.cs">
       <DependentUpon>PeopleManagementForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\PersonCardForm.cs">
+    <Compile Include="Forms\Person\PersonCardForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\PersonCardForm.Designer.cs">
+    <Compile Include="Forms\Person\PersonCardForm.Designer.cs">
       <DependentUpon>PersonCardForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\UsersManagmentForm.cs">
+    <Compile Include="Forms\User\UsersManagmentForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\UsersManagmentForm.Designer.cs">
+    <Compile Include="Forms\User\UsersManagmentForm.Designer.cs">
       <DependentUpon>UsersManagmentForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\IssueLocalLicenceForm.cs">
+    <Compile Include="Forms\License\IssueLocalLicenceForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\IssueLocalLicenceForm.Designer.cs">
+    <Compile Include="Forms\License\IssueLocalLicenceForm.Designer.cs">
       <DependentUpon>IssueLocalLicenceForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
@@ -308,97 +308,97 @@
     <Compile Include="UserControls\ctrlInternationalLicenseInfo.Designer.cs">
       <DependentUpon>ctrlInternationalLicenseInfo.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Forms\AddEditUser.resx">
+    <EmbeddedResource Include="Forms\User\AddEditUser.resx">
       <DependentUpon>AddEditUser.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\AddEditPersonForm.ar-JO.resx">
+    <EmbeddedResource Include="Forms\Person\AddEditPersonForm.ar-JO.resx">
       <DependentUpon>AddEditPersonForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\AddEditPersonForm.resx">
+    <EmbeddedResource Include="Forms\Person\AddEditPersonForm.resx">
       <DependentUpon>AddEditPersonForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\AddLocalLicenseApplicationForm.resx">
+    <EmbeddedResource Include="Forms\Applications\AddLocalLicenseApplicationForm.resx">
       <DependentUpon>AddLocalLicenseApplicationForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ApplicationTypesEditorForm.resx">
+    <EmbeddedResource Include="Forms\Applications\ApplicationTypesEditorForm.resx">
       <DependentUpon>ApplicationTypesEditorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ChangePasswordForm.resx">
+    <EmbeddedResource Include="Forms\User\ChangePasswordForm.resx">
       <DependentUpon>ChangePasswordForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\AddEditTestAppointmentForm.resx">
+    <EmbeddedResource Include="Forms\Tests\TestsAppointment\AddEditTestAppointmentForm.resx">
       <DependentUpon>AddEditTestAppointmentForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DetainedReleasedForm.resx">
+    <EmbeddedResource Include="Forms\License\DetainedReleasedForm.resx">
       <DependentUpon>DetainedReleasedForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DriverCardFrom.resx">
+    <EmbeddedResource Include="Forms\Driver\DriverCardFrom.resx">
       <DependentUpon>DriverCardFrom.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\IntLicenseCardForm.resx">
+    <EmbeddedResource Include="Forms\License\IntLicenseCardForm.resx">
       <DependentUpon>IntLicenseCardForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\IssueInternationalLicenseForm.resx">
+    <EmbeddedResource Include="Forms\License\IssueInternationalLicenseForm.resx">
       <DependentUpon>IssueInternationalLicenseForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\LicensesHistoryForm.resx">
+    <EmbeddedResource Include="Forms\License\LicensesHistoryForm.resx">
       <DependentUpon>LicensesHistoryForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ManageDetainedLiceses.resx">
+    <EmbeddedResource Include="Forms\License\ManageDetainedLiceses.resx">
       <DependentUpon>ManageDetainedLiceses.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ManageDriversForm.resx">
+    <EmbeddedResource Include="Forms\Driver\ManageDriversForm.resx">
       <DependentUpon>ManageDriversForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\LocalLicenceCardForm.resx">
+    <EmbeddedResource Include="Forms\License\LocalLicenceCardForm.resx">
       <DependentUpon>LocalLicenceCardForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\LocalLicenseApplicationCardForm.resx">
+    <EmbeddedResource Include="Forms\Applications\LocalLicenseApplicationCardForm.resx">
       <DependentUpon>LocalLicenseApplicationCardForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ManageApplicationTypesForm.resx">
+    <EmbeddedResource Include="Forms\Applications\ManageApplicationTypesForm.resx">
       <DependentUpon>ManageApplicationTypesForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ManageIntlLicensesForm.resx">
+    <EmbeddedResource Include="Forms\License\ManageIntlLicensesForm.resx">
       <DependentUpon>ManageIntlLicensesForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ManageLocalLicenseApplicationsForm.resx">
+    <EmbeddedResource Include="Forms\Applications\ManageLocalLicenseApplicationsForm.resx">
       <DependentUpon>ManageLocalLicenseApplicationsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ManageTestTypesForm.resx">
+    <EmbeddedResource Include="Forms\Tests\ManageTestTypesForm.resx">
       <DependentUpon>ManageTestTypesForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\PeopleManagementForm.resx">
+    <EmbeddedResource Include="Forms\Person\PeopleManagementForm.resx">
       <DependentUpon>PeopleManagementForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\PersonCardForm.resx">
+    <EmbeddedResource Include="Forms\Person\PersonCardForm.resx">
       <DependentUpon>PersonCardForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\RenewLicenseForm.resx">
+    <EmbeddedResource Include="Forms\License\RenewLicenseForm.resx">
       <DependentUpon>RenewLicenseForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ReplacementForLostorDamagedLicenseForm.resx">
+    <EmbeddedResource Include="Forms\License\ReplacementForLostorDamagedLicenseForm.resx">
       <DependentUpon>ReplacementForLostorDamagedLicenseForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SechdualeTestForm.resx">
+    <EmbeddedResource Include="Forms\Tests\SechdualeTestForm.resx">
       <DependentUpon>SechdualeTestForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\TakeTestAppointmentForm.resx">
+    <EmbeddedResource Include="Forms\Tests\TestsAppointment\TakeTestAppointmentForm.resx">
       <DependentUpon>TakeTestAppointmentForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\TestTypesEditorForm.resx">
+    <EmbeddedResource Include="Forms\Tests\TestTypesEditorForm.resx">
       <DependentUpon>TestTypesEditorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UserCardForm.resx">
+    <EmbeddedResource Include="Forms\User\UserCardForm.resx">
       <DependentUpon>UserCardForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UsersManagmentForm.resx">
+    <EmbeddedResource Include="Forms\User\UsersManagmentForm.resx">
       <DependentUpon>UsersManagmentForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\IssueLocalLicenceForm.resx">
+    <EmbeddedResource Include="Forms\License\IssueLocalLicenceForm.resx">
       <DependentUpon>IssueLocalLicenceForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ctrlBasicApplicationInfo.resx">

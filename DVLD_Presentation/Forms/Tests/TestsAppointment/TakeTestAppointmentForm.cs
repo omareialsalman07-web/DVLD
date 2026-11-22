@@ -22,12 +22,11 @@ namespace DVLD_Presentation.Forms
         {
             InitializeComponent();
             _TestAppointmentID = TestAppointmentID;
-            int TestID = TestAppointmentService.Find(TestAppointmentID).TestID;
-            ctrlTestAppointmentInfo1.LoadTestAppointmentInfo(TestID,  UserControls.ctrlTestAppointmentInfo.enMode.eShow, TestAppointmentID);
         }
 
         private void TakeTestAppointmentForm_Load(object sender, EventArgs e)
         {
+            ctrlTestAppointmentInfo1.LoadTestAppointmentInfo(_TestAppointmentID, UserControls.ctrlTestAppointmentInfo.enMode.eShow);
             rbFail.Checked = true;
         }
 
