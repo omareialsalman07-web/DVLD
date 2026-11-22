@@ -38,7 +38,7 @@ namespace DVLD_Presentation.UserControls
                 lbIsActive.Text = localLicense.IsActive? "Yes" : "No";
                 lbDriverID.Text = license.DriverID.ToString();
                 lbDOB.Text = person.DateOfBirth.ToShortDateString();
-                lbIsDetained.Text = "????"; // TODO LATER
+                lbIsDetained.Text = localLicense.IsDetained() ? "Yes" : "No";
                 lbExpirationDate.Text = localLicense.ExpirationDate().ToShortDateString();
 
                 PersonImage.Image?.Dispose();

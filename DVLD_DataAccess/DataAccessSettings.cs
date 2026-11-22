@@ -9,6 +9,6 @@ namespace DVLD_DataAccess
     internal class DataAccessSettings
     {
         internal static string ConnectionString = 
-            $"Server=.;Database=DVLD;Integrated Security=True;"; // Connection using window athurication and local server
+            $"Server=.;Database=Omar_DVLD;Integrated Security=True;"; // Connection using window athurication and local server
     }
 }

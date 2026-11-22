@@ -36,6 +36,7 @@ namespace DVLD_Presentation.UserControls
             lb_IssueDate.Text = internationalLicense.IssueDate.ToShortDateString();
             lb_ExpirationDate.Text = internationalLicense.ExpirationDate().ToShortDateString();
             lb_IsActive.Text = internationalLicense.IsActive? "Yes" : "NO";
+            lb_Detained.Text = internationalLicense.IsDetained() ? "Yes" : "NO";
         }
     }
 }

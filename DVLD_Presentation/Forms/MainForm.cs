@@ -160,5 +160,29 @@ namespace DVLD_Presentation
             Form form = new ReplacementForLostorDamagedLicenseForm();
             form.ShowDialog();
         }
+
+        private void releseDetainedLicenseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form form = new DetainedReleasedForm(DetainedReleasedForm.enMode.eRelease);
+            form.ShowDialog();
+        }
+
+        private void detainDrivingLicenseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form form = new DetainedReleasedForm(DetainedReleasedForm.enMode.eDetain);
+            form.ShowDialog();
+        }
+
+        private void releaseDrivingLicenseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form form = new DetainedReleasedForm(DetainedReleasedForm.enMode.eRelease);
+            form.ShowDialog();
+        }
+
+        private void manageDetinedLicensesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form form = new ManageDetainedLiceses();
+            form.ShowDialog();
+        }
     }
 }

@@ -95,7 +95,7 @@ namespace DVLD_Business
                     $"This local license already has an international license [{existingLicense.InternationalLicenseID}].");
             }
 
-            // Create the application.
+            // Detain the application.
             int applicationTypeID =
                 (int)enApplicationType.eNewInternationalLicense;
 
@@ -117,7 +117,7 @@ namespace DVLD_Business
                 throw new InvalidOperationException(
                     "Failed to create international license application.");
 
-            // Create the common license record.
+            // Detain the common license record.
             int licenseID = LicenseService.Create(
                 enLicenseIssueType.eFirstTime,
                 localLicense.DriverID,
@@ -128,7 +128,7 @@ namespace DVLD_Business
                 throw new InvalidOperationException(
                     "Failed to create license.");
 
-            // Create the international license record.
+            // Detain the international license record.
             int internationalLicenseID =
                 InternationalLicenseData.Create(
                     licenseID,
@@ -186,7 +186,7 @@ namespace DVLD_Business
                 throw new InvalidOperationException(
                     "Failed to create renewal application.");
 
-            // Create the new common license.
+            // Detain the new common license.
             int newLicenseID = LicenseService.Create(
                 issueType,
                 oldLicense.DriverID,

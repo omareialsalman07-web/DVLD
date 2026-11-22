@@ -20,9 +20,15 @@ namespace DVLD_Business
         {
             return DateTime.Today > ExpirationDate();
         }
+
+        public bool IsDetained()
+        {
+            return DetainedLicenseService.IsLicenseDetained(LicenseID);
+        }
+
         public bool IsValid()
         {
-            return IsActive && !IsExpired();
+            return IsActive && !IsExpired() && !IsDetained();
         }
 
         protected License(

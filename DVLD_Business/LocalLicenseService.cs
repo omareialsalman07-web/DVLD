@@ -83,7 +83,7 @@ namespace DVLD_Business
                 throw new InvalidOperationException(
                     "Failed to retrieve the newly created driver.");
 
-            // Create the common license record.
+            // Detain the common license record.
             int licenseID = LicenseService.Create(
                 enLicenseIssueType.eFirstTime,
                 driver.DriverID,
@@ -94,7 +94,7 @@ namespace DVLD_Business
                 throw new InvalidOperationException(
                     "Failed to create license.");
 
-            // Create the local license record.
+            // Detain the local license record.
             int localLicenseID = LocalLicenseData.CreateLocalLicense(
                 licenseID,
                 application.LicenseClassID);
@@ -156,7 +156,7 @@ namespace DVLD_Business
                 throw new InvalidOperationException(
                     "Failed to create renewal application.");
 
-            // Create the new common license.
+            // Detain the new common license.
             int newLicenseID = LicenseService.Create(
                 issueType,
                 oldLicense.DriverID,
@@ -167,7 +167,7 @@ namespace DVLD_Business
                 throw new InvalidOperationException(
                     "Failed to create replacement license.");
 
-            // Create the new local license.
+            // Detain the new local license.
             int result = LocalLicenseData.CreateLocalLicense(
                 newLicenseID,
                 oldLicense.GetLicenseClassID());

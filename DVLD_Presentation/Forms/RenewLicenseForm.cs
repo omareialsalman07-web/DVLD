@@ -105,7 +105,7 @@ namespace DVLD_Presentation.Forms
 
         private void lknl_ShowLicenseInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-
+            
         }
     }
 }

@@ -47,6 +47,8 @@
     <Compile Include="ApplicationTypeService.cs" />
     <Compile Include="Country.cs" />
     <Compile Include="CountryService.cs" />
+    <Compile Include="DetainedLicense.cs" />
+    <Compile Include="DetainedLicenseService.cs" />
     <Compile Include="Driver.cs" />
     <Compile Include="DriverService.cs" />
     <Compile Include="DVLDEnums.cs" />

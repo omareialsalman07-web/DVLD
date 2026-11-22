@@ -253,6 +253,26 @@ namespace DVLD_Presentation.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Detain_32 {
+            get {
+                object obj = ResourceManager.GetObject("Detain 32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Detain_64 {
+            get {
+                object obj = ResourceManager.GetObject("Detain 64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap driver {
             get {
                 object obj = ResourceManager.GetObject("driver", resourceCulture);
@@ -636,6 +656,16 @@ namespace DVLD_Presentation.Properties {
         internal static System.Drawing.Bitmap refresh {
             get {
                 object obj = ResourceManager.GetObject("refresh", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Release_Detained_License_32 {
+            get {
+                object obj = ResourceManager.GetObject("Release Detained License 32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

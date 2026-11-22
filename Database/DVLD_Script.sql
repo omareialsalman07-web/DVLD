@@ -257,23 +257,28 @@ END
 GO
 
 /* ---------- DetainedFreedLicenses ---------- */
-IF OBJECT_ID(N'dbo.DetainedFreedLicenses', N'U') IS NULL
+IF OBJECT_ID(N'dbo.DetainedLicenses', N'U') IS NULL
 BEGIN
-    CREATE TABLE dbo.DetainedFreedLicenses (
-        DFL_ID           INT IDENTITY(1,1) NOT NULL,
-        LicenseID        INT               NOT NULL,
-        IsReleased       BIT               NOT NULL,
-        DetainedDate     DATE          NOT NULL,
-        ReleasedDate     DATE          NULL,
-        CreatedByUserID  INT               NOT NULL,
-        ReleasedByUserID INT               NULL,
-        CONSTRAINT PK_DetainedFreedLicenses PRIMARY KEY CLUSTERED (DFL_ID),
-        CONSTRAINT FK_DetainedFreedLicenses_Licenses
+    CREATE TABLE dbo.DetainedLicenses (
+        DetainedLicenseID          INT IDENTITY(1,1) NOT NULL,
+        LicenseID            INT             NOT NULL,
+        IsReleased           BIT             NOT NULL DEFAULT 0,
+        DetainedDate         DATE            NOT NULL,
+        ReleasedDate         DATE            NULL,
+        CreatedByUserID      INT             NOT NULL,
+        ReleasedByUserID     INT             NULL,
+        FineFees             FLOAT           NOT NULL,
+        ReleaseApplicationID INT             NULL,
+        
+        CONSTRAINT PK_DetainedLicenses PRIMARY KEY CLUSTERED (DetainedLicenseID),
+        CONSTRAINT FK_DetainedLicenses_Licenses
             FOREIGN KEY (LicenseID) REFERENCES dbo.Licenses(LicenseID),
-        CONSTRAINT FK_DetainedFreedLicenses_CreatedBy
+        CONSTRAINT FK_DetainedLicenses_CreatedBy
             FOREIGN KEY (CreatedByUserID) REFERENCES dbo.Users(UserID),
-        CONSTRAINT FK_DetainedFreedLicenses_ReleasedBy
-            FOREIGN KEY (ReleasedByUserID) REFERENCES dbo.Users(UserID)
+        CONSTRAINT FK_DetainedLicenses_ReleasedBy
+            FOREIGN KEY (ReleasedByUserID) REFERENCES dbo.Users(UserID),
+        CONSTRAINT FK_DetainedLicenses_ReleaseApplicationID
+            FOREIGN KEY (ReleaseApplicationID) REFERENCES dbo.Applications(ApplicationID)
     );
 END
 GO
