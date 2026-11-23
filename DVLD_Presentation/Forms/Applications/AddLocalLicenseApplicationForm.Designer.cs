@@ -129,7 +129,7 @@
             this.cbLicenseClasses.FormattingEnabled = true;
             this.cbLicenseClasses.Location = new System.Drawing.Point(537, 208);
             this.cbLicenseClasses.Name = "cbLicenseClasses";
-            this.cbLicenseClasses.Size = new System.Drawing.Size(267, 28);
+            this.cbLicenseClasses.Size = new System.Drawing.Size(352, 28);
             this.cbLicenseClasses.TabIndex = 14;
             this.cbLicenseClasses.SelectedIndexChanged += new System.EventHandler(this.cbLicenseClasses_SelectedIndexChanged);
             // 

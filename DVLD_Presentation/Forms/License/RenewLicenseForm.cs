@@ -48,7 +48,7 @@ namespace DVLD_Presentation.Forms
             ctrlLicenseSelector1.GetSelectedLicese(ref ID, ref selectedLiceseType);
 
             _SelectedLicese = (selectedLiceseType == ctrlLicenseSelector.enSelectedLiceseType.Local)
-                ? (DVLD_Business.License)LocalLicenseService.FindByLocalLicenseID(ID) 
+                ? (DVLD_Business.License)LocalLicenseService.Find(ID) 
                 : InternationalLicenseService.FindByInternationalID(ID);
 
         }
@@ -73,11 +73,11 @@ namespace DVLD_Presentation.Forms
                 int newLicenseID = -1;
                 if (_SelectedLicese is DVLD_Business.LocalLicense local)
                 {
-                    newLicenseID = LocalLicenseService.Renew(local.LocalLicenseID, DVLD_Settings.GetCurrnetUser().ID);
+                    newLicenseID = LocalLicenseService.Renew(local.LicenseID, DVLD_Settings.GetCurrnetUser().ID);
                 }
                 else if (_SelectedLicese is DVLD_Business.InternationalLicense international)
                 {
-                    newLicenseID = InternationalLicenseService.Renew(international.InternationalLicenseID, DVLD_Settings.GetCurrnetUser().ID);
+                    newLicenseID = InternationalLicenseService.Renew(international.LicenseID, DVLD_Settings.GetCurrnetUser().ID);
                 }
 
                 if (newLicenseID == -1)

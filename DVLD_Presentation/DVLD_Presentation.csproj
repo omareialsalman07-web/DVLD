@@ -85,11 +85,11 @@
     <Compile Include="Forms\Tests\TestsAppointment\AddEditTestAppointmentForm.Designer.cs">
       <DependentUpon>AddEditTestAppointmentForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\License\DetainedReleasedForm.cs">
+    <Compile Include="Forms\License\DetaineReleaseLicenseForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\License\DetainedReleasedForm.Designer.cs">
-      <DependentUpon>DetainedReleasedForm.cs</DependentUpon>
+    <Compile Include="Forms\License\DetaineReleaseLicenseForm.Designer.cs">
+      <DependentUpon>DetaineReleaseLicenseForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Driver\DriverCardFrom.cs">
       <SubType>Form</SubType>
@@ -329,8 +329,8 @@
     <EmbeddedResource Include="Forms\Tests\TestsAppointment\AddEditTestAppointmentForm.resx">
       <DependentUpon>AddEditTestAppointmentForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\License\DetainedReleasedForm.resx">
-      <DependentUpon>DetainedReleasedForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\License\DetaineReleaseLicenseForm.resx">
+      <DependentUpon>DetaineReleaseLicenseForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Driver\DriverCardFrom.resx">
       <DependentUpon>DriverCardFrom.cs</DependentUpon>

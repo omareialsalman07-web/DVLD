@@ -14,10 +14,10 @@ using static DVLD_Presentation.UserControls.ctrlLicenseSelector;
 
 namespace DVLD_Presentation.Forms
 {
-    public partial class DetainedReleasedForm : Form
+    public partial class DetaineReleaseLicenseForm : Form
     {
-        public delegate void OnDetainedReleasedFormClose();
-        public OnDetainedReleasedFormClose onDetainedReleasedFormClose;
+        public delegate void OnDetaineReleaseLicenseFormClose();
+        public OnDetaineReleaseLicenseFormClose onDetaineReleaseLicenseFormClose;
 
         public enum enMode { eDetain, eRelease };
         enMode _Mode;
@@ -26,7 +26,7 @@ namespace DVLD_Presentation.Forms
         int _Detained_ReleasedForDriverID;
         DVLD_Business.License _SelectedLicese;
 
-        public DetainedReleasedForm(enMode mode)
+        public DetaineReleaseLicenseForm(enMode mode)
         {
             InitializeComponent();
             _Mode = mode;
@@ -37,7 +37,7 @@ namespace DVLD_Presentation.Forms
 
         private void _OnSelectLicense(bool isValid)
         {
-            if (!isValid || _Detained_ReleasedLicense)
+            if (!isValid || _Detained_ReleasedLicense) // I think this need to be fixed
             {
                 _SelectedLicese = null;
                 btn_Detain_Release.Enabled = false;
@@ -49,7 +49,7 @@ namespace DVLD_Presentation.Forms
             ctrlLicenseSelector1.GetSelectedLicese(ref ID, ref selectedLiceseType);
 
             _SelectedLicese = (selectedLiceseType == ctrlLicenseSelector.enSelectedLiceseType.Local)
-                ? (DVLD_Business.License)LocalLicenseService.FindByLocalLicenseID(ID)
+                ? (DVLD_Business.License)LocalLicenseService.Find(ID)
                 : InternationalLicenseService.FindByInternationalID(ID);
         }
 
@@ -67,7 +67,9 @@ namespace DVLD_Presentation.Forms
             {
                 btn_Detain_Release.Text = "Release";
                 btn_Detain_Release.Image = Resources.Release_Detained_License_32;
-                panel1.Visible = false;
+                mtxb_FineFees.Enabled = false;
+               /* ctrlLicenseSelector1.GetSelectedLicese();
+                DetainedLicenseService.*/
                 ctrlBasicApplicationInfo1.LoadLockupApplication(enApplicationType.eReleaseDetainedDrivingLicense);
             }
         }
@@ -125,7 +127,7 @@ namespace DVLD_Presentation.Forms
 
         private void DetainedReleasedForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            onDetainedReleasedFormClose?.Invoke();
+            onDetaineReleaseLicenseFormClose?.Invoke();
         }
     }
 }

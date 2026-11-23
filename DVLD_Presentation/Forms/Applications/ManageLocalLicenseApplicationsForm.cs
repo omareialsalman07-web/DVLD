@@ -163,7 +163,7 @@ namespace DVLD_Presentation.Forms
             try
             {
                 DVLD_Business.Application Application = ApplicationService.Find(LocalLicenseApplicationService.Find(_SelectedLLA_ID).ApplicationID);
-                int LocalLicenseID = LocalLicenseService.FindByLicenseID(LicenseService.FindByApplicationID(Application.ApplicationID).LicenseID).LocalLicenseID;
+                int LocalLicenseID = LocalLicenseService.FindByLicenseID(LicenseService.FindByApplicationID(Application.ApplicationID).LicenseID).LicenseID;
 
                 Form localLicenseCardForm = new LocalLicenceCardForm(LocalLicenseID);
                 localLicenseCardForm.ShowDialog();

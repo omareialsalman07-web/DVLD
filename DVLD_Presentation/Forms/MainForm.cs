@@ -163,19 +163,19 @@ namespace DVLD_Presentation
 
         private void releseDetainedLicenseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form form = new DetainedReleasedForm(DetainedReleasedForm.enMode.eRelease);
+            Form form = new DetaineReleaseLicenseForm(DetaineReleaseLicenseForm.enMode.eRelease);
             form.ShowDialog();
         }
 
         private void detainDrivingLicenseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form form = new DetainedReleasedForm(DetainedReleasedForm.enMode.eDetain);
+            Form form = new DetaineReleaseLicenseForm(DetaineReleaseLicenseForm.enMode.eDetain);
             form.ShowDialog();
         }
 
         private void releaseDrivingLicenseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form form = new DetainedReleasedForm(DetainedReleasedForm.enMode.eRelease);
+            Form form = new DetaineReleaseLicenseForm(DetaineReleaseLicenseForm.enMode.eRelease);
             form.ShowDialog();
         }
 

@@ -35,7 +35,7 @@ namespace DVLD_Presentation.UserControls
         {
             int _ID = Convert.ToInt32(txb_LicenseID.Text);
 
-            LocalLicense localLicense = LocalLicenseService.FindByLocalLicenseID(_ID);
+            LocalLicense localLicense = LocalLicenseService.Find(_ID);
             
             if (localLicense == null)
             {
@@ -47,15 +47,15 @@ namespace DVLD_Presentation.UserControls
             {
                 MessageBox.Show($"The {_SelectedLiceseType} License with _ID [{_ID}] should be active!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 ctrlLocalLicenseInfo1.Enabled = false;
-                onSelectLicense?.Invoke(false);
                 _SelectedLicenseID = -1;
+                onSelectLicense?.Invoke(false);
                 return;
             }
 
             ctrlLocalLicenseInfo1.Enabled = true;
+            _SelectedLicenseID = _ID;
             onSelectLicense?.Invoke(true);
             ctrlLocalLicenseInfo1.LoadLocalLicense(_ID);
-            _SelectedLicenseID = _ID;
         }
 
         private void _SelectInternationalLicense()

@@ -1,4 +1,5 @@
 ﻿using DVLD_Business;
+using DVLD_Presentation.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,30 +23,36 @@ namespace DVLD_Presentation.UserControls
         {
             try
             {
-                LocalLicense localLicense = LocalLicenseService.FindByLocalLicenseID(LocalLicenseID);
-                DVLD_Business.License license = LicenseService.FindByLicenseID(localLicense.LicenseID);
-                LicenseClass licenseClass = LicenseClassService.Find(localLicense.GetLicenseClassID());
-                Person person = PersonService.Find(DriverService.Find(license.DriverID).PersonID);
+                LocalLicense localLicense = LocalLicenseService.Find(LocalLicenseID);;
+                Person person = PersonService.Find(DriverService.Find(localLicense.DriverID).PersonID);
 
                 lbName.Text = person.FullName();
-                lbClass.Text = licenseClass.ClassName;
-                lbLocalLicenseID.Text = localLicense.LocalLicenseID.ToString();
+                lbClass.Text = localLicense.LicenseClass.ClassName;
+                lbLocalLicenseID.Text = localLicense.LicenseID.ToString();
                 lbNationalNo.Text = person.NationalNo;
                 lbGendor.Text = person.Gendor.ToString();
-                lbIssueDate.Text = license.IssueDate.ToShortDateString();
-                lbIssueReason.Text = license.IssueType.ToString();
+                lbIssueDate.Text = localLicense.IssueDate.ToShortDateString();
+                lbIssueReason.Text = localLicense.IssueType.ToString();
 
                 lbIsActive.Text = localLicense.IsActive? "Yes" : "No";
-                lbDriverID.Text = license.DriverID.ToString();
+                lbDriverID.Text = localLicense.DriverID.ToString();
                 lbDOB.Text = person.DateOfBirth.ToShortDateString();
                 lbIsDetained.Text = localLicense.IsDetained() ? "Yes" : "No";
                 lbExpirationDate.Text = localLicense.ExpirationDate().ToShortDateString();
 
-                PersonImage.Image?.Dispose();
                 // Load into a temporary image, create a cloned Bitmap, and close the file stream immediately
-                using (var tempImg = Image.FromFile(person.ImagePath))
+                PersonImage.Image?.Dispose();
+
+                if (!string.IsNullOrEmpty(person.ImagePath))
                 {
-                    PersonImage.Image = new Bitmap(tempImg);
+                    using (var tempImg = Image.FromFile(person.ImagePath))
+                    {
+                        PersonImage.Image = new Bitmap(tempImg);
+                    }
+                }
+                else
+                {
+                    PersonImage.Image = (person.Gendor == Person.enGendor.Male) ? Resources.Male : Resources.Female;
                 }
             }
             catch (Exception ex)

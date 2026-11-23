@@ -5,14 +5,7 @@ namespace DVLD_Business
 {
     public class LocalLicense : License
     {
-        public int LocalLicenseID { get; }
-
         public LicenseClass LicenseClass { get; }
-
-        public int GetLicenseClassID()
-        {
-            return LicenseClass.LicenseClassID;
-        }
 
         public override DateTime ExpirationDate ()
         {
@@ -27,17 +20,15 @@ namespace DVLD_Business
             int applicationID,
             bool isActive,
             int createdByUserID,
-            LicenseClass licenseClass)
+            int licenseClassID)
             : base(issueTypeID, issueDate, driverID,
                    applicationID, isActive, createdByUserID)
         {
-            LicenseClass = licenseClass ??
-                throw new ArgumentNullException(nameof(licenseClass));
+            LicenseClass = LicenseClassService.Find(licenseClassID);
         }
 
 
         public LocalLicense(
-            int localLicenseID,
             int licenseID,
             enLicenseIssueType issueTypeID,
             DateTime issueDate,
@@ -45,15 +36,12 @@ namespace DVLD_Business
             int applicationID,
             bool isActive,
             int createdByUserID,
-            LicenseClass licenseClass)
+            int licenseClassID)
             : base(licenseID, issueTypeID, issueDate,
                    driverID, applicationID, isActive,
                    createdByUserID)
         {
-            LocalLicenseID = localLicenseID;
-
-            LicenseClass = licenseClass ??
-                throw new ArgumentNullException(nameof(licenseClass));
+            LicenseClass = LicenseClassService.Find(licenseClassID);
         }
     }
 }

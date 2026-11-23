@@ -12,39 +12,23 @@ namespace DVLD_Business
 
         public static InternationalLicense FindByInternationalID(int internationalLicenseID)
         {
-            int licenseID = -1;
             int localLicenseID = -1;
 
-            if (!InternationalLicenseData.GetByInternationalID(
-                internationalLicenseID,
-                ref licenseID,
-                ref localLicenseID))
+            if (!InternationalLicenseData.GetByLicenseID(internationalLicenseID, ref localLicenseID))
             {
                 return null;
             }
 
-            return LicenseService.FindByLicenseID(licenseID)
+            return LicenseService.FindByLicenseID(internationalLicenseID)
                 as InternationalLicense;
         }
 
 
-        public static InternationalLicense FindByLicenseID(int licenseID)
+        public static InternationalLicense FindByLocalLicenseID(int localLicenseID)
         {
-            return LicenseService.FindByLicenseID(licenseID)
-                as InternationalLicense;
-        }
-
-
-        public static InternationalLicense FindByLocalLicenseID(
-            int localLicenseID)
-        {
-            int internationalLicenseID = -1;
             int licenseID = -1;
 
-            if (!InternationalLicenseData.GetByLocalLicenseID(
-                localLicenseID,
-                ref internationalLicenseID,
-                ref licenseID))
+            if (!InternationalLicenseData.GetByLocalLicenseID(localLicenseID, ref licenseID))
             {
                 return null;
             }
@@ -57,14 +41,14 @@ namespace DVLD_Business
         public static int CreateFirstTime(int localLicenseID, int createdByUserID)
         {
             LocalLicense localLicense =
-                LocalLicenseService.FindByLocalLicenseID(localLicenseID);
+                LocalLicenseService.Find(localLicenseID);
 
             if (localLicense == null)
                 throw new InvalidOperationException(
                     $"Local license [{localLicenseID}] does not exist.");
 
             // Validate the local license class.
-            if (localLicense.GetLicenseClassID() != RequiredLicenseClassID)
+            if (localLicense.LicenseClass.LicenseClassID != RequiredLicenseClassID)
             {
                 LicenseClass requiredClass =
                     LicenseClassService.Find(RequiredLicenseClassID);
@@ -92,7 +76,7 @@ namespace DVLD_Business
                     FindByLocalLicenseID(localLicenseID);
 
                 throw new InvalidOperationException(
-                    $"This local license already has an international license [{existingLicense.InternationalLicenseID}].");
+                    $"This local license already has an international license [{existingLicense.LicenseID}].");
             }
 
             // Detain the application.
@@ -129,12 +113,8 @@ namespace DVLD_Business
                     "Failed to create license.");
 
             // Detain the international license record.
-            int internationalLicenseID =
-                InternationalLicenseData.Create(
-                    licenseID,
-                    localLicense.LocalLicenseID);
 
-            if (internationalLicenseID == -1)
+            if (!InternationalLicenseData.Create(licenseID, localLicense.LicenseID))
                 throw new InvalidOperationException(
                     "Failed to create international license.");
 
@@ -142,7 +122,7 @@ namespace DVLD_Business
                 throw new InvalidOperationException(
                     "The international license was created, but the application could not be completed.");
 
-            return internationalLicenseID;
+            return licenseID;
         }
         private static int Recreate(int oldInternationalLicenseID,
             int createdByUserID, enLicenseIssueType issueType)
@@ -197,13 +177,8 @@ namespace DVLD_Business
                 throw new InvalidOperationException("Failed to create replacement license.");
 
             // Keep the association with the same local license.
-            int result = InternationalLicenseData.Create(
-                newLicenseID,
-                oldLicense.GetLocalLicenseID());
-
-            if (result == -1)
-                throw new InvalidOperationException(
-                    "Failed to create the new international license.");
+            if (!InternationalLicenseData.Create(newLicenseID, oldLicense.LocalLicense.LicenseID))
+                throw new InvalidOperationException("Failed to create the new international license.");
 
             // Deactivate the previous license.
             if (!LicenseService.DeactivateLicense(oldLicense.LicenseID))
@@ -214,7 +189,7 @@ namespace DVLD_Business
                 throw new InvalidOperationException(
                     "The new international license was created, but the application could not be completed.");
 
-            return result;
+            return newLicenseID;
         }
 
 

@@ -8,20 +8,16 @@ namespace DVLD_Business
 {
     public static class LocalLicenseService
     {
-        public static LocalLicense FindByLocalLicenseID(int localLicenseID)
+        public static LocalLicense Find(int localLicenseID)
         {
-            int licenseID = -1;
             int licenseClassID = -1;
 
-            if (!LocalLicenseData.GetLicenseByLocalLicenseID(
-                localLicenseID,
-                ref licenseID,
-                ref licenseClassID))
+            if (!LocalLicenseData.GetLicenseByLicenseID(localLicenseID, ref licenseClassID))
             {
                 return null;
             }
 
-            return LicenseService.FindByLicenseID(licenseID) as LocalLicense;
+            return LicenseService.FindByLicenseID(localLicenseID) as LocalLicense;
         }
 
         public static LocalLicense FindByLicenseID(int licenseID)
@@ -95,11 +91,7 @@ namespace DVLD_Business
                     "Failed to create license.");
 
             // Detain the local license record.
-            int localLicenseID = LocalLicenseData.CreateLocalLicense(
-                licenseID,
-                application.LicenseClassID);
-
-            if (localLicenseID == -1)
+            if (!LocalLicenseData.CreateLocalLicense(licenseID, application.LicenseClassID))
                 throw new InvalidOperationException(
                     "Failed to create local license.");
 
@@ -107,7 +99,7 @@ namespace DVLD_Business
                 throw new InvalidOperationException(
                     "The license was created, but the application could not be completed.");
 
-            return localLicenseID;
+            return licenseID;
         }
 
 
@@ -117,7 +109,7 @@ namespace DVLD_Business
             enLicenseIssueType issueType)
         {
             LocalLicense oldLicense =
-                FindByLocalLicenseID(oldLocalLicenseID);
+                Find(oldLocalLicenseID);
 
             if (oldLicense == null)
                 throw new InvalidOperationException(
@@ -168,11 +160,7 @@ namespace DVLD_Business
                     "Failed to create replacement license.");
 
             // Detain the new local license.
-            int result = LocalLicenseData.CreateLocalLicense(
-                newLicenseID,
-                oldLicense.GetLicenseClassID());
-
-            if (result == -1)
+            if (!LocalLicenseData.CreateLocalLicense(newLicenseID, oldLicense.LicenseClass.LicenseClassID))
                 throw new InvalidOperationException(
                     "Failed to create the new local license record.");
 
@@ -185,7 +173,7 @@ namespace DVLD_Business
                 throw new InvalidOperationException(
                     "The new license was created, but the application could not be completed.");
 
-            return result;
+            return newLicenseID;
         }
 
 
@@ -240,7 +228,7 @@ namespace DVLD_Business
                     Convert.ToInt32(row["OldLocalLicenseID"]);
 
                 LocalLicense license =
-                    FindByLocalLicenseID(localLicenseID);
+                    Find(localLicenseID);
 
                 if (license != null)
                     licenses.Add(license);
@@ -263,7 +251,7 @@ namespace DVLD_Business
                     Convert.ToInt32(row["OldLocalLicenseID"]);
 
                 LocalLicense license =
-                    FindByLocalLicenseID(localLicenseID);
+                    Find(localLicenseID);
 
                 if (license != null)
                     licenses.Add(license);

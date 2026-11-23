@@ -1,6 +1,6 @@
 ﻿namespace DVLD_Presentation.Forms
 {
-    partial class DetainedReleasedForm
+    partial class DetaineReleaseLicenseForm
     {
         /// <summary>
         /// Required designer variable.

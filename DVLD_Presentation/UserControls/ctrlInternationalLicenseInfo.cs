@@ -29,9 +29,9 @@ namespace DVLD_Presentation.UserControls
             if(internationalLicense == null)
                 MessageBox.Show($"Faild to load License with ID [{internationalLicenseID}]!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-            ctrlLocalLicenseInfo1.LoadLocalLicense(internationalLicense.GetLocalLicenseID());
+            ctrlLocalLicenseInfo1.LoadLocalLicense(internationalLicense.LocalLicense.LicenseID);
 
-            lb_IntLID.Text = internationalLicense.InternationalLicenseID.ToString();
+            lb_IntLID.Text = internationalLicense.LicenseID.ToString();
             lb_IssueReason.Text = internationalLicense.IssueType.ToString();
             lb_IssueDate.Text = internationalLicense.IssueDate.ToShortDateString();
             lb_ExpirationDate.Text = internationalLicense.ExpirationDate().ToShortDateString();

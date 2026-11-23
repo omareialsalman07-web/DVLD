@@ -99,15 +99,15 @@ namespace DVLD_Presentation.Forms
 
         private void btn_Release(object sender, EventArgs e)
         {
-            DetainedReleasedForm form = new DetainedReleasedForm(DetainedReleasedForm.enMode.eRelease);
-            form.onDetainedReleasedFormClose += _RefreshForm;
+            DetaineReleaseLicenseForm form = new DetaineReleaseLicenseForm(DetaineReleaseLicenseForm.enMode.eRelease);
+            form.onDetaineReleaseLicenseFormClose += _RefreshForm;
             form.ShowDialog();
         }
 
         private void btnDetained(object sender, EventArgs e)
         {
-            DetainedReleasedForm form = new DetainedReleasedForm(DetainedReleasedForm.enMode.eDetain);
-            form.onDetainedReleasedFormClose += _RefreshForm;
+            DetaineReleaseLicenseForm form = new DetaineReleaseLicenseForm(DetaineReleaseLicenseForm.enMode.eDetain);
+            form.onDetaineReleaseLicenseFormClose += _RefreshForm;
             form.ShowDialog();
         }
     }

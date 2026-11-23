@@ -31,59 +31,28 @@ namespace DVLD_Business
             int localLicenseID = -1;
             int licenseClassID = -1;
 
-            if (LocalLicenseData.GetLicenseByLicenseID(
-                licenseID,
-                ref localLicenseID,
-                ref licenseClassID))
+            if (LocalLicenseData.GetLicenseByLicenseID(licenseID, ref licenseClassID))
             {
-                LicenseClass licenseClass =
-                    LicenseClassService.Find(licenseClassID);
-
+                LicenseClass licenseClass = LicenseClassService.Find(licenseClassID);
                 if (licenseClass == null)
                     throw new InvalidOperationException(
                         "The license class associated with this license was not found.");
 
-                return new LocalLicense(
-                    localLicenseID,
-                    licenseID,
-                    (enLicenseIssueType)issueTypeID,
-                    issueDate,
-                    driverID,
-                    applicationID,
-                    isActive,
-                    createdByUserID,
-                    licenseClass
-                );
+                return new LocalLicense(licenseID, (enLicenseIssueType)issueTypeID, issueDate,
+                    driverID, applicationID, isActive, createdByUserID, licenseClassID);
             }
 
             // Check whether it is an International License.
-            int internationalLicenseID = -1;
             int associatedLocalLicenseID = -1;
 
-            if (InternationalLicenseData.GetByLicenseID(
-                licenseID,
-                ref internationalLicenseID,
-                ref associatedLocalLicenseID))
+            if (InternationalLicenseData.GetByLicenseID(licenseID, ref associatedLocalLicenseID))
             {
-                LocalLicense localLicense =
-                    LocalLicenseService.FindByLocalLicenseID(
-                        associatedLocalLicenseID);
-
-                if (localLicense == null)
+                if (!LocalLicenseService.IsExist(associatedLocalLicenseID))
                     throw new InvalidOperationException(
                         "The local license associated with this international license was not found.");
 
-                return new InternationalLicense(
-                    internationalLicenseID,
-                    licenseID,
-                    (enLicenseIssueType)issueTypeID,
-                    issueDate,
-                    driverID,
-                    applicationID,
-                    isActive,
-                    createdByUserID,
-                    localLicense
-                );
+                return new InternationalLicense(licenseID, (enLicenseIssueType)issueTypeID, issueDate, driverID,
+                    applicationID, isActive, createdByUserID, associatedLocalLicenseID);
             }
 
             return null;

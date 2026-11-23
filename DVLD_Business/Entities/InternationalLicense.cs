@@ -5,37 +5,23 @@ namespace DVLD_Business
 {
     public class InternationalLicense : License
     {
-        public int InternationalLicenseID { get; }
-
         public LocalLicense LocalLicense { get; }
 
-        public int GetLocalLicenseID()
-        {
-            return LocalLicense.LocalLicenseID;
-        }
         public override DateTime ExpirationDate()
         {
             return IssueDate.AddYears(1);
         }
 
-        public InternationalLicense(
-            enLicenseIssueType issueTypeID,
-            DateTime issueDate,
-            int driverID,
-            int applicationID,
-            bool isActive,
-            int createdByUserID,
-            LocalLicense localLicense)
+        public InternationalLicense(enLicenseIssueType issueTypeID, DateTime issueDate, int driverID,
+            int applicationID, bool isActive, int createdByUserID, int localLicenseID)
             : base(issueTypeID, issueDate, driverID,
                    applicationID, isActive, createdByUserID)
         {
-            LocalLicense = localLicense ??
-                throw new ArgumentNullException(nameof(localLicense));
+            LocalLicense = LocalLicenseService.FindByLicenseID(localLicenseID);
         }
 
 
         public InternationalLicense(
-            int internationalLicenseID,
             int licenseID,
             enLicenseIssueType issueTypeID,
             DateTime issueDate,
@@ -43,15 +29,13 @@ namespace DVLD_Business
             int applicationID,
             bool isActive,
             int createdByUserID,
-            LocalLicense localLicense)
+            int localLicenseID)
             : base(licenseID, issueTypeID, issueDate,
                    driverID, applicationID, isActive,
                    createdByUserID)
         {
-            InternationalLicenseID = internationalLicenseID;
 
-            LocalLicense = localLicense ??
-                throw new ArgumentNullException(nameof(localLicense));
+            LocalLicense = LocalLicenseService.FindByLicenseID(localLicenseID);
         }
     }
 }

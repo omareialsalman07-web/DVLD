@@ -14,18 +14,18 @@ namespace DVLD_Presentation.Forms
 {
     public partial class IssueInternationalLicenseForm : Form
     {
-        private bool _IssueInternationLicense;
+        private bool _IssuedInternationLicense;
         int _CreatedForDriverID;
         public IssueInternationalLicenseForm()
         {
             InitializeComponent();
-            _IssueInternationLicense = false;
+            _IssuedInternationLicense = false;
             _CreatedForDriverID = -1;
         }
 
         private void _OnSelectLocalLicese(bool isValid)
         {
-            if(isValid && !_IssueInternationLicense)
+            if(isValid && !_IssuedInternationLicense)
             {
                 btnIssue.Enabled = true;
             }
@@ -69,7 +69,7 @@ namespace DVLD_Presentation.Forms
 
                 _CreatedForDriverID = internationalLicense.DriverID;
                 btnIssue.Enabled = false;
-                _IssueInternationLicense = true;
+                _IssuedInternationLicense = true;
                 lknl_ShowLicenseInfo.Enabled = true;
 
                 ctrlLicenseSelector1.Enabled = false;
