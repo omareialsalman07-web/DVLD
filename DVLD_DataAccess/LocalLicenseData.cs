@@ -12,58 +12,47 @@ namespace DVLD_DataAccess
 {
     public static class LocalLicenseData
     {
-        public static int CreateLocalLicense(int LicenseID,int LicenseClassID)
+        public static bool CreateLocalLicense(int LicenseID, int LicenseClassID)
         {
-            int _LocalLicenseID = -1;
-
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+
             string query = @"INSERT INTO [dbo].[LocalLicenses]
-                            (
-                                [LicenseID],
-                                [LicenseClassID]
-                            )
-                            VALUES
-                            (
-                                @LicenseID,
-                                @LicenseClassID
-                            );
-                            
-                            SELECT SCOPE_IDENTITY();";
+                    (
+                        [LicenseID],
+                        [LicenseClassID]
+                    )
+                    VALUES
+                    (
+                        @LicenseID,
+                        @LicenseClassID
+                    );";
 
             SqlCommand command = new SqlCommand(query, connection);
+
             command.Parameters.AddWithValue("@LicenseID", LicenseID);
             command.Parameters.AddWithValue("@LicenseClassID", LicenseClassID);
 
             try
             {
                 connection.Open();
-                object result = command.ExecuteScalar();
-                if (result != null)
-                {
-                    _LocalLicenseID = Convert.ToInt32(result);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
+
+                return command.ExecuteNonQuery() > 0;
             }
             finally
             {
                 connection.Close();
             }
-
-            return _LocalLicenseID;
         }
 
-        private static bool GetLicenseBy(string column, object val, ref int LocalLicenseID, ref int LicenseID, ref int LicenseClassID)
+        public static bool GetLicenseByLicenseID(int LicenseID, ref int LicenseClassID)
         {
             bool found = false;
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
 
-            string query = $"SELECT * FROM LocalLicenses WHERE {column} = @Val;";
+            string query = $"SELECT * FROM LocalLicenses WHERE LicenseID = @LicenseID;";
             SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@Val", val);
+            command.Parameters.AddWithValue("@LicenseID", LicenseID);
             try
             {
                 connection.Open();
@@ -71,7 +60,6 @@ namespace DVLD_DataAccess
                 SqlDataReader reader = command.ExecuteReader();
                 if (reader.Read())
                 {
-                    LocalLicenseID = Convert.ToInt32(reader["LocalLicenseID"]);
                     LicenseID = Convert.ToInt32(reader["LicenseID"]);
                     LicenseClassID = Convert.ToInt32(reader["LicenseClassID"]);
 
@@ -91,15 +79,6 @@ namespace DVLD_DataAccess
 
             return found;
         }
-        
-        public static bool GetLicenseByLocalLicenseID(int LocalLicenseID, ref int LicenseID, ref int LicenseClassID)
-        {
-            return GetLicenseBy("LocalLicenseID", LocalLicenseID, ref LocalLicenseID, ref LicenseID, ref LicenseClassID);
-        }
-        public static bool GetLicenseByLicenseID(int LicenseID, ref int LocalLicenseID, ref int LicenseClassID)
-        {
-            return GetLicenseBy("LicenseID", LicenseID, ref LocalLicenseID, ref LicenseID, ref LicenseClassID);
-        }
 
         public static bool isExist(int LocalLicenseID)
         {
@@ -111,7 +90,7 @@ namespace DVLD_DataAccess
                                 (
                                     SELECT 1
                                     FROM LocalLicenses
-                                    WHERE LocalLicenseID = @ID
+                                    WHERE LicenseID = @ID
                                 )
                                 THEN 1
                                 ELSE 0
@@ -170,7 +149,7 @@ namespace DVLD_DataAccess
             DataTable dt = new DataTable();
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
-            string query = @"SELECT LocalLicenses.LocalLicenseID, LocalLicenses.LicenseID,
+            string query = @"SELECT  LocalLicenses.LicenseID,
                             LocalLicenses.LicenseClassID FROM LocalLicenses
                             INNER JOIN Licenses ON Licenses.LicenseID = LocalLicenses.LicenseID
                             WHERE Licenses.DriverID  = @DriverID;";
@@ -200,7 +179,7 @@ namespace DVLD_DataAccess
             DataTable dt = new DataTable();
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
-            string query = @"SELECT LocalLicenses.LocalLicenseID, Applications.ApplicationID,
+            string query = @"SELECT LocalLicenses.LicenseID, Applications.ApplicationID,
                              LicenseClasses.ClassName, Licenses.IssueDate, DATEADD(YEAR, LicenseClasses.ValidityLength, Licenses.IssueDate)
                              AS ExpirationDate, 
                                 CAST

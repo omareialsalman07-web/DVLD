@@ -6,17 +6,15 @@ using System.Data.SqlClient;
 
 public class InternationalLicenseData
 {
-    public static int Create(int LicenseID, int LocalLicenseID)
+    public static bool Create(int LicenseID, int LocalLicenseID)
     {
-        int InternationalLicenseID = -1;
+        bool success = false;
 
-        SqlConnection connection = new SqlConnection(
-            DataAccessSettings.ConnectionString);
+        SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
 
         string query = @"INSERT INTO InternationalLicenses
                          (LicenseID, LocalLicenseID)
-                         VALUES (@LicenseID, @LocalLicenseID);
-                         SELECT SCOPE_IDENTITY();";
+                         VALUES (@LicenseID, @LocalLicenseID);";
 
         SqlCommand command = new SqlCommand(query, connection);
 
@@ -27,14 +25,12 @@ public class InternationalLicenseData
         {
             connection.Open();
 
-            object result = command.ExecuteScalar();
-
-            if (result != null)
-                InternationalLicenseID = Convert.ToInt32(result);
+            success = command.ExecuteNonQuery() > 0;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            InternationalLicenseID = -1;
+            success = false;
+            throw ex;
         }
         finally
         {
@@ -43,11 +39,10 @@ public class InternationalLicenseData
             connection.Dispose();
         }
 
-        return InternationalLicenseID;
+        return success;
     }
 
-    private static bool GetInternationalLicenseInfo(string ColumnName, int ID,
-            ref int InternationalLicenseID, ref int LicenseID, ref int LocalLicenseID)
+    private static bool GetInternationalLicenseInfo(string ColumnName, int ID, ref int LicenseID, ref int LocalLicenseID)
     {
         bool IsFound = false;
 
@@ -73,9 +68,6 @@ public class InternationalLicenseData
             {
                 IsFound = true;
 
-                InternationalLicenseID =
-                    (int)reader["InternationalLicenseID"];
-
                 LicenseID = (int)reader["LicenseID"];
 
                 LocalLicenseID = (int)reader["LocalLicenseID"];
@@ -98,25 +90,15 @@ public class InternationalLicenseData
         return IsFound;
     }
 
-    public static bool GetByInternationalID(int InternationalLicenseID, 
-        ref int LicenseID, ref int LocalLicenseID)
+    
+    public static bool GetByLicenseID(int LicenseID, ref int LocalLicenseID)
     {
-        return GetInternationalLicenseInfo("InternationalLicenseID", InternationalLicenseID,
-            ref InternationalLicenseID, ref LicenseID, ref LocalLicenseID);
+        return GetInternationalLicenseInfo("LicenseID", LicenseID, ref LicenseID, ref LocalLicenseID);
     }
 
-    public static bool GetByLicenseID(int LicenseID, ref int InternationalLicenseID,
-        ref int LocalLicenseID)
+    public static bool GetByLocalLicenseID(int LocalLicenseID, ref int LicenseID)
     {
-        return GetInternationalLicenseInfo("LicenseID", LicenseID,
-            ref InternationalLicenseID, ref LicenseID, ref LocalLicenseID);
-    }
-
-    public static bool GetByLocalLicenseID(int LocalLicenseID, 
-        ref int InternationalLicenseID, ref int LicenseID)
-    {
-        return GetInternationalLicenseInfo("LocalLicenseID", LocalLicenseID,
-            ref InternationalLicenseID, ref LicenseID, ref LocalLicenseID);
+        return GetInternationalLicenseInfo("LocalLicenseID", LocalLicenseID, ref LicenseID, ref LocalLicenseID);
     }
 
     private static bool IsExist(string ColumnName, int ID)
@@ -158,7 +140,7 @@ public class InternationalLicenseData
 
     public static bool IsExistByInternationalID(int InternationalLicenseID)
     {
-        return IsExist("InternationalLicenseID", InternationalLicenseID);
+        return IsExist("LicenseID", InternationalLicenseID);
     }
 
 
@@ -198,10 +180,10 @@ public class InternationalLicenseData
         DataTable dt = new DataTable();
 
         SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
-        string query = @"SELECT InternationalLicenses.InternationalLicenseID, InternationalLicenses.LocalLicenseID,
-                         InternationalLicenses.LocalLicenseID FROM InternationalLicenses
+        string query = @"SELECT InternationalLicenses.LicenseID, InternationalLicenses.LocalLicenseID
+                         FROM InternationalLicenses
                          INNER JOIN Licenses ON Licenses.LicenseID = InternationalLicenses.LicenseID
-                         WHERE Licenses.DriverID  = @DriverID;";
+                         WHERE Licenses.DriverID  = DriverID;";
 
         SqlCommand command = new SqlCommand(query, connection);
         command.Parameters.AddWithValue("@DriverID", driverID);
@@ -228,8 +210,8 @@ public class InternationalLicenseData
         DataTable dt = new DataTable();
 
         SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
-        string query = @"SELECT InternationalLicenses.InternationalLicenseID, Applications.ApplicationID,
-                             LocalLicenses.LocalLicenseID, Licenses.IssueDate, DATEADD(YEAR, 1, Licenses.IssueDate)
+        string query = @"SELECT InternationalLicenses.LicenseID, Applications.ApplicationID,
+                             InternationalLicenses.LocalLicenseID, Licenses.IssueDate, DATEADD(YEAR, 1, Licenses.IssueDate)
                              AS ExpirationDate, 
                                 CAST
                                 (
@@ -239,10 +221,10 @@ public class InternationalLicenseData
                                 END AS BIT
                                 ) AS Active
                              FROM InternationalLicenses
-                             INNER JOIN LocalLicenses ON LocalLicenses.LocalLicenseID = InternationalLicenses.LocalLicenseID
+                             INNER JOIN LocalLicenses ON LocalLicenses.LicenseID = InternationalLicenses.LocalLicenseID
                              INNER JOIN Licenses ON Licenses.LicenseID = InternationalLicenses.LicenseID
                              INNER JOIN Applications ON Applications.ApplicationID = Licenses.ApplicationID
-                             WHERE Licenses.DriverID  = @DriverID;";
+                             WHERE Licenses.DriverID  = DriverID;";
 
         SqlCommand command = new SqlCommand(query, connection);
         command.Parameters.AddWithValue("@DriverID", driverID);

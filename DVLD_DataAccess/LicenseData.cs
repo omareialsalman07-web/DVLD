@@ -197,7 +197,7 @@ namespace DVLD_DataAccess
                             	(
                             		SELECT COUNT(*) FROM InternationalLicenses
                             		INNER JOIN Licenses ON Licenses.LicenseID = InternationalLicenses.LicenseID
-                            		INNER JOIN LocalLicenses ON LocalLicenses.LocalLicenseID = InternationalLicenses.LocalLicenseID
+                            		INNER JOIN LocalLicenses ON LocalLicenses.LicenseID = InternationalLicenses.LocalLicenseID
                             		INNER JOIN LicenseClasses ON LicenseClasses.LicenseClassID = LocalLicenses.LicenseClassID
                             		WHERE Licenses.DriverID = @DriverID AND Licenses.IsActive = 1 AND 
                             		CAST(DATEADD(YEAR, LicenseClasses.ValidityLength, Licenses.IssueDate) AS DATE) >= CAST(GETDATE() AS DATE)
