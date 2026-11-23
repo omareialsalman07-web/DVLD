@@ -1,5 +1,5 @@
 /* =====================================================================
-   DVLD - Full database script (SQL Server)
+   Omar_DVLD - Full database script (SQL Server)
    Safe to run multiple DATEs:
      - the database is created only if it does not exist
      - every table is created only if it does not exist
@@ -10,13 +10,13 @@
 USE [master];
 GO
 
-IF DB_ID(N'DVLD') IS NULL
+IF DB_ID(N'Omar_DVLD') IS NULL
 BEGIN
-    CREATE DATABASE [DVLD];
+    CREATE DATABASE [Omar_DVLD];
 END
 GO
 
-USE [DVLD];
+USE [Omar_DVLD];
 GO
 
 /* =====================================================================
@@ -228,10 +228,9 @@ GO
 IF OBJECT_ID(N'dbo.LocalLicenses', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.LocalLicenses (
-        LocalLicenseID INT IDENTITY(1,1) NOT NULL,   -- L.LID
-        LicenseID      INT               UNIQUE NOT NULL,
+        LicenseID      INT               NOT NULL,
         LicenseClassID INT               NOT NULL,
-        CONSTRAINT PK_LocalLicenses PRIMARY KEY CLUSTERED (LocalLicenseID),
+        CONSTRAINT PK_LocalLicenses PRIMARY KEY CLUSTERED (LicenseID),
         CONSTRAINT FK_LocalLicenses_Licenses
             FOREIGN KEY (LicenseID) REFERENCES dbo.Licenses(LicenseID),
         CONSTRAINT FK_LocalLicenses_LicenseClasses
@@ -244,14 +243,19 @@ GO
 IF OBJECT_ID(N'dbo.InternationalLicenses', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.InternationalLicenses (
-        InternationalLicenseID INT IDENTITY(1,1) NOT NULL,   -- I.LID
-        LicenseID              INT               UNIQUE NOT NULL,
-        LocalLicenseID         INT               NOT NULL,   -- L.LID
-        CONSTRAINT PK_InternationalLicenses PRIMARY KEY CLUSTERED (InternationalLicenseID),
+        LicenseID      INT NOT NULL,
+        LocalLicenseID INT NOT NULL,
+
+        CONSTRAINT PK_InternationalLicenses
+            PRIMARY KEY CLUSTERED (LicenseID),
+
         CONSTRAINT FK_InternationalLicenses_Licenses
-            FOREIGN KEY (LicenseID) REFERENCES dbo.Licenses(LicenseID),
+            FOREIGN KEY (LicenseID)
+            REFERENCES dbo.Licenses(LicenseID),
+
         CONSTRAINT FK_InternationalLicenses_LocalLicenses
-            FOREIGN KEY (LocalLicenseID) REFERENCES dbo.LocalLicenses(LocalLicenseID)
+            FOREIGN KEY (LocalLicenseID)
+            REFERENCES dbo.LocalLicenses(LicenseID)
     );
 END
 GO
