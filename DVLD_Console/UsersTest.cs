@@ -70,7 +70,7 @@ namespace DVLD_Console
             try
             {
                 Console.WriteLine($"\n--- Testing Get Person (ID: {userID}) ---");
-                PrintUser(UserService.Find(userID));
+                PrintUser(UserService.FindByUserID(userID));
             }
             catch (Exception ex)
             {
@@ -83,7 +83,7 @@ namespace DVLD_Console
 
             try
             {
-                if(UserService.isExist(ID))
+                if(UserService.isExistByUserID(ID))
                 {
                     Console.WriteLine($"User with ID {ID} exist!");
                 }
@@ -104,7 +104,7 @@ namespace DVLD_Console
 
             try
             {
-                if (UserService.isExist(userName))
+                if (UserService.isExistByUserName(userName))
                 {
                     Console.WriteLine($"User with ID {userName} exist!");
                 }
@@ -125,7 +125,7 @@ namespace DVLD_Console
 
             try
             {
-                User user = UserService.Find(ID);
+                User user = UserService.FindByUserID(ID);
                 if(user == null)
                 {
                     Console.WriteLine($"User with ID {ID} Not found -(!");

@@ -22,7 +22,7 @@ namespace DVLD_Presentation.UserControls
             User user = null;
             try
             {
-                user = UserService.Find(userID);
+                user = UserService.FindByUserID(userID);
             }
             catch(Exception ex)
             {

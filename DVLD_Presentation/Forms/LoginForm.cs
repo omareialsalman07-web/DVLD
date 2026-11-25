@@ -39,7 +39,7 @@ namespace DVLD_Presentation.Forms
 
             try
             {
-                User user = UserService.Find(txb_UserName.Text);
+                User user = UserService.FindUserName(txb_UserName.Text);
                 if(user == null)
                 {
                     MessageBox.Show("Can't find User with this user name", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

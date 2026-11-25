@@ -28,37 +28,30 @@ namespace DVLD_Business
 
         public static int CreateFirstTime(int localLicenseApplicationID, int createdByUserID)
         {
-            LocalLicenseApplication application =
-                LocalLicenseApplicationService.Find(localLicenseApplicationID);
+            LocalLicenseApplication application = LocalLicenseApplicationService.Find(localLicenseApplicationID);
 
             if (application == null)
-                throw new InvalidOperationException(
-                    $"Local license application [{localLicenseApplicationID}] does not exist.");
+                throw new InvalidOperationException($"Local license application [{localLicenseApplicationID}] does not exist.");
 
-            Application baseApplication =
-                ApplicationService.Find(application.ApplicationID);
+            Application baseApplication = ApplicationService.Find(application.ApplicationID);
 
             if (baseApplication == null)
-                throw new InvalidOperationException(
-                    "The associated application does not exist.");
+                throw new InvalidOperationException("The associated application does not exist.");
 
             if (baseApplication.Status == enApplicationStatus.eCancelled)
                 throw new InvalidOperationException(
                     $"Cannot issue a local license for cancelled application [{application.ApplicationID}].");
 
             if (baseApplication.Status == enApplicationStatus.eCompleted)
-                throw new InvalidOperationException(
-                    $"Application [{application.ApplicationID}] is already completed.");
+                throw new InvalidOperationException($"Application [{application.ApplicationID}] is already completed.");
 
-            int totalPassedTests =
-                LocalLicenseApplicationService.GetTotalPassedTests(
-                    localLicenseApplicationID);
+            int totalPassedTests = LocalLicenseApplicationService.GetTotalPassedTests(localLicenseApplicationID);
 
             if (totalPassedTests < 3)
                 throw new InvalidOperationException(
                     $"The applicant has only passed {totalPassedTests} out of 3 required tests.");
 
-            // Find or create the driver.
+            // FindByUserID or create the driver.
             Driver driver =
                 DriverService.FindByPersonID(application.PersonID);
 
@@ -80,11 +73,7 @@ namespace DVLD_Business
                     "Failed to retrieve the newly created driver.");
 
             // Detain the common license record.
-            int licenseID = LicenseService.Create(
-                enLicenseIssueType.eFirstTime,
-                driver.DriverID,
-                application.ApplicationID,
-                createdByUserID);
+            int licenseID = LicenseService.Create(enLicenseIssueType.eFirstTime, driver.DriverID, application.ApplicationID, createdByUserID);
 
             if (licenseID == -1)
                 throw new InvalidOperationException(
@@ -103,17 +92,13 @@ namespace DVLD_Business
         }
 
 
-        private static int _Recreate(
-            int oldLocalLicenseID,
-            int createdByUserID,
+        private static int _Recreate(int oldLocalLicenseID, int createdByUserID,
             enLicenseIssueType issueType)
         {
-            LocalLicense oldLicense =
-                Find(oldLocalLicenseID);
+            LocalLicense oldLicense = Find(oldLocalLicenseID);
 
             if (oldLicense == null)
-                throw new InvalidOperationException(
-                    $"Local license [{oldLocalLicenseID}] does not exist.");
+                throw new InvalidOperationException($"Local license [{oldLocalLicenseID}] does not exist.");
 
             // A renewal is only allowed after expiration.
             if (issueType == enLicenseIssueType.eRenew &&
@@ -124,29 +109,20 @@ namespace DVLD_Business
             }
 
             if (!oldLicense.IsActive)
-                throw new InvalidOperationException(
-                    $"Local license [{oldLocalLicenseID}] is not active.");
+                throw new InvalidOperationException($"Local license [{oldLocalLicenseID}] is not active.");
 
-            int applicationTypeID =
-                (int)enApplicationType.eRenewDrivingLicense;
+            int applicationTypeID = (int)enApplicationType.eRenewDrivingLicense;
 
-            ApplicationType applicationType =
-                ApplicationTypeService.Find(applicationTypeID);
+            ApplicationType applicationType = ApplicationTypeService.Find(applicationTypeID);
 
             if (applicationType == null)
-                throw new InvalidOperationException(
-                    "Renewal application type does not exist.");
+                throw new InvalidOperationException("Renewal application type does not exist.");
 
-            int applicationID = ApplicationData.CreateApplication(
-                applicationTypeID,
-                DateTime.Today,
-                (int)enApplicationStatus.eNew,
-                applicationType.Fees,
-                createdByUserID);
+            int applicationID = ApplicationData.CreateApplication(applicationTypeID, DateTime.Today, (int)enApplicationStatus.eNew,
+                applicationType.Fees, createdByUserID);
 
             if (applicationID == -1)
-                throw new InvalidOperationException(
-                    "Failed to create renewal application.");
+                throw new InvalidOperationException("Failed to create renewal application.");
 
             // Detain the new common license.
             int newLicenseID = LicenseService.Create(
@@ -177,36 +153,21 @@ namespace DVLD_Business
         }
 
 
-        public static int Renew(
-            int oldLocalLicenseID,
-            int createdByUserID)
+        public static int Renew(int oldLocalLicenseID, int createdByUserID)
         {
-            return _Recreate(
-                oldLocalLicenseID,
-                createdByUserID,
-                enLicenseIssueType.eRenew);
+            return _Recreate(oldLocalLicenseID, createdByUserID, enLicenseIssueType.eRenew);
         }
 
 
-        public static int ReplacementForLost(
-            int oldLocalLicenseID,
-            int createdByUserID)
+        public static int ReplacementForLost(int oldLocalLicenseID, int createdByUserID)
         {
-            return _Recreate(
-                oldLocalLicenseID,
-                createdByUserID,
-                enLicenseIssueType.eReplacementForLost);
+            return _Recreate(oldLocalLicenseID, createdByUserID, enLicenseIssueType.eReplacementForLost);
         }
 
 
-        public static int ReplacementForDamage(
-            int oldLocalLicenseID,
-            int createdByUserID)
+        public static int ReplacementForDamage(int oldLocalLicenseID, int createdByUserID)
         {
-            return _Recreate(
-                oldLocalLicenseID,
-                createdByUserID,
-                enLicenseIssueType.eReplacementForDamaged);
+            return _Recreate(oldLocalLicenseID, createdByUserID, enLicenseIssueType.eReplacementForDamaged);
         }
 
 

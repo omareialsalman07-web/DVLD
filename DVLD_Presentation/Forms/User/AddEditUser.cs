@@ -68,7 +68,7 @@ namespace DVLD_Presentation
             {
                 errorProvider1.SetError(txb_UserName, "This can't be blank!");
             }
-            else if(UserService.isExist(txb_UserName.Text) && Mode == enMode.eAdd)
+            else if(UserService.isExistByUserName(txb_UserName.Text) && Mode == enMode.eAdd)
             {
                 errorProvider1.SetError(txb_UserName, "This user name already used!");
             }
@@ -120,7 +120,7 @@ namespace DVLD_Presentation
                 MessageBox.Show("Please fill all the areas!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (UserService.isExist(txb_UserName.Text) && Mode == enMode.eAdd)
+            if (UserService.isExistByUserName(txb_UserName.Text) && Mode == enMode.eAdd)
             {
                 MessageBox.Show("This user name already used!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;

@@ -140,7 +140,7 @@ namespace DVLD_Presentation.Forms
 
             try
             {
-                User userToEdit = UserService.Find(int.Parse(lst_Users.SelectedItems[0].Text));
+                User userToEdit = UserService.FindByUserID(int.Parse(lst_Users.SelectedItems[0].Text));
                 AddEditUser addNewUserForm = new AddEditUser(AddEditUser.enMode.eEdit, userToEdit);
                 addNewUserForm.on_Create_Update_UserFinsh += _OnAddEditFormClose;
                 addNewUserForm.ShowDialog();
@@ -163,7 +163,7 @@ namespace DVLD_Presentation.Forms
 
             try
             {
-                User userToEdit = UserService.Find(int.Parse(lst_Users.SelectedItems[0].Text));
+                User userToEdit = UserService.FindByUserID(int.Parse(lst_Users.SelectedItems[0].Text));
 
                 Form changePasswordForm = new ChangePasswordForm(userToEdit);
                 changePasswordForm.ShowDialog();

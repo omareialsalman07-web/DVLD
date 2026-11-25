@@ -196,19 +196,23 @@ namespace DVLD_DataAccess
         {
             return GetUserBy("UserID", UserID, ref UserID, ref personID, ref userName, ref password, ref isActive);
         }
+        public static bool GetUserByPersonID(int personID, ref int UserID, ref string userName, ref string password, ref bool isActive)
+        {
+            return GetUserBy("PersonID", personID, ref UserID, ref personID, ref userName, ref password, ref isActive);
+        }
         public static bool GetUserByUserName(string UserName, ref int UserID, ref int personID, ref string password, ref bool isActive)
         {
             return GetUserBy("UserName", UserName, ref UserID, ref personID, ref UserName, ref password, ref isActive);
         }
-        public static bool isExist(int UserID)
+        private static bool _IsExistBy(string column, object Val)
         {
             bool found = false;
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
 
-            string query = $"SELECT Found=1 FROM Users WHERE UserID = @UserID;";
+            string query = $"SELECT Found=1 FROM Users WHERE {column} = @Val;";
             SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@UserID", UserID);
+            command.Parameters.AddWithValue("@Val", Val);
 
             try
             {
@@ -228,37 +232,21 @@ namespace DVLD_DataAccess
 
             return found;
         }
-        public static bool isExist(string userName)
+        public static bool isExistByUserID(int UserID)
         {
-            bool found = false;
-
-            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
-
-            string query = $"SELECT Found=1 FROM Users WHERE UserName = @UserName;";
-            SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@UserName", userName);
-
-            try
-            {
-                connection.Open();
-                object result = command.ExecuteScalar();
-                found = (result != null);
-            }
-            catch (Exception ex)
-            {
-                found = false;
-                throw;
-            }
-            finally
-            {
-                connection.Close();
-            }
-
-            return found;
+            return _IsExistBy("UserID", UserID);
+        }
+        public static bool isExistByUserName(string userName)
+        {
+            return _IsExistBy("UserName", userName);
+        }
+        public static bool isExistByPersonID(int personID)
+        {
+            return _IsExistBy("PersonID", personID);
         }
         public static bool UpdateUser(int ID, int personID, string userName, string password, bool isActive)
         {
-            if (!isExist(ID))
+            if (!isExistByUserID(ID))
                 return false;
 
             int rowsAffected = 0;
@@ -295,7 +283,7 @@ namespace DVLD_DataAccess
         }
         public static bool SetActive(int ID, bool val)
         {
-            if (!isExist(ID))
+            if (!isExistByUserID(ID))
                 return false;
 
             int rowsAffected = 0;
@@ -328,7 +316,7 @@ namespace DVLD_DataAccess
         }      
         public static bool DeleteUser(int ID)
         {
-            if (!isExist(ID))
+            if (!isExistByUserID(ID))
                 return false;
 
             int rowsAffected = 0;

@@ -51,7 +51,7 @@
             this.groupBox1.Size = new System.Drawing.Size(1128, 100);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Find Person";
+            this.groupBox1.Text = "FindByUserID Person";
             // 
             // btn_AddNewPerson
             // 

@@ -34,7 +34,7 @@ namespace DVLD_Presentation.UserControls
                 ctrlPersonCard1.LoadPerson(Driver.PersonID);
 
                 lbDriverID.Text = Driver.DriverID.ToString();
-                lbCreatedByUserName.Text = UserService.Find(Driver.CreatedByUserID).UserName;
+                lbCreatedByUserName.Text = UserService.FindByUserID(Driver.CreatedByUserID).UserName;
                 lbCreatedDate.Text = Driver.CreatedDate.ToShortDateString();
                 lbTotalAvailableLicenses.Text = DriverService.GetTotalAvailableLicenses(Driver.DriverID).ToString();
             }

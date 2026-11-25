@@ -34,7 +34,7 @@ namespace DVLD_Presentation.UserControls
                 lbFees.Text = ApplicationTypeService.Find((int)application.Type).Fees.ToString();
                 lbType.Text = ApplicationTypeService.Find((int)application.Type).Title.ToString();
                 lbDate.Text = application.Date.ToString();
-                lbCreatedBy.Text = UserService.Find(application.CreatedByUserID).UserName;
+                lbCreatedBy.Text = UserService.FindByUserID(application.CreatedByUserID).UserName;
             }
             catch(Exception ex)
             {

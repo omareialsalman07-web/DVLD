@@ -20,6 +20,10 @@ namespace DVLD_Business
 
             try
             {
+                User u = FindByPersonID(user.PersonID);
+                if (u != null)
+                    throw new Exception($"This Person already has a user with user name : [{u.UserName}]");
+
                 _id = UserData.AddNewUser(user.PersonID, user.UserName, user.Password, user.IsActive);
             }
             catch (Exception ex)
@@ -103,7 +107,7 @@ namespace DVLD_Business
 
             return dt;
         }
-        public static User Find(int userID)
+        public static User FindByUserID(int userID)
         {
             User user = null;
 
@@ -129,7 +133,7 @@ namespace DVLD_Business
 
             return user;
         }
-        public static User Find(string userName)
+        public static User FindUserName(string userName)
         {
             User user = null;
 
@@ -141,6 +145,32 @@ namespace DVLD_Business
             try
             {
                 if (UserData.GetUserByUserName(userName, ref userID, ref personID, ref password, ref isActive))
+                {
+                    user = new User(userID, personID, userName, password, isActive);
+                }
+                else
+                    user = null;
+            }
+            catch (Exception ex)
+            {
+                user = null;
+                throw;
+            }
+
+            return user;
+        }
+        public static User FindByPersonID(int personID)
+        {
+            User user = null;
+
+            int userID = -1;
+            string userName = "";
+            string password = "";
+            bool isActive = false;
+
+            try
+            {
+                if (UserData.GetUserByPersonID(personID, ref userID, ref userName, ref password, ref isActive))
                 {
                     user = new User(userID, personID, userName, password, isActive);
                 }
@@ -171,13 +201,13 @@ namespace DVLD_Business
 
             return success;
         }
-        public static bool isExist(int ID)
+        public static bool isExistByUserID(int ID)
         {
             bool success = false;
 
             try
             {
-                success = UserData.isExist(ID);
+                success = UserData.isExistByUserID(ID);
             }
             catch (Exception ex)
             {
@@ -187,13 +217,29 @@ namespace DVLD_Business
 
             return success;
         }
-        public static bool isExist(string userName)
+        public static bool isExistByUserName(string userName)
         {
             bool success = false;
 
             try
             {
-                success = UserData.isExist(userName);
+                success = UserData.isExistByUserName(userName);
+            }
+            catch (Exception ex)
+            {
+                success = false;
+                throw;
+            }
+
+            return success;
+        }
+        public static bool isExistByPersonID(int personID)
+        {
+            bool success = false;
+
+            try
+            {
+                success = UserData.isExistByPersonID(personID);
             }
             catch (Exception ex)
             {

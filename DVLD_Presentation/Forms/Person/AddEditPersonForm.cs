@@ -53,7 +53,7 @@ namespace DVLD_Presentation.Forms
             px_PersonImage.Image = Resources.Male;
             lbTitle.Text = (_Mode == enMode.eAddNew) ? "Add New Person" : "Update Person Info";
             loadCountries();
-            // Find the index of the item that matches "Jordan"
+            // FindByUserID the index of the item that matches "Jordan"
             int index = cbCountries.FindStringExact("Jordan");
 
             // If found, set it as the selected index
