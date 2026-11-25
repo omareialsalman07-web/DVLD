@@ -64,10 +64,10 @@ namespace DVLD_Business
             {
                 Driver driver = new Driver
                 (
-                    driverID: Convert.ToInt32(row["DriverID"]),
-                    personID: Convert.ToInt32(row["PersonID"]),
+                    driverID: Convert.ToInt32(row["DriverInfo"]),
+                    personID: Convert.ToInt32(row["PersonInfo"]),
                     createdDate: Convert.ToDateTime(row["CreatedDate"]),
-                    createdByUserID: Convert.ToInt32(row["CreatedByUserID"])
+                    createdByUserID: Convert.ToInt32(row["CreatedByUserInfo"])
                 );
 
                 driversList.Add(driver);

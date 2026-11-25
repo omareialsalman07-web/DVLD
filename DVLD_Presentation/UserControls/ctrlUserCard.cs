@@ -38,7 +38,7 @@ namespace DVLD_Presentation.UserControls
                 MessageBox.Show("Can't load a user!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            ctrlPersonCard1.LoadPerson(user.PersonID);
+            ctrlPersonCard1.LoadPerson(user.PersonInfo);
 
             lb_UserID.Text = user.ID.ToString();
             lb_UserName.Text = user.UserName;

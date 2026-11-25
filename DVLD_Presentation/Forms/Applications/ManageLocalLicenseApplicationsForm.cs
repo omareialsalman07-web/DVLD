@@ -43,7 +43,7 @@ namespace DVLD_Presentation.Forms
                 MessageBox.Show("Please select an item!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            int LocalLicenseApplicationID = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["LocalLicenseApplicationID"].Value);
+            int LocalLicenseApplicationID = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["LocalLicenseApplicationInfo"].Value);
             try
             {
                 if (LocalLicenseApplicationService.Cancle(LocalLicenseApplicationID))
@@ -91,7 +91,7 @@ namespace DVLD_Presentation.Forms
 
             sToolStripMenuItem.Enabled = !TestService.IsPassedTest(enTestType.ePracticalTest, _SelectedLLA_ID);
 
-            enApplicationStatus status = ApplicationService.Find(LocalLicenseApplicationService.Find(_SelectedLLA_ID).ApplicationID).Status;
+            enApplicationStatus status = LocalLicenseApplicationService.Find(_SelectedLLA_ID).ApplicationInfo.Status;
             if (status == enApplicationStatus.eNew)
                 issueLicenseFirstTimeToolStripMenuItem.Enabled = TestService.IsPassedTest(enTestType.ePracticalTest, _SelectedLLA_ID);
             else
@@ -162,8 +162,9 @@ namespace DVLD_Presentation.Forms
 
             try
             {
-                DVLD_Business.Application Application = ApplicationService.Find(LocalLicenseApplicationService.Find(_SelectedLLA_ID).ApplicationID);
-                int LocalLicenseID = LocalLicenseService.FindByLicenseID(LicenseService.FindByApplicationID(Application.ApplicationID).LicenseID).LicenseID;
+              
+                DVLD_Business.Application Application = LocalLicenseApplicationService.Find(_SelectedLLA_ID).ApplicationInfo;
+                int LocalLicenseID = LicenseService.FindByApplicationID(Application.ApplicationID).LicenseID;
 
                 Form localLicenseCardForm = new LocalLicenceCardForm(LocalLicenseID);
                 localLicenseCardForm.ShowDialog();

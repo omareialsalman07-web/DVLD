@@ -44,8 +44,8 @@ namespace DVLD_Business
             if (localLicense == null)
                 throw new InvalidOperationException($"Local license [{localLicenseID}] does not exist.");
 
-            if(InternationalLicenseData.HasActiveLicese(localLicense.DriverID))
-                throw new InvalidOperationException($"the driver with ID[{localLicense.DriverID}] already has an active international license!");
+            if(InternationalLicenseData.HasActiveLicese(localLicense.DriverInfo.DriverID))
+                throw new InvalidOperationException($"the driver with ID[{localLicense.DriverInfo}] already has an active international license!");
 
             // Validate the local license class.
             if (localLicense.LicenseClass.LicenseClassID != RequiredLicenseClassID)
@@ -87,7 +87,7 @@ namespace DVLD_Business
                 throw new InvalidOperationException("Failed to create international license application.");
 
             // Detain the common license record.
-            int licenseID = LicenseService.Create(enLicenseIssueType.eFirstTime, localLicense.DriverID, applicationID, createdByUserID);
+            int licenseID = LicenseService.Create(enLicenseIssueType.eFirstTime, localLicense.DriverInfo.DriverID, applicationID, createdByUserID);
 
             if (licenseID == -1)
                 throw new InvalidOperationException("Failed to create license.");
@@ -131,7 +131,7 @@ namespace DVLD_Business
                 throw new InvalidOperationException("Failed to create renewal application.");
 
             // Detain the new common license.
-            int newLicenseID = LicenseService.Create(issueType, oldLicense.DriverID, applicationID, createdByUserID);
+            int newLicenseID = LicenseService.Create(issueType, oldLicense.DriverInfo.DriverID, applicationID, createdByUserID);
 
             if (newLicenseID == -1)
                 throw new InvalidOperationException("Failed to create replacement license.");

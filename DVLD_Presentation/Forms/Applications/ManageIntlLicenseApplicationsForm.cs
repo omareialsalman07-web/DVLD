@@ -41,7 +41,7 @@ namespace DVLD_Presentation.Forms
                 return;
             }
 
-            _SelectedDriverID = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["DriverID"].Value);
+            _SelectedDriverID = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["DriverInfo"].Value);
             _SelectedInternationalLicenseID = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["LicenseID"].Value);
         }
 

@@ -140,8 +140,7 @@ namespace DVLD_Presentation.Forms
 
             try
             {
-                User userToEdit = UserService.FindByUserID(int.Parse(lst_Users.SelectedItems[0].Text));
-                AddEditUser addNewUserForm = new AddEditUser(AddEditUser.enMode.eEdit, userToEdit);
+                AddEditUser addNewUserForm = new AddEditUser(AddEditUser.enMode.eEdit, int.Parse(lst_Users.SelectedItems[0].Text));
                 addNewUserForm.on_Create_Update_UserFinsh += _OnAddEditFormClose;
                 addNewUserForm.ShowDialog();
             }

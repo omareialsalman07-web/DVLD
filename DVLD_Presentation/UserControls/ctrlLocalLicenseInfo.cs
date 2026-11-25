@@ -23,36 +23,35 @@ namespace DVLD_Presentation.UserControls
         {
             try
             {
-                LocalLicense localLicense = LocalLicenseService.Find(LocalLicenseID);;
-                Person person = PersonService.Find(DriverService.Find(localLicense.DriverID).PersonID);
+                LocalLicense localLicense = LocalLicenseService.Find(LocalLicenseID);
 
-                lbName.Text = person.FullName();
+                lbName.Text = localLicense.DriverInfo.PersonInfo.FullName();
                 lbClass.Text = localLicense.LicenseClass.ClassName;
                 lbLocalLicenseID.Text = localLicense.LicenseID.ToString();
-                lbNationalNo.Text = person.NationalNo;
-                lbGendor.Text = person.Gendor.ToString();
+                lbNationalNo.Text = localLicense.DriverInfo.PersonInfo.NationalNo;
+                lbGendor.Text = localLicense.DriverInfo.PersonInfo.Gendor.ToString();
                 lbIssueDate.Text = localLicense.IssueDate.ToShortDateString();
                 lbIssueReason.Text = localLicense.IssueType.ToString();
 
                 lbIsActive.Text = localLicense.IsActive? "Yes" : "No";
-                lbDriverID.Text = localLicense.DriverID.ToString();
-                lbDOB.Text = person.DateOfBirth.ToShortDateString();
+                lbDriverID.Text = localLicense.DriverInfo.DriverID.ToString();
+                lbDOB.Text = localLicense.DriverInfo.PersonInfo.DateOfBirth.ToShortDateString();
                 lbIsDetained.Text = localLicense.IsDetained() ? "Yes" : "No";
                 lbExpirationDate.Text = localLicense.ExpirationDate().ToShortDateString();
 
                 // Load into a temporary image, create a cloned Bitmap, and close the file stream immediately
                 PersonImage.Image?.Dispose();
 
-                if (!string.IsNullOrEmpty(person.ImagePath))
+                if (!string.IsNullOrEmpty(localLicense.DriverInfo.PersonInfo.ImagePath))
                 {
-                    using (var tempImg = Image.FromFile(person.ImagePath))
+                    using (var tempImg = Image.FromFile(localLicense.DriverInfo.PersonInfo.ImagePath))
                     {
                         PersonImage.Image = new Bitmap(tempImg);
                     }
                 }
                 else
                 {
-                    PersonImage.Image = (person.Gendor == Person.enGendor.Male) ? Resources.Male : Resources.Female;
+                    PersonImage.Image = (localLicense.DriverInfo.PersonInfo.Gendor == Person.enGendor.Male) ? Resources.Male : Resources.Female;
                 }
             }
             catch (Exception ex)

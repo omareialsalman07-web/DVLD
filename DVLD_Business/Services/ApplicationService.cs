@@ -93,12 +93,12 @@ namespace DVLD_Business
             {
                 Application application = new Application
                 (
-                    applicationID: Convert.ToInt32(row["ApplicationID"]),
+                    applicationID: Convert.ToInt32(row["ApplicationInfo"]),
                     date: Convert.ToDateTime(row["ApplicationDate"]),
                     applicationType: (enApplicationType)Convert.ToInt32(row["Date"]),
                     status: (enApplicationStatus)Convert.ToInt32(row["Status"]),
                     paidFees: Convert.ToSingle(row["PaidFees"]),
-                    createdByUserID: Convert.ToInt32(row["CreatedByUserID"])
+                    createdByUserID: Convert.ToInt32(row["CreatedByUserInfo"])
                 );
 
                 applicationsList.Add(application);

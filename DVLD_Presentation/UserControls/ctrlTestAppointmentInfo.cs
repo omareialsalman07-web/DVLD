@@ -17,15 +17,14 @@ namespace DVLD_Presentation.UserControls
     {
         public enum enMode { eShow, eAddNew, eEdit };
         enMode _Mode;
-        private int _TestAppointmentID;
-        private int _LocalLicenseApplicationID;
+        private TestAppointment _TestAppointment;
+        private DVLD_Business.LocalLicenseApplication _LocalLicenseApplication;
         public float TotalFees { get; private set; }
         private Test _Test;
-
         public ctrlTestAppointmentInfo()
         {
             InitializeComponent();
-            _LocalLicenseApplicationID = -1;
+            _LocalLicenseApplication = null;
             _Test = null;
         }
         public void LoadTestAppointmentInfo(int TestAppointmentID, enMode mode)
@@ -35,14 +34,13 @@ namespace DVLD_Presentation.UserControls
             try
             {
                 _Mode = mode;
-                _TestAppointmentID = TestAppointmentID;
-                TestAppointment testAppointment = TestAppointmentService.Find(_TestAppointmentID);
-                if (testAppointment == null)
+                _TestAppointment = TestAppointmentService.Find(TestAppointmentID);
+                if (_TestAppointment == null)
                 {
-                    ShowErrorMessage($"Couldn't find Test Appointment.\n\n{_TestAppointmentID}");
+                    ShowErrorMessage($"Couldn't find Test Appointment.\n\n{TestAppointmentID}");
                     return;
                 }
-                _Test = TestService.Find(testAppointment.TestID);
+                _Test = _TestAppointment.TestInfo;
 
                 InitializeFormTitle();
                 LoadTestInformation();
@@ -61,7 +59,7 @@ namespace DVLD_Presentation.UserControls
         {
             try
             {
-                _TestAppointmentID = -1;
+                _TestAppointment = null;
                 _Mode = Mode;
                 _Test = new Test(-1, TestType, TestType, null, "", LocalLicenseApplicationID, DVLD_Settings.GetCurrnetUser().ID); // temp test for show
 
@@ -111,20 +109,20 @@ namespace DVLD_Presentation.UserControls
 
         private void LoadTestInformation()
         {
-            lbLocalLicenseID.Text = _Test.LocalLicenseApplicationID.ToString();
+            lbLocalLicenseID.Text = _Test.LocalLicenseApplicationInfo.LocalLicenseApplicationID.ToString();
 
             lbTestID.Text = (_Test.TestID == -1)? "N/A" : _Test.TestID.ToString();
             switch(_Mode)
             {
                 case enMode.eShow:
-                    dateTimePicker1.Value = TestAppointmentService.Find(_TestAppointmentID).Date;
+                    dateTimePicker1.Value = _TestAppointment.Date;
                     dateTimePicker1.Enabled = false;
                     break;
                 case enMode.eAddNew:
                     dateTimePicker1.Value = DateTime.Today;
                     break;
                 case enMode.eEdit:
-                    dateTimePicker1.Value = TestAppointmentService.Find(_TestAppointmentID).Date;
+                    dateTimePicker1.Value = _TestAppointment.Date;
                     break;
             }
 
@@ -135,23 +133,18 @@ namespace DVLD_Presentation.UserControls
 
         private void LoadLicenseClassInformation()
         {
-            int localLicenseID = _Test.LocalLicenseApplicationID;
-            int licenseClassID = LocalLicenseApplicationService.Find(localLicenseID).LicenseClassID;
-            lbClass.Text = LicenseClassService.Find(licenseClassID).ClassName;
+            lbClass.Text = _Test.LocalLicenseApplicationInfo.LicenseClassInfo.ClassName;
         }
 
         private void LoadPersonInformation()
         {
-            int localLicenseID = _Test.LocalLicenseApplicationID;
-            int personID = LocalLicenseApplicationService.Find(localLicenseID).PersonID;
-            Person person = PersonService.Find(personID);
-
-            lbPersonName.Text = person.FirstName + " " + person.LastName;
+            lbPersonName.Text = _Test.LocalLicenseApplicationInfo.PersonInfo.FirstName + " " 
+                + _Test.LocalLicenseApplicationInfo.PersonInfo.FirstName;
         }
 
         private void LoadTestStatistics()
         {
-            lbTrails.Text = LocalLicenseApplicationService.GetTotalTestTrials(_Test.LocalLicenseApplicationID, _Test.TestType).ToString();
+            lbTrails.Text = LocalLicenseApplicationService.GetTotalTestTrials(_Test.LocalLicenseApplicationInfo.LocalLicenseApplicationID, _Test.TestType).ToString();
 
             float testFees = TestTypeService.Find((int)_Test.TestType).Fees;
 
@@ -165,7 +158,7 @@ namespace DVLD_Presentation.UserControls
 
             if (_Mode == enMode.eAddNew)
             {
-                if (LocalLicenseApplicationService.HasTakenTestAppointment(_Test.LocalLicenseApplicationID, _Test.TestType))
+                if (LocalLicenseApplicationService.HasTakenTestAppointment(_Test.LocalLicenseApplicationInfo.LocalLicenseApplicationID, _Test.TestType))
                 {
                     lb_RetakeTestAppID.Text = "N/A";
                     lbRetakeFees.Text = retakeFees.ToString();
@@ -178,10 +171,9 @@ namespace DVLD_Presentation.UserControls
             }
             else
             {
-                int _RetakeTestApplicationID = TestAppointmentService.Find(_TestAppointmentID).RetakeTestApplicationID;
-                if (_RetakeTestApplicationID != -1)
+                if (_TestAppointment.RetakeTestApplicationInfo != null)
                 {
-                    lb_RetakeTestAppID.Text = _RetakeTestApplicationID.ToString();
+                    lb_RetakeTestAppID.Text = _TestAppointment.RetakeTestApplicationInfo.ApplicationID.ToString();
                     lbRetakeFees.Text = retakeFees.ToString();
                 }
                 else

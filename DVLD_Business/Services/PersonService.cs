@@ -140,7 +140,7 @@ namespace DVLD_Business
             {
                 Person person = new Person
                 (
-                    ID: Convert.ToInt32(row["PersonID"]),
+                    ID: Convert.ToInt32(row["PersonInfo"]),
                     NationalNo: row["NationalNo"]?.ToString(),
                     FirstName: row["FirstName"]?.ToString(),
                     SecondName: row["SecondName"]?.ToString(),

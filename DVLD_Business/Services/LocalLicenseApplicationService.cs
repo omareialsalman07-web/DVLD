@@ -63,10 +63,10 @@ namespace DVLD_Business
             {
                 LocalLicenseApplication LocalLicenseApplication = new LocalLicenseApplication
                 (
-                    LocalLicenseApplicationID: Convert.ToInt32(row["LocalLicenseApplicationID"]),
-                    ApplicationID: Convert.ToInt32(row["ApplicationID"]),
+                    LocalLicenseApplicationID: Convert.ToInt32(row["LocalLicenseApplicationInfo"]),
+                    ApplicationID: Convert.ToInt32(row["ApplicationInfo"]),
                     LicenseClassID: Convert.ToInt32(row["GetLicenseClassID"]),
-                    PersonID: Convert.ToInt32(row["PersonID"])
+                    PersonID: Convert.ToInt32(row["PersonInfo"])
                 );
 
                 LocalLicenseApplicationsList.Add(LocalLicenseApplication);

@@ -66,7 +66,7 @@ namespace DVLD_Console
                     foreach (System.Data.DataRow row in dtPeople.Rows)
                     {
                         Console.WriteLine(string.Format("{0,-5} | {1,-12} | {2,-15} | {3,-15} | {4,-20}",
-                            row["PersonID"],
+                            row["PersonInfo"],
                             row["NationalNo"],
                             row["FirstName"],
                             row["LastName"],
@@ -104,7 +104,7 @@ namespace DVLD_Console
                     foreach (System.Data.DataRow row in dtPeople.Rows)
                     {
                         Console.WriteLine(string.Format("{0,-5} | {1,-12} | {2,-15} | {3,-15} | {4,-20}",
-                        row["PersonID"],
+                        row["PersonInfo"],
                         row["NationalNo"],
                         row["FirstName"],
                         row["LastName"],

@@ -110,9 +110,9 @@ namespace DVLD_Presentation.Forms
                 }
 
                 if(_Mode == enMode.eRelease)
-                    ctrlBasicApplicationInfo1.LoadApplication(_SelectedLicese.ApplicationID);
+                    ctrlBasicApplicationInfo1.LoadApplication(_SelectedLicese.ApplicationInfo.ApplicationID);
 
-                _Detained_ReleasedForDriverID = _SelectedLicese.DriverID;
+                _Detained_ReleasedForDriverID = _SelectedLicese.DriverInfo.DriverID;
                 btn_Detain_Release.Enabled = false;
                 _Detained_ReleasedLicense = true;
                 lknl_ShowLicenseInfo.Enabled = true;

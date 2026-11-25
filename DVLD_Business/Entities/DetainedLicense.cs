@@ -10,10 +10,10 @@ namespace DVLD_Business
         public bool IsReleased { get; }
         public DateTime DetainedDate { get; }
         public DateTime? ReleasedDate { get; }
-        public int CreatedByUserID { get; }
-        public int? ReleasedByUserID { get; }
+        public User CreatedByUserInfo { get; }
+        public User ReleasedByUserInfo { get; }
         public float FineFees { get; }
-        public int? ReleaseApplicationID { get; }
+        public Application ReleaseApplicationInfo { get; }
 
         public DetainedLicense(int licenseID, bool isReleased, DateTime detainedDate,
             DateTime? releasedDate, int createdByUserID, int? releasedByUserID,
@@ -23,10 +23,10 @@ namespace DVLD_Business
             IsReleased = isReleased;
             DetainedDate = detainedDate;
             ReleasedDate = releasedDate;
-            CreatedByUserID = createdByUserID;
-            ReleasedByUserID = releasedByUserID;
+            CreatedByUserInfo = UserService.FindByUserID(createdByUserID);
+            ReleasedByUserInfo = (releasedByUserID != null)? UserService.FindByUserID(releasedByUserID.Value) : null;
             FineFees = fineFees;
-            ReleaseApplicationID = releaseApplicationID;
+            ReleaseApplicationInfo = (releaseApplicationID != null) ? ApplicationService.Find(releaseApplicationID.Value) : null;
         }
 
         public DetainedLicense(int detainedLicenseID, int licenseID, bool isReleased,

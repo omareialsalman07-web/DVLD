@@ -261,6 +261,7 @@
             // 
             // pictureBox9
             // 
+            this.pictureBox9.Image = global::DVLD_Presentation.Properties.Resources.Question_32;
             this.pictureBox9.Location = new System.Drawing.Point(635, 258);
             this.pictureBox9.Name = "pictureBox9";
             this.pictureBox9.Size = new System.Drawing.Size(31, 25);
@@ -270,6 +271,7 @@
             // 
             // pictureBox10
             // 
+            this.pictureBox10.Image = global::DVLD_Presentation.Properties.Resources.Question_32;
             this.pictureBox10.Location = new System.Drawing.Point(635, 129);
             this.pictureBox10.Name = "pictureBox10";
             this.pictureBox10.Size = new System.Drawing.Size(31, 25);
@@ -279,6 +281,7 @@
             // 
             // pictureBox11
             // 
+            this.pictureBox11.Image = global::DVLD_Presentation.Properties.Resources.id_card;
             this.pictureBox11.Location = new System.Drawing.Point(635, 172);
             this.pictureBox11.Name = "pictureBox11";
             this.pictureBox11.Size = new System.Drawing.Size(31, 25);
@@ -288,6 +291,7 @@
             // 
             // pictureBox12
             // 
+            this.pictureBox12.Image = global::DVLD_Presentation.Properties.Resources.Datetime;
             this.pictureBox12.Location = new System.Drawing.Point(635, 301);
             this.pictureBox12.Name = "pictureBox12";
             this.pictureBox12.Size = new System.Drawing.Size(31, 25);
@@ -297,6 +301,7 @@
             // 
             // pictureBox13
             // 
+            this.pictureBox13.Image = global::DVLD_Presentation.Properties.Resources.Datetime;
             this.pictureBox13.Location = new System.Drawing.Point(635, 215);
             this.pictureBox13.Name = "pictureBox13";
             this.pictureBox13.Size = new System.Drawing.Size(31, 25);
@@ -308,7 +313,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(471, 258);
+            this.label9.Location = new System.Drawing.Point(463, 258);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(133, 25);
             this.label9.TabIndex = 21;
@@ -318,7 +323,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(471, 129);
+            this.label10.Location = new System.Drawing.Point(463, 129);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(107, 25);
             this.label10.TabIndex = 20;
@@ -328,7 +333,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(471, 172);
+            this.label11.Location = new System.Drawing.Point(463, 172);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(103, 25);
             this.label11.TabIndex = 19;
@@ -338,7 +343,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(471, 301);
+            this.label12.Location = new System.Drawing.Point(463, 301);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(166, 25);
             this.label12.TabIndex = 18;
@@ -348,7 +353,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(471, 215);
+            this.label13.Location = new System.Drawing.Point(463, 215);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(138, 25);
             this.label13.TabIndex = 17;
@@ -356,6 +361,7 @@
             // 
             // pictureBox7
             // 
+            this.pictureBox7.Image = global::DVLD_Presentation.Properties.Resources.Question_32;
             this.pictureBox7.Location = new System.Drawing.Point(164, 301);
             this.pictureBox7.Name = "pictureBox7";
             this.pictureBox7.Size = new System.Drawing.Size(31, 25);
@@ -365,6 +371,7 @@
             // 
             // pictureBox6
             // 
+            this.pictureBox6.Image = global::DVLD_Presentation.Properties.Resources.Datetime;
             this.pictureBox6.Location = new System.Drawing.Point(164, 258);
             this.pictureBox6.Name = "pictureBox6";
             this.pictureBox6.Size = new System.Drawing.Size(31, 25);
@@ -374,6 +381,7 @@
             // 
             // pictureBox5
             // 
+            this.pictureBox5.Image = global::DVLD_Presentation.Properties.Resources.gender;
             this.pictureBox5.Location = new System.Drawing.Point(164, 215);
             this.pictureBox5.Name = "pictureBox5";
             this.pictureBox5.Size = new System.Drawing.Size(31, 25);
@@ -383,6 +391,7 @@
             // 
             // pictureBox4
             // 
+            this.pictureBox4.Image = global::DVLD_Presentation.Properties.Resources.id_card;
             this.pictureBox4.Location = new System.Drawing.Point(164, 172);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(31, 25);
@@ -392,6 +401,7 @@
             // 
             // pictureBox3
             // 
+            this.pictureBox3.Image = global::DVLD_Presentation.Properties.Resources.driver_license;
             this.pictureBox3.Location = new System.Drawing.Point(164, 129);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(31, 25);
@@ -401,6 +411,7 @@
             // 
             // pictureBox2
             // 
+            this.pictureBox2.Image = global::DVLD_Presentation.Properties.Resources.driver_license;
             this.pictureBox2.Location = new System.Drawing.Point(164, 86);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(31, 25);
@@ -410,6 +421,7 @@
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Image = global::DVLD_Presentation.Properties.Resources.name;
             this.pictureBox1.Location = new System.Drawing.Point(164, 43);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(31, 25);

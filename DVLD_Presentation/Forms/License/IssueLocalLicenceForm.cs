@@ -29,7 +29,7 @@ namespace DVLD_Presentation.Forms
 
             try
             {
-                lb_ClassFees.Text = LicenseClassService.Find(LocalLicenseApplicationService.Find(_LLApplicationID).LicenseClassID).ClassFees.ToString();
+                lb_ClassFees.Text = LocalLicenseApplicationService.Find(_LLApplicationID).LicenseClassInfo.ClassFees.ToString();
             }
             catch (Exception ex)
             {

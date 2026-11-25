@@ -20,30 +20,21 @@ namespace DVLD_Business
             return LicenseService.FindByLicenseID(localLicenseID) as LocalLicense;
         }
 
-        public static LocalLicense FindByLicenseID(int licenseID)
-        {
-            return LicenseService.FindByLicenseID(licenseID) as LocalLicense;
-        }
 
 
         public static int CreateFirstTime(int localLicenseApplicationID, int createdByUserID)
         {
-            LocalLicenseApplication application = LocalLicenseApplicationService.Find(localLicenseApplicationID);
+            LocalLicenseApplication localLicenseApplication = LocalLicenseApplicationService.Find(localLicenseApplicationID);
 
-            if (application == null)
-                throw new InvalidOperationException($"Local license application [{localLicenseApplicationID}] does not exist.");
+            if (localLicenseApplication == null)
+                throw new InvalidOperationException($"Local license localLicenseApplication [{localLicenseApplicationID}] does not exist.");
 
-            Application baseApplication = ApplicationService.Find(application.ApplicationID);
-
-            if (baseApplication == null)
-                throw new InvalidOperationException("The associated application does not exist.");
-
-            if (baseApplication.Status == enApplicationStatus.eCancelled)
+            if (localLicenseApplication.ApplicationInfo.Status == enApplicationStatus.eCancelled)
                 throw new InvalidOperationException(
-                    $"Cannot issue a local license for cancelled application [{application.ApplicationID}].");
+                    $"Cannot issue a local license for cancelled localLicenseApplication [{localLicenseApplication.ApplicationInfo.ApplicationID}].");
 
-            if (baseApplication.Status == enApplicationStatus.eCompleted)
-                throw new InvalidOperationException($"Application [{application.ApplicationID}] is already completed.");
+            if (localLicenseApplication.ApplicationInfo.Status == enApplicationStatus.eCompleted)
+                throw new InvalidOperationException($"Application [{localLicenseApplication.ApplicationInfo.ApplicationID}] is already completed.");
 
             int totalPassedTests = LocalLicenseApplicationService.GetTotalPassedTests(localLicenseApplicationID);
 
@@ -52,13 +43,12 @@ namespace DVLD_Business
                     $"The applicant has only passed {totalPassedTests} out of 3 required tests.");
 
             // FindByUserID or create the driver.
-            Driver driver =
-                DriverService.FindByPersonID(application.PersonID);
+            Driver driver = DriverService.FindByPersonID(localLicenseApplication.PersonInfo.ID);
 
             if (driver == null)
             {
                 int driverID = DriverService.Create(
-                    application.PersonID,
+                    localLicenseApplication.PersonInfo.ID,
                     createdByUserID);
 
                 if (driverID == -1)
@@ -73,20 +63,20 @@ namespace DVLD_Business
                     "Failed to retrieve the newly created driver.");
 
             // Detain the common license record.
-            int licenseID = LicenseService.Create(enLicenseIssueType.eFirstTime, driver.DriverID, application.ApplicationID, createdByUserID);
+            int licenseID = LicenseService.Create(enLicenseIssueType.eFirstTime, driver.DriverID, localLicenseApplication.ApplicationInfo.ApplicationID, createdByUserID);
 
             if (licenseID == -1)
                 throw new InvalidOperationException(
                     "Failed to create license.");
 
             // Detain the local license record.
-            if (!LocalLicenseData.CreateLocalLicense(licenseID, application.LicenseClassID))
+            if (!LocalLicenseData.CreateLocalLicense(licenseID, localLicenseApplication.LicenseClassInfo.LicenseClassID))
                 throw new InvalidOperationException(
                     "Failed to create local license.");
 
-            if (!ApplicationService.Complete(application.ApplicationID))
+            if (!ApplicationService.Complete(localLicenseApplication.ApplicationInfo.ApplicationID))
                 throw new InvalidOperationException(
-                    "The license was created, but the application could not be completed.");
+                    "The license was created, but the localLicenseApplication could not be completed.");
 
             return licenseID;
         }
@@ -116,18 +106,18 @@ namespace DVLD_Business
             ApplicationType applicationType = ApplicationTypeService.Find(applicationTypeID);
 
             if (applicationType == null)
-                throw new InvalidOperationException("Renewal application type does not exist.");
+                throw new InvalidOperationException("Renewal localLicenseApplication type does not exist.");
 
             int applicationID = ApplicationData.CreateApplication(applicationTypeID, DateTime.Today, (int)enApplicationStatus.eNew,
                 applicationType.Fees, createdByUserID);
 
             if (applicationID == -1)
-                throw new InvalidOperationException("Failed to create renewal application.");
+                throw new InvalidOperationException("Failed to create renewal localLicenseApplication.");
 
             // Detain the new common license.
             int newLicenseID = LicenseService.Create(
                 issueType,
-                oldLicense.DriverID,
+                oldLicense.DriverInfo.DriverID,
                 applicationID,
                 createdByUserID);
 
@@ -147,7 +137,7 @@ namespace DVLD_Business
 
             if (!ApplicationService.Complete(applicationID))
                 throw new InvalidOperationException(
-                    "The new license was created, but the application could not be completed.");
+                    "The new license was created, but the localLicenseApplication could not be completed.");
 
             return newLicenseID;
         }

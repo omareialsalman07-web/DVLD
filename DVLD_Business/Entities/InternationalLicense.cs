@@ -17,7 +17,7 @@ namespace DVLD_Business
             : base(issueTypeID, issueDate, driverID,
                    applicationID, isActive, createdByUserID)
         {
-            LocalLicense = LocalLicenseService.FindByLicenseID(localLicenseID);
+            LocalLicense = LocalLicenseService.Find(localLicenseID);
         }
 
 
@@ -35,7 +35,7 @@ namespace DVLD_Business
                    createdByUserID)
         {
 
-            LocalLicense = LocalLicenseService.FindByLicenseID(localLicenseID);
+            LocalLicense = LocalLicenseService.Find(localLicenseID);
         }
     }
 }

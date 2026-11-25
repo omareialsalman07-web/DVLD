@@ -34,7 +34,7 @@ namespace DVLD_Business
             var test = new Test(testType, prerequisite, false, null,
                                 localLicenseApplicationID, createdByUserID);
 
-            int id = TestData.CreateTest((int)test.TestType, (int)test.PrerequisiteTestType, test.LocalLicenseApplicationID, test.CreatedByUserID);
+            int id = TestData.CreateTest((int)test.TestType, (int)test.PrerequisiteTestType, test.LocalLicenseApplicationInfo.LocalLicenseApplicationID, test.CreatedByUserInfo.ID);
 
             if (id == -1)
                 throw new InvalidOperationException("The test could not be saved.");

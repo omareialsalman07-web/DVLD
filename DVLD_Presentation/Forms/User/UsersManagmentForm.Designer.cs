@@ -81,7 +81,7 @@
             this.UserID.Text = "User ID";
             this.UserID.Width = 84;
             // 
-            // PersonID
+            // PersonInfo
             // 
             this.PersonID.Text = "Person ID";
             this.PersonID.Width = 112;
@@ -261,7 +261,7 @@
             this.cmb_Filter.Items.AddRange(new object[] {
             "None",
             "UserID",
-            "PersonID",
+            "PersonInfo",
             "FullName",
             "UserName",
             "IsActive"});

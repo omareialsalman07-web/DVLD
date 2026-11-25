@@ -69,8 +69,8 @@ namespace DVLD_Business
 
             TestAppointment appointment = new TestAppointment(_TestID, date, false, false, paidFees, createdByUserID, _RetakeTestApplicationID);
 
-            int id = TestAppointmentData.CreateAppointment(appointment.TestID, appointment.Date,
-                                                           appointment.PaidFees, appointment.CreatedByUserID, appointment.RetakeTestApplicationID);
+            int id = TestAppointmentData.CreateAppointment(appointment.TestInfo.TestID, appointment.Date,
+                                                           appointment.PaidFees, appointment.CreatedByUserInfo.ID, _RetakeTestApplicationID);
             if (id == -1)
                 throw new InvalidOperationException("The appointment could not be saved.");
 
@@ -126,7 +126,7 @@ namespace DVLD_Business
             {
                 throw new Exception($"There is no Test Appointment with this ID {TestAppointmentID}");
             }
-            if(!TestData.TakeTest(testAppointment.TestID, Result, Notes))
+            if(!TestData.TakeTest(testAppointment.TestInfo.TestID, Result, Notes))
             {
                 throw new Exception($"Some thing went wen't wrong while taking the Test by Appointmnet ID {TestAppointmentID}");
             }
@@ -150,13 +150,13 @@ namespace DVLD_Business
                 TestAppointment appointment = new TestAppointment
                 (
                     testAppointmentID: Convert.ToInt32(row["TestAppointmentID"]), 
-                    testID: Convert.ToInt32(row["TestID"]),
+                    testID: Convert.ToInt32(row["TestInfo"]),
                     date: Convert.ToDateTime(row["Date"]),
                     isCancelled: Convert.ToBoolean(row["IsCancelled"]),
                     isTaked: Convert.ToBoolean(row["IsTaked"]),
                     paidFees: Convert.ToSingle(row["PaidFees"]),
-                    createdByUserID: Convert.ToInt32(row["CreatedByUserID"]),
-                    retakeTestApplicationID: (row["RetakeTestApplicationID"] != DBNull.Value) ? Convert.ToInt32(row["RetakeTestApplicationID"]) : -1
+                    createdByUserID: Convert.ToInt32(row["CreatedByUserInfo"]),
+                    retakeTestApplicationID: (row["RetakeTestApplicationInfo"] != DBNull.Value) ? Convert.ToInt32(row["RetakeTestApplicationInfo"]) : -1
                 );
 
                 testAppointments.Add(appointment);

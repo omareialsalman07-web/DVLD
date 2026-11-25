@@ -5,13 +5,13 @@ namespace DVLD_Business
     public class TestAppointment
     {
         public int TestAppointmentID { get; }
-        public int TestID { get; }
+        public Test TestInfo { get; }
         public DateTime Date { get; }
         public bool IsCancelled { get; }
         public bool IsTaked { get; }
         public float PaidFees { get; }
-        public int CreatedByUserID { get; }
-        public int RetakeTestApplicationID { get; }
+        public User CreatedByUserInfo { get; }
+        public Application RetakeTestApplicationInfo { get; }
 
         public bool IsExpired() { return Date < DateTime.Now; }
 
@@ -25,13 +25,13 @@ namespace DVLD_Business
             if (createdByUserID <= 0)
                 throw new ArgumentOutOfRangeException(nameof(createdByUserID));
 
-            TestID = testID;
+            TestInfo = TestService.Find(testID);
             Date = date;
             IsCancelled = isCancelled;
             IsTaked = isTaked;
             PaidFees = paidFees;
-            CreatedByUserID = createdByUserID;
-            RetakeTestApplicationID = retakeTestApplicationID;
+            CreatedByUserInfo = UserService.FindByUserID(createdByUserID);
+            RetakeTestApplicationInfo = ApplicationService.Find(retakeTestApplicationID);
         }
         public TestAppointment(int testAppointmentID, int testID, DateTime date,
                                bool isCancelled, bool isTaked, float paidFees, int createdByUserID, int retakeTestApplicationID)

@@ -45,9 +45,9 @@ namespace DVLD_Presentation.UserControls
                 }
 
                 lbID.Text = _LocalLicenseApplication.LocalLicenseApplicationID.ToString();
-                lbApplicedLicenseClass.Text = LicenseClassService.Find(_LocalLicenseApplication.LicenseClassID).ClassName;
+                lbApplicedLicenseClass.Text = _LocalLicenseApplication.LicenseClassInfo.ClassName;
                 lbPassedTests.Text = LocalLicenseApplicationService.GetTotalPassedTests(_LocalLicenseApplication.LocalLicenseApplicationID).ToString() + "/3";
-                ctrlBasicApplicationInfo1.LoadApplication(_LocalLicenseApplication.ApplicationID);
+                ctrlBasicApplicationInfo1.LoadApplication(_LocalLicenseApplication.ApplicationInfo.ApplicationID);
                 
             }
             catch (Exception ex)
@@ -65,7 +65,7 @@ namespace DVLD_Presentation.UserControls
                 return;
             }
 
-            Form personCardForm = new PersonCardForm(_LocalLicenseApplication.PersonID);
+            Form personCardForm = new PersonCardForm(_LocalLicenseApplication.PersonInfo.ID);
             personCardForm.ShowDialog();
         }
     }

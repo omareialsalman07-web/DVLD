@@ -19,7 +19,7 @@ namespace DVLD_Console
 
             Console.WriteLine("------------ Person Card -------------");
             Console.WriteLine("User ID                : " + user.ID);
-            Console.WriteLine("Person ID              : " + user.PersonID);
+            Console.WriteLine("Person ID              : " + user.PersonInfo);
             Console.WriteLine("User Name              : " + user.UserName);
             Console.WriteLine("Password               : " + user.Password);
             Console.WriteLine("Is Active              : " + user.IsActive.ToString());

@@ -9,7 +9,7 @@ namespace DVLD_Business
         public DateTime Date { get; }
         public enApplicationStatus Status { get; }
         public float PaidFees { get; set; }
-        public int CreatedByUserID { get; }
+        public User CreatedByUserInfo { get; }
 
         public Application(enApplicationType applicationType, DateTime date,
                            enApplicationStatus status, float paidFees, int createdByUserID)
@@ -24,7 +24,7 @@ namespace DVLD_Business
             Date = date;
             Status = status;
             PaidFees = paidFees;
-            CreatedByUserID = createdByUserID;
+            CreatedByUserInfo = UserService.FindByUserID(createdByUserID);
         }
 
         public Application(int applicationID, enApplicationType applicationType,

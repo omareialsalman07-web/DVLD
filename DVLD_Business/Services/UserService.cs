@@ -20,11 +20,11 @@ namespace DVLD_Business
 
             try
             {
-                User u = FindByPersonID(user.PersonID);
+                User u = FindByPersonID(user.PersonInfo.ID);
                 if (u != null)
                     throw new Exception($"This Person already has a user with user name : [{u.UserName}]");
 
-                _id = UserData.AddNewUser(user.PersonID, user.UserName, user.Password, user.IsActive);
+                _id = UserData.AddNewUser(user.PersonInfo.ID, user.UserName, user.Password, user.IsActive);
             }
             catch (Exception ex)
             {
@@ -61,7 +61,7 @@ namespace DVLD_Business
                 User user = new User
                 (
                     UserID: Convert.ToInt32(row["UserID"]),
-                    PersronID: Convert.ToInt32(row["PersonID"]),
+                    PersronID: Convert.ToInt32(row["PersonInfo"]),
                     UserName: row["UserName"].ToString(),
                     Password: row["Password"].ToString(),
                     IsActive: Convert.ToBoolean(row["IsActive"])
@@ -191,7 +191,7 @@ namespace DVLD_Business
 
             try
             {
-                success = UserData.UpdateUser(user.ID, user.PersonID, user.UserName, user.Password, user.IsActive);
+                success = UserData.UpdateUser(user.ID, user.PersonInfo.ID, user.UserName, user.Password, user.IsActive);
             }
             catch (Exception ex)
             {

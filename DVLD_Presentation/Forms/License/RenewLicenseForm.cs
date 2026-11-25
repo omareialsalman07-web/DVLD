@@ -82,15 +82,15 @@ namespace DVLD_Presentation.Forms
 
                 if (newLicenseID == -1)
                 {
-                    MessageBox.Show($"Faild To Renew License for driver ID [{_SelectedLicese.DriverID}]!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show($"Faild To Renew License for driver ID [{_SelectedLicese.DriverInfo}]!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
                 MessageBox.Show($"Successfully Created International License with ID [{newLicenseID}]!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                ctrlBasicApplicationInfo1.LoadApplication(_SelectedLicese.ApplicationID);
+                ctrlBasicApplicationInfo1.LoadApplication(_SelectedLicese.ApplicationInfo.ApplicationID);
 
-                _CreatedForDriverID = _SelectedLicese.DriverID;
+                _CreatedForDriverID = _SelectedLicese.DriverInfo.DriverID;
                 btn_Renew.Enabled = false;
                 _RenewedLicense = true;
                 lknl_ShowLicenseInfo.Enabled = true;

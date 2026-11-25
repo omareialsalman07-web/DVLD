@@ -10,10 +10,10 @@ namespace DVLD_Business
         public enLicenseIssueType IssueType { get; }
 
         public DateTime IssueDate { get; }
-        public int DriverID { get; }
-        public int ApplicationID { get; }
+        public Driver DriverInfo { get; }
+        public Application ApplicationInfo { get; }
         public bool IsActive { get; }
-        public int CreatedByUserID { get; }
+        public User CreatedByUserInfo { get; }
 
         public abstract DateTime ExpirationDate();
         public bool IsExpired()
@@ -41,10 +41,10 @@ namespace DVLD_Business
         {
             IssueType = issueTypeID;
             IssueDate = issueDate;
-            DriverID = driverID;
-            ApplicationID = applicationID;
+            DriverInfo = DriverService.Find(driverID);
+            ApplicationInfo = ApplicationService.Find(applicationID);
             IsActive = isActive;
-            CreatedByUserID = createdByUserID;
+            CreatedByUserInfo = UserService.FindByUserID(createdByUserID);
         }
 
         protected License(

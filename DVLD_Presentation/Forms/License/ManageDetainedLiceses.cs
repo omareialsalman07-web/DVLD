@@ -70,7 +70,7 @@ namespace DVLD_Presentation.Forms
             }
 
             _SelectedLicenseID = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["LicenseID"].Value);
-            _SelectedDriverID = LicenseService.FindByLicenseID(_SelectedLicenseID).DriverID;
+            _SelectedDriverID = LicenseService.FindByLicenseID(_SelectedLicenseID).DriverInfo.DriverID;
         }
 
         private void releaseLicenseToolStripMenuItem_Click(object sender, EventArgs e)

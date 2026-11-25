@@ -9,16 +9,16 @@ namespace DVLD_Business
     public class Driver
     {
         public int DriverID { get; }
-        public int PersonID { get; set; }
+        public Person PersonInfo { get; set; }
         public DateTime CreatedDate { get; set; }
-        public int CreatedByUserID { get; set; }
+        public User CreatedByUserInfo { get; set; }
 
         public Driver(int personID,
             DateTime createdDate, int createdByUserID)
         {
-            PersonID = personID;
+            PersonInfo = PersonService.Find(personID);
             CreatedDate = createdDate;
-            CreatedByUserID = createdByUserID;
+            CreatedByUserInfo = UserService.FindByUserID(createdByUserID);
         }
 
         public Driver(int driverID, int personID,

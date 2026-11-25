@@ -19,32 +19,33 @@ namespace DVLD_Presentation
 
         public On_Create_Update_UserFinsh on_Create_Update_UserFinsh;
         enMode Mode;
-        User _User;
-        public AddEditUser(enMode Mode, User user = null)
+        int _UserID;
+        public AddEditUser(enMode Mode, int userID = -1)
         {
             InitializeComponent();
 
             this.Mode = Mode;
-            _User = user;
+            _UserID = userID;
         }
 
         void _RestForm()
         {
             if(Mode == enMode.eEdit)
             {
-                if (_User == null)
+                User user = UserService.FindByUserID(_UserID);
+                if (user == null)
                     return;
 
-                ctrlUserSelecter1.SetSelected_PersonID(_User.PersonID);
+                ctrlUserSelecter1.SetSelected_PersonID(user.PersonInfo.ID);
 
                 txb_Pass.Enabled = false;
                 txb_ConfirmPass.Enabled = false;
 
-                lb_UserID.Text = _User.ID.ToString();
-                txb_UserName.Text = _User.UserName;
-                txb_Pass.Text = _User.Password;
-                txb_ConfirmPass.Text = _User.Password;
-                chb_IsActive.Checked = _User.IsActive;
+                lb_UserID.Text = user.ID.ToString();
+                txb_UserName.Text = user.UserName;
+                txb_Pass.Text = user.Password;
+                txb_ConfirmPass.Text = user.Password;
+                chb_IsActive.Checked = user.IsActive;
                 Label.Text = "Update User";
                 Label.ForeColor = Color.Red;
             }
@@ -147,7 +148,7 @@ namespace DVLD_Presentation
                 if (dialog == DialogResult.OK)
                 {
                     Mode = enMode.eEdit;
-                    _User = new User(id, ctrlUserSelecter1.GetSelected_PersonID(), user.UserName, user.Password, user.IsActive);
+                    _UserID = id;
                     _RestForm();
                 }
             }
@@ -155,16 +156,14 @@ namespace DVLD_Presentation
 
         private void _Update()
         {
-            if(_User == null)
+            if(!UserService.isExistByUserID(_UserID))
             {
                 MessageBox.Show("We can't load the user to update it!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            _User.UserName = txb_UserName.Text;
-            _User.IsActive = chb_IsActive.Checked;
-            _User.PersonID = ctrlUserSelecter1.GetSelected_PersonID();
-            if(UserService.UpdateUser(_User))
+            User user = new User(_UserID, ctrlUserSelecter1.GetSelected_PersonID(), txb_UserName.Text, txb_Pass.Text, chb_IsActive.Checked);
+            if(UserService.UpdateUser(user))
             {
                 MessageBox.Show("We updated user successfully!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -176,16 +175,22 @@ namespace DVLD_Presentation
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-
-            if (!isInputValaid())
+            try
             {
-                return;
-            }
+                if (!isInputValaid())
+                {
+                    return;
+                }
 
-            if (Mode == enMode.eAdd)
-                _AddNew();
-            else
-                _Update();
+                if (Mode == enMode.eAdd)
+                    _AddNew();
+                else
+                    _Update();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
 
         }
 
@@ -197,10 +202,10 @@ namespace DVLD_Presentation
 
         private void AddEditUser_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (_User == null)
+            if (_UserID == -1)
                 return;
 
-            on_Create_Update_UserFinsh?.Invoke(_User.ID);
+            on_Create_Update_UserFinsh?.Invoke(_UserID);
         }
     }
 }

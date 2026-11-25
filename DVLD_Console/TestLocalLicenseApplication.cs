@@ -21,11 +21,11 @@ namespace DVLD_Console
             Console.WriteLine("Local License Application ID : " +
                 localLicenseApplication.LocalLicenseApplicationID);
             Console.WriteLine("Application ID               : " +
-                localLicenseApplication.ApplicationID);
+                localLicenseApplication.ApplicationInfo);
             Console.WriteLine("License Class ID             : " +
-                localLicenseApplication.LicenseClassID);
+                localLicenseApplication.LicenseClassInfo.LicenseClassID);
             Console.WriteLine("Person ID                    : " +
-                localLicenseApplication.PersonID);
+                localLicenseApplication.PersonInfo.ID);
             Console.WriteLine("---------------------------------------------");
         }
 
@@ -143,7 +143,7 @@ namespace DVLD_Console
                 {
                     Console.WriteLine("--------------------------------------");
                     Console.WriteLine("Application ID : " +
-                        row["ApplicationID"]);
+                        row["ApplicationInfo"]);
                     Console.WriteLine("Class Name     : " +
                         row["ClassName"]);
                     Console.WriteLine("Full Name      : " +

@@ -9,8 +9,8 @@ namespace DVLD_Business
         public enTestType PrerequisiteTestType { get; }
         public bool? Result { get; }
         public string Notes { get; }
-        public int LocalLicenseApplicationID { get; }
-        public int CreatedByUserID { get; }
+        public LocalLicenseApplication LocalLicenseApplicationInfo { get; }
+        public User CreatedByUserInfo { get; }
 
         public Test(enTestType testType, enTestType prerequisiteTestType,
                     bool? result, string notes, int localLicenseApplicationID, int createdByUserID)
@@ -28,8 +28,8 @@ namespace DVLD_Business
             PrerequisiteTestType = prerequisiteTestType;
             Result = result;
             Notes = notes ?? string.Empty;
-            LocalLicenseApplicationID = localLicenseApplicationID;
-            CreatedByUserID = createdByUserID;
+            LocalLicenseApplicationInfo = LocalLicenseApplicationService.Find(localLicenseApplicationID);
+            CreatedByUserInfo = UserService.FindByUserID(createdByUserID);
         }
 
         public Test(int testID, enTestType testType, enTestType prerequisiteTestType,

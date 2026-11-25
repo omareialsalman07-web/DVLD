@@ -65,9 +65,9 @@ namespace DVLD_Presentation.Forms
                 MessageBox.Show($"Successfully Created International License with ID [{IL_ID}]!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 InternationalLicense internationalLicense = InternationalLicenseService.FindByInternationalID(IL_ID);
-                ctrlBasicApplicationInfo1.LoadApplication(internationalLicense.ApplicationID);
+                ctrlBasicApplicationInfo1.LoadApplication(internationalLicense.ApplicationInfo.ApplicationID);
 
-                _CreatedForDriverID = internationalLicense.DriverID;
+                _CreatedForDriverID = internationalLicense.DriverInfo.DriverID;
                 btnIssue.Enabled = false;
                 _IssuedInternationLicense = true;
                 lknl_ShowLicenseInfo.Enabled = true;
