@@ -303,7 +303,7 @@ namespace DVLD_DataAccess
             DataTable dt = new DataTable();
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
-            string query = @"SELECT InternationalLicenses.InternationalLicenseID, Applications.ApplicationID,
+            string query = @"SELECT InternationalLicenses.LicenseID, Applications.ApplicationID,
                              Licenses.DriverID, InternationalLicenses.LocalLicenseID, Licenses.IssueDate,
                              CAST(DATEADD(YEAR, 1, Licenses.IssueDate) AS DATE) AS ExpirationDate, Licenses.IsActive
                              FROM Applications

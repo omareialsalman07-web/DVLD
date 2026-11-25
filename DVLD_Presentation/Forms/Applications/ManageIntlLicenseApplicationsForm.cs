@@ -11,12 +11,12 @@ using System.Windows.Forms;
 
 namespace DVLD_Presentation.Forms
 {
-    public partial class ManageIntlLicensesForm : Form
+    public partial class ManageIntlLicenseApplicationsForm : Form
     {
         private int _SelectedDriverID = -1;
         private int _SelectedInternationalLicenseID = -1;
 
-        public ManageIntlLicensesForm()
+        public ManageIntlLicenseApplicationsForm()
         {
             InitializeComponent();
         }
@@ -41,8 +41,8 @@ namespace DVLD_Presentation.Forms
                 return;
             }
 
-            _SelectedDriverID = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[0].Value);
-            _SelectedInternationalLicenseID = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["InternationalLicenseID"].Value);
+            _SelectedDriverID = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["DriverID"].Value);
+            _SelectedInternationalLicenseID = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["LicenseID"].Value);
         }
 
         private void showLicenseHistoryToolStripMenuItem_Click(object sender, EventArgs e)

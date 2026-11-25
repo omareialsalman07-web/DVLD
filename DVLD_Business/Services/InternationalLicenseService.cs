@@ -242,8 +242,7 @@ namespace DVLD_Business
         public static DataTable GetInternationalLicensesForDriver_ForDisplay(
             int driverID)
         {
-            return InternationalLicenseData
-                .GetInternationalLicensesForDriver_ForDisplay(driverID);
+            return InternationalLicenseData.GetInternationalLicensesForDriver_ForDisplay(driverID);
         }
     }
 }

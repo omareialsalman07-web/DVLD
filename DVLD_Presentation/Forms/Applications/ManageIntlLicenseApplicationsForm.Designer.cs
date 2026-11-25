@@ -1,6 +1,6 @@
 ﻿namespace DVLD_Presentation.Forms
 {
-    partial class ManageIntlLicensesForm
+    partial class ManageIntlLicenseApplicationsForm
     {
         /// <summary>
         /// Required designer variable.
@@ -115,7 +115,7 @@
             this.pictureBox1.TabIndex = 4;
             this.pictureBox1.TabStop = false;
             // 
-            // ManageIntlLicensesForm
+            // ManageIntlLicenseApplicationsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -124,7 +124,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "ManageIntlLicensesForm";
+            this.Name = "ManageIntlLicenseApplicationsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ManageIntlLicensesForm";
             this.Load += new System.EventHandler(this.ManageIntlLicensesForm_Load);

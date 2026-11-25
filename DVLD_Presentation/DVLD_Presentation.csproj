@@ -145,11 +145,11 @@
     <Compile Include="Forms\Applications\ManageApplicationTypesForm.Designer.cs">
       <DependentUpon>ManageApplicationTypesForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\License\ManageIntlLicensesForm.cs">
+    <Compile Include="Forms\Applications\ManageIntlLicenseApplicationsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\License\ManageIntlLicensesForm.Designer.cs">
-      <DependentUpon>ManageIntlLicensesForm.cs</DependentUpon>
+    <Compile Include="Forms\Applications\ManageIntlLicenseApplicationsForm.Designer.cs">
+      <DependentUpon>ManageIntlLicenseApplicationsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Applications\ManageLocalLicenseApplicationsForm.cs">
       <SubType>Form</SubType>
@@ -362,8 +362,8 @@
     <EmbeddedResource Include="Forms\Applications\ManageApplicationTypesForm.resx">
       <DependentUpon>ManageApplicationTypesForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\License\ManageIntlLicensesForm.resx">
-      <DependentUpon>ManageIntlLicensesForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Applications\ManageIntlLicenseApplicationsForm.resx">
+      <DependentUpon>ManageIntlLicenseApplicationsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Applications\ManageLocalLicenseApplicationsForm.resx">
       <DependentUpon>ManageLocalLicenseApplicationsForm.cs</DependentUpon>

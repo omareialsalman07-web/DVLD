@@ -142,7 +142,7 @@ namespace DVLD_Presentation
         {
             if (manageIntlLicensesForm == null || manageIntlLicensesForm.IsDisposed)
             {
-                manageIntlLicensesForm = new ManageIntlLicensesForm();
+                manageIntlLicensesForm = new ManageIntlLicenseApplicationsForm();
                 manageIntlLicensesForm.MdiParent = this;
             }
 
