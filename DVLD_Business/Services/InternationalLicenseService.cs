@@ -40,34 +40,27 @@ namespace DVLD_Business
 
         public static int CreateFirstTime(int localLicenseID, int createdByUserID)
         {
-            LocalLicense localLicense =
-                LocalLicenseService.Find(localLicenseID);
-
+            LocalLicense localLicense = LocalLicenseService.Find(localLicenseID);
             if (localLicense == null)
-                throw new InvalidOperationException(
-                    $"Local license [{localLicenseID}] does not exist.");
+                throw new InvalidOperationException($"Local license [{localLicenseID}] does not exist.");
+
+            if(InternationalLicenseData.HasActiveLicese(localLicense.DriverID))
+                throw new InvalidOperationException($"the driver with ID[{localLicense.DriverID}] already has an active international license!");
 
             // Validate the local license class.
             if (localLicense.LicenseClass.LicenseClassID != RequiredLicenseClassID)
             {
-                LicenseClass requiredClass =
-                    LicenseClassService.Find(RequiredLicenseClassID);
-
-                string requiredClassName =
-                    requiredClass?.ClassName ?? "Class 3";
-
-                throw new InvalidOperationException(
-                    $"International licenses can only be issued to holders of {requiredClassName}.");
+                LicenseClass requiredClass = LicenseClassService.Find(RequiredLicenseClassID);
+                string requiredClassName = requiredClass?.ClassName ?? "Class 3";
+                throw new InvalidOperationException($"International licenses can only be issued to holders of {requiredClassName}.");
             }
 
             // Validate the local license status.
             if (!localLicense.IsValid())
-                throw new InvalidOperationException(
-                    "The local license is not active.");
+                throw new InvalidOperationException("The local license is not active.");
 
             if (localLicense.IsExpired())
-                throw new InvalidOperationException(
-                    "The local license has expired.");
+                throw new InvalidOperationException("The local license has expired.");
 
             // Check whether an international license already exists.
             if (IsExistByLocalLicenseID(localLicenseID))
@@ -80,98 +73,65 @@ namespace DVLD_Business
             }
 
             // Detain the application.
-            int applicationTypeID =
-                (int)enApplicationType.eNewInternationalLicense;
+            int applicationTypeID = (int)enApplicationType.eNewInternationalLicense;
 
-            ApplicationType applicationType =
-                ApplicationTypeService.Find(applicationTypeID);
+            ApplicationType applicationType = ApplicationTypeService.Find(applicationTypeID);
 
             if (applicationType == null)
-                throw new InvalidOperationException(
-                    "International license application type does not exist.");
+                throw new InvalidOperationException("International license application type does not exist.");
 
-            int applicationID = ApplicationData.CreateApplication(
-                applicationTypeID,
-                DateTime.Today,
-                (int)enApplicationStatus.eNew,
-                applicationType.Fees,
-                createdByUserID);
+            int applicationID = ApplicationData.CreateApplication(applicationTypeID, DateTime.Today, (int)enApplicationStatus.eNew,
+                applicationType.Fees, createdByUserID);
 
             if (applicationID == -1)
-                throw new InvalidOperationException(
-                    "Failed to create international license application.");
+                throw new InvalidOperationException("Failed to create international license application.");
 
             // Detain the common license record.
-            int licenseID = LicenseService.Create(
-                enLicenseIssueType.eFirstTime,
-                localLicense.DriverID,
-                applicationID,
-                createdByUserID);
+            int licenseID = LicenseService.Create(enLicenseIssueType.eFirstTime, localLicense.DriverID, applicationID, createdByUserID);
 
             if (licenseID == -1)
-                throw new InvalidOperationException(
-                    "Failed to create license.");
+                throw new InvalidOperationException("Failed to create license.");
 
             // Detain the international license record.
-
             if (!InternationalLicenseData.Create(licenseID, localLicense.LicenseID))
-                throw new InvalidOperationException(
-                    "Failed to create international license.");
+                throw new InvalidOperationException("Failed to create international license.");
 
             if (!ApplicationService.Complete(applicationID))
-                throw new InvalidOperationException(
-                    "The international license was created, but the application could not be completed.");
+                throw new InvalidOperationException("The international license was created, but the application could not be completed.");
 
             return licenseID;
         }
         private static int Recreate(int oldInternationalLicenseID,
             int createdByUserID, enLicenseIssueType issueType)
         {
-            InternationalLicense oldLicense =
-                FindByInternationalID(oldInternationalLicenseID);
+            InternationalLicense oldLicense = FindByInternationalID(oldInternationalLicenseID);
 
             if (oldLicense == null)
-                throw new InvalidOperationException(
-                    $"International license [{oldInternationalLicenseID}] does not exist.");
+                throw new InvalidOperationException($"International license [{oldInternationalLicenseID}] does not exist.");
 
-            if (issueType == enLicenseIssueType.eRenew &&
-                !oldLicense.IsExpired())
+            if (issueType == enLicenseIssueType.eRenew && !oldLicense.IsExpired())
             {
-                throw new InvalidOperationException(
-                    $"This license has not expired yet. Expiration date: {oldLicense.ExpirationDate():d}");
+                throw new InvalidOperationException($"This license has not expired yet. Expiration date: {oldLicense.ExpirationDate():d}");
             }
 
             if (!oldLicense.IsActive)
-                throw new InvalidOperationException(
-                    $"International license [{oldInternationalLicenseID}] is not active.");
+                throw new InvalidOperationException($"International license [{oldInternationalLicenseID}] is not active.");
 
-            int applicationTypeID =
-                (int)enApplicationType.eRenewDrivingLicense;
+            int applicationTypeID = (int)enApplicationType.eRenewDrivingLicense;
 
-            ApplicationType applicationType =
-                ApplicationTypeService.Find(applicationTypeID);
+            ApplicationType applicationType = ApplicationTypeService.Find(applicationTypeID);
 
             if (applicationType == null)
-                throw new InvalidOperationException(
-                    "Renewal application type does not exist.");
+                throw new InvalidOperationException("Renewal application type does not exist.");
 
-            int applicationID = ApplicationData.CreateApplication(
-                applicationTypeID,
-                DateTime.Today,
-                (int)enApplicationStatus.eNew,
-                applicationType.Fees,
-                createdByUserID);
+            int applicationID = ApplicationData.CreateApplication(applicationTypeID, DateTime.Today, (int)enApplicationStatus.eNew,
+                applicationType.Fees, createdByUserID);
 
             if (applicationID == -1)
-                throw new InvalidOperationException(
-                    "Failed to create renewal application.");
+                throw new InvalidOperationException("Failed to create renewal application.");
 
             // Detain the new common license.
-            int newLicenseID = LicenseService.Create(
-                issueType,
-                oldLicense.DriverID,
-                applicationID,
-                createdByUserID);
+            int newLicenseID = LicenseService.Create(issueType, oldLicense.DriverID, applicationID, createdByUserID);
 
             if (newLicenseID == -1)
                 throw new InvalidOperationException("Failed to create replacement license.");
@@ -182,12 +142,10 @@ namespace DVLD_Business
 
             // Deactivate the previous license.
             if (!LicenseService.DeactivateLicense(oldLicense.LicenseID))
-                throw new InvalidOperationException(
-                    "Failed to deactivate the previous international license.");
+                throw new InvalidOperationException("Failed to deactivate the previous international license.");
 
             if (!ApplicationService.Complete(applicationID))
-                throw new InvalidOperationException(
-                    "The new international license was created, but the application could not be completed.");
+                throw new InvalidOperationException("The new international license was created, but the application could not be completed.");
 
             return newLicenseID;
         }

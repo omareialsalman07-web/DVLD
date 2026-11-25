@@ -149,6 +149,47 @@ public class InternationalLicenseData
         return IsExist("LocalLicenseID", LocalLicenseID);
     }
 
+    public static bool HasActiveLicese(int DriverID)
+    {
+        bool IsFound = false;
+
+        SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+
+        string query = @"SELECT Found = 1 WHERE 
+                        EXISTS
+                        (
+                        SELECT R='y' FROM InternationalLicenses
+                        INNER JOIN Licenses ON InternationalLicenses.LicenseID = Licenses.LicenseID
+                        WHERE Licenses.DriverID = @DriverID AND Licenses.IsActive = 1
+                        );";
+
+        SqlCommand command = new SqlCommand(query, connection);
+
+        command.Parameters.AddWithValue("@DriverID", DriverID);
+
+        try
+        {
+            connection.Open();
+
+            object result = command.ExecuteScalar();
+
+            if (result != null)
+                IsFound = true;
+        }
+        catch (Exception)
+        {
+            IsFound = false;
+        }
+        finally
+        {
+            connection.Close();
+            command.Dispose();
+            connection.Dispose();
+        }
+
+        return IsFound;
+    }
+
     public static DataTable GetInternationalLicenses()
     {
         DataTable dt = new DataTable();
