@@ -87,7 +87,10 @@ namespace DVLD_Presentation.Forms
                 }
                 else if (_SelectedLicese is DVLD_Business.InternationalLicense international)
                 {
-                    newLicenseID = InternationalLicenseService.Renew(international.LicenseID, DVLD_Settings.GetCurrnetUser().ID);
+                    if (rb_Lost.Checked)
+                        newLicenseID = InternationalLicenseService.ReplacementForLost(international.LicenseID, DVLD_Settings.GetCurrnetUser().ID);
+                    else
+                        newLicenseID = InternationalLicenseService.ReplacementForLost(international.LicenseID, DVLD_Settings.GetCurrnetUser().ID);
                 }
 
                 if (newLicenseID == -1)
