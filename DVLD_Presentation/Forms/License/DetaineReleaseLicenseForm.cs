@@ -35,6 +35,13 @@ namespace DVLD_Presentation.Forms
             _Detained_ReleasedLicense = false;
         }
 
+        private void _ShowDetainedFees(int selectedLicenseID) // in case the mode is release license
+        {
+            DetainedLicense detainedLicense = DetainedLicenseService.FindActiveByLicenseID(selectedLicenseID);
+            if (detainedLicense != null)
+                mtxb_FineFees.Text = detainedLicense.FineFees.ToString();
+        }
+
         private void _OnSelectLicense(bool isValid)
         {
             if (!isValid || _Detained_ReleasedLicense) // I think this need to be fixed
@@ -51,6 +58,9 @@ namespace DVLD_Presentation.Forms
             _SelectedLicese = (selectedLiceseType == ctrlLicenseSelector.enSelectedLiceseType.Local)
                 ? (DVLD_Business.License)LocalLicenseService.Find(ID)
                 : InternationalLicenseService.FindByInternationalID(ID);
+
+            if(_Mode == enMode.eRelease)
+                _ShowDetainedFees(_SelectedLicese.LicenseID);
         }
 
         private void DetainedReleasedForm_Load(object sender, EventArgs e)
@@ -68,8 +78,7 @@ namespace DVLD_Presentation.Forms
                 btn_Detain_Release.Text = "Release";
                 btn_Detain_Release.Image = Resources.Release_Detained_License_32;
                 mtxb_FineFees.Enabled = false;
-               /* ctrlLicenseSelector1.GetSelectedLicese();
-                DetainedLicenseService.*/
+
                 ctrlBasicApplicationInfo1.LoadLockupApplication(enApplicationType.eReleaseDetainedDrivingLicense);
             }
         }

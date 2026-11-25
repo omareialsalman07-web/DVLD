@@ -18,33 +18,17 @@ namespace DVLD_Business
             float FineFees = 0;
             int? ReleaseApplicationID = null;
 
-            bool IsFound = DetainedLicenseData.GetByDetainedLicenseID(
-                DetainedLicenseID,
-                ref LicenseID,
-                ref IsReleased,
-                ref DetainedDate,
-                ref ReleasedDate,
-                ref CreatedByUserID,
-                ref ReleasedByUserID,
-                ref FineFees,
-                ref ReleaseApplicationID);
+            bool IsFound = DetainedLicenseData.GetByDetainedLicenseID(DetainedLicenseID, ref LicenseID, ref IsReleased, ref DetainedDate,
+                ref ReleasedDate, ref CreatedByUserID, ref ReleasedByUserID, ref FineFees, ref ReleaseApplicationID);
 
             if (!IsFound)
                 return null;
 
-            return new DetainedLicense(
-                DetainedLicenseID,
-                LicenseID,
-                IsReleased,
-                DetainedDate,
-                ReleasedDate,
-                CreatedByUserID,
-                ReleasedByUserID,
-                FineFees,
-                ReleaseApplicationID);
+            return new DetainedLicense(DetainedLicenseID, LicenseID, IsReleased, DetainedDate, ReleasedDate,
+                CreatedByUserID, ReleasedByUserID, FineFees, ReleaseApplicationID);
         }
 
-        private static DetainedLicense FindActiveByLicenseID(int LicenseID)
+        public static DetainedLicense FindActiveByLicenseID(int LicenseID)
         {
             int DetainedLicenseID = -1;
             bool IsReleased = false;
@@ -63,10 +47,8 @@ namespace DVLD_Business
             if (!IsFound)
                 return null;
 
-            return new DetainedLicense(
-                DetainedLicenseID, LicenseID, IsReleased, DetainedDate,
-                ReleasedDate, CreatedByUserID, ReleasedByUserID,
-                FineFees, ReleaseApplicationID);
+            return new DetainedLicense(DetainedLicenseID, LicenseID, IsReleased, DetainedDate,
+                ReleasedDate, CreatedByUserID, ReleasedByUserID, FineFees, ReleaseApplicationID);
         }
         public static int Detain(int LicenseID, float FineFees, int CreatedByUserID)
         {
@@ -96,7 +78,7 @@ namespace DVLD_Business
             if (LicenseID <= 0)
                 throw new ArgumentOutOfRangeException(nameof(LicenseID));
 
-            if (!UserService.isExist(ReleasedByUserID))
+            if (!UserService.isExistByUserID(ReleasedByUserID))
                 throw new ArgumentOutOfRangeException(
                     nameof(ReleasedByUserID),
                     $"The user with ID [{ReleasedByUserID}] does not exist.");
@@ -121,11 +103,8 @@ namespace DVLD_Business
                 throw new InvalidOperationException(
                     "Can't create a new release detained license application!");
 
-            bool IsReleased = DetainedLicenseData.Release(
-                DetainedLicense.DetainedLicenseID,
-                DateTime.Today,
-                ReleasedByUserID,
-                ReleaseApplicationID);
+            bool IsReleased = DetainedLicenseData.Release(DetainedLicense.DetainedLicenseID, DateTime.Today, 
+                ReleasedByUserID, ReleaseApplicationID);
 
             if (!IsReleased)
                 throw new InvalidOperationException(

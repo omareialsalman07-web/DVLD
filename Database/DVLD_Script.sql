@@ -82,7 +82,7 @@ IF OBJECT_ID(N'dbo.Users', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.Users (
         UserID   INT IDENTITY(1,1) NOT NULL,
-        PersonID INT               NOT NULL,
+        PersonID INT               UNIQUE NOT NULL,
         UserName NVARCHAR(20)      NOT NULL,
         [Password] NVARCHAR(500)   NOT NULL,
         IsActive BIT               NOT NULL CONSTRAINT DF_Users_IsActive DEFAULT (1),
