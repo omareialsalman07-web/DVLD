@@ -265,7 +265,7 @@ public class InternationalLicenseData
                              INNER JOIN LocalLicenses ON LocalLicenses.LicenseID = InternationalLicenses.LocalLicenseID
                              INNER JOIN Licenses ON Licenses.LicenseID = InternationalLicenses.LicenseID
                              INNER JOIN Applications ON Applications.ApplicationID = Licenses.ApplicationID
-                             WHERE Licenses.DriverID  = DriverID;";
+                             WHERE Licenses.DriverID  = @DriverID;";
 
         SqlCommand command = new SqlCommand(query, connection);
         command.Parameters.AddWithValue("@DriverID", driverID);
